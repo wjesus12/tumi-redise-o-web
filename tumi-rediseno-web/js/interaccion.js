@@ -58,6 +58,13 @@
   // ---------- Vuelo: imagen que se expande ----------
   const vuelo = $('#vuelo');
   const hitos = [...document.querySelectorAll('.hito img')];
+  // Cada foto va dentro de un marco que recorta: el movimiento nunca tapa textos.
+  hitos.forEach(img => {
+    const marco = document.createElement('div');
+    marco.style.cssText = 'overflow:hidden;position:relative;aspect-ratio:4/5;width:100%';
+    img.replaceWith(marco); marco.append(img);
+    img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block';
+  });
   let pend = false;
   function alScroll() {
     pend = false;

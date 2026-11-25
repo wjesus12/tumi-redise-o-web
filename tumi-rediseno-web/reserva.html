@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reservar · Club El Tumi</title>
+<meta name="description" content="Reserva y paga en línea tu día en Club El Tumi.">
+<link rel="icon" href="assets/icons/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Montserrat+Alternates:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tumi.css">
+<style>
+body{background:var(--papel2)}
+.top{background:var(--marino);color:#fff}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;height:80px}
+.top img{height:46px}
+.top a.v{font-size:13px;color:rgba(255,255,255,.75)}
+.pasos-r{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-bottom:1px solid var(--linea);background:#fff}
+.pasos-r li{list-style:none;padding:18px var(--g);font-size:13px;font-weight:600;color:var(--gris2);border-bottom:3px solid transparent;margin-bottom:-1px}
+.pasos-r li.on{color:var(--marino);border-color:var(--amarillo)}
+.pasos-r li.ok{color:var(--verde)}
+.pasos-r li b{display:block;font-size:11px;letter-spacing:.05em;text-transform:uppercase;font-weight:600;opacity:.7}
+.lay{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:48px;padding-block:56px 96px;align-items:start}
+.paso{display:none}.paso.on{display:block}
+.paso h1{font-size:clamp(32px,4vw,52px);color:var(--marino)}
+.paso>p{color:var(--gris);margin-top:10px;font-size:15px}
+.bloque{background:#fff;border:1px solid var(--linea);margin-top:28px}
+.bloque h2{font-family:var(--f-texto);font-size:13px;letter-spacing:.05em;text-transform:uppercase;font-weight:700;padding:16px 22px;border-bottom:1px solid var(--linea);color:var(--marino)}
+.sedes-r{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.sedes-r label{position:relative;cursor:pointer;border-right:1px solid var(--linea)}
+.sedes-r label:last-child{border-right:0}
+.sedes-r img{width:100%;height:120px;object-fit:cover;filter:grayscale(.5);opacity:.75;transition:filter .2s,opacity .2s}
+.sedes-r span{display:block;padding:12px 16px;font-weight:700;font-size:14px}
+.sedes-r small{display:block;font-weight:500;color:var(--gris);font-size:11.5px}
+.sedes-r input{position:absolute;opacity:0}
+.sedes-r input:checked ~ img{filter:none;opacity:1}
+.sedes-r input:checked ~ span{box-shadow:inset 0 -3px 0 var(--amarillo);color:var(--marino)}
+.sedes-r input:focus-visible ~ span{outline:2px solid var(--azul);outline-offset:-2px}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center;padding:16px 22px;border-top:1px solid var(--linea)}
+.row:first-of-type{border-top:0}
+.row b{display:block;font-size:15px}
+.row small{color:var(--gris);font-size:12.5px}
+.cnt{display:flex;align-items:center;border:1px solid var(--linea)}
+.cnt button{width:40px;height:40px;font-size:18px;color:var(--marino)}
+.cnt button:hover{background:var(--papel2)}
+.cnt output{width:40px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+.fecha{display:flex;gap:2px;overflow-x:auto;padding:16px 22px}
+.fecha button{flex:none;width:68px;padding:10px 0;border:1px solid var(--linea);text-align:center;font-size:12px;color:var(--gris);border-radius:var(--r)}
+.fecha button b{display:block;font-size:20px;color:var(--tinta);font-family:var(--f-display)}
+.fecha button[aria-pressed=true]{background:var(--marino);border-color:var(--marino);color:rgba(255,255,255,.75)}
+.fecha button[aria-pressed=true] b{color:#fff}
+.campos{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0}
+.campos label{display:block;padding:14px 22px;border-top:1px solid var(--linea);border-right:1px solid var(--linea);font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--gris)}
+.campos label:nth-child(2n){border-right:0}
+.campos input{display:block;width:100%;border:0;font:inherit;font-size:15px;font-weight:600;color:var(--tinta);text-transform:none;letter-spacing:0;padding-top:4px;outline:0}
+.campos label:focus-within{background:#fbfcfd;box-shadow:inset 3px 0 0 var(--azul)}
+.campos label.err{box-shadow:inset 3px 0 0 #c4320a}
+.campos label.err em{display:block;color:#c4320a;font-style:normal;text-transform:none;letter-spacing:0;font-weight:500;margin-top:4px}
+.consent{padding:8px 22px 18px;font-size:13.5px}
+.consent label{display:flex;gap:12px;padding:10px 0;align-items:flex-start;cursor:pointer}
+.consent input{margin-top:3px;accent-color:var(--azul);width:16px;height:16px;flex:none}
+.consent a{color:var(--azul);text-decoration:underline;text-underline-offset:2px}
+.metodos label{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:center;padding:18px 22px;border-top:1px solid var(--linea);cursor:pointer}
+.metodos label:first-of-type{border-top:0}
+.metodos input{accent-color:var(--azul);width:18px;height:18px}
+.metodos b{display:block}
+.metodos small{color:var(--gris);font-size:12.5px}
+.metodos .tag{font-size:11px;font-weight:700;letter-spacing:.04em;padding:4px 8px;border:1px solid var(--linea);color:var(--gris)}
+.nav-p{display:flex;justify-content:space-between;align-items:center;margin-top:28px}
+.nav-p .atras{font-size:14px;font-weight:600;color:var(--gris)}
+.nav-p .atras:hover{color:var(--marino)}
+/* resumen */
+.res{position:sticky;top:24px;background:#fff;border:1px solid var(--linea)}
+.res .img{position:relative}
+.res .img img{width:100%;height:170px;object-fit:cover}
+.res .img span{position:absolute;left:16px;bottom:12px;color:#fff;font-family:var(--f-display);font-weight:800;font-size:28px;text-shadow:0 1px 12px rgba(0,0,0,.4)}
+.res ul{list-style:none;padding:8px 22px;font-size:14px}
+.res li{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px solid var(--linea)}
+.res li span{color:var(--gris)}
+.res li b{font-variant-numeric:tabular-nums;text-align:right}
+.res li.pc b{color:var(--gris2);font-weight:600}
+.res .tot{display:flex;justify-content:space-between;align-items:baseline;padding:18px 22px;background:var(--marino);color:#fff}
+.res .tot b{font-family:var(--f-display);font-size:30px}
+.res .tot span{font-size:12px;color:rgba(255,255,255,.7)}
+.res .aviso{padding:14px 22px;font-size:12px;color:var(--gris);border-top:1px solid var(--linea)}
+.res .aviso b{color:var(--naranja)}
+/* confirmación */
+.conf{text-align:left}
+.conf .codigo{font-family:var(--f-display);font-size:clamp(40px,6vw,72px);font-weight:800;color:var(--marino);letter-spacing:.02em;margin-top:24px}
+.conf ol{margin:28px 0 0 18px;font-size:15px;color:var(--gris);display:grid;gap:10px}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.btn.cargando{pointer-events:none}
+.btn.cargando:after{content:"";width:14px;height:14px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:gira .7s linear infinite}
+@keyframes gira{to{transform:rotate(360deg)}}
+@media (max-width:1000px){.lay{grid-template-columns:minmax(0,1fr)}.res{position:static;order:-1}.res .img{display:none}}
+@media (max-width:640px){.sedes-r{grid-template-columns:1fr 1fr}.sedes-r label:nth-child(2){border-right:0}.campos{grid-template-columns:minmax(0,1fr)}.campos label{border-right:0}.pasos-r li{padding:14px 10px;font-size:0}.pasos-r li b{font-size:11px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a href="index.html"><img src="assets/img/logo-tumi-lima-white.png" alt="Club El Tumi"></a><a class="v" href="index.html">Volver al inicio</a></div></header>
+<ol class="pasos-r" id="pasos">
+ <li class="on"><b>Paso 1</b>Tu día</li><li><b>Paso 2</b>Extras</li><li><b>Paso 3</b>Tus datos</li><li><b>Paso 4</b>Pago</li>
+</ol>
+
+<main class="wrap lay">
+ <div>
+  <!-- Paso 1 -->
+  <section class="paso on" data-p="1">
+   <h1>¿Dónde y cuándo?</h1><p>Elige la sede, el día y cuántos van.</p>
+   <div class="bloque"><h2>Sede</h2>
+    <div class="sedes-r">
+     <label><input type="radio" name="sede" value="Lima" data-img="lima-aerea" checked><img src="assets/img/oficial/lima-aerea.jpg" alt=""><span>Lima<small>Carabayllo</small></span></label>
+     <label><input type="radio" name="sede" value="Chiclayo" data-img="chiclayo-aerea"><img src="assets/img/oficial/chiclayo-aerea.jpg" alt=""><span>Chiclayo<small>Sede norte</small></span></label>
+     <label><input type="radio" name="sede" value="Ica" data-img="ica-portada"><img src="assets/img/oficial/ica-portada.jpg" alt=""><span>Ica<small>Sede sur</small></span></label>
+     <label><input type="radio" name="sede" value="Tarapoto" data-img="tarapoto"><img src="assets/img/oficial/tarapoto.jpg" alt=""><span>Tarapoto<small>Sede selva</small></span></label>
+    </div>
+   </div>
+   <div class="bloque"><h2>Fecha</h2><div class="fecha" id="fechas" role="group" aria-label="Elegir fecha"></div></div>
+   <div class="bloque"><h2>Personas</h2>
+    <div class="row"><div><b>Adultos</b><small>Desde 12 años</small></div><div class="cnt" data-k="ad"><button type="button" aria-label="Quitar adulto">−</button><output>2</output><button type="button" aria-label="Agregar adulto">+</button></div></div>
+    <div class="row"><div><b>Niños</b><small>De 2 a 11 años. Menores de 2 no pagan.</small></div><div class="cnt" data-k="ni"><button type="button" aria-label="Quitar niño">−</button><output>2</output><button type="button" aria-label="Agregar niño">+</button></div></div>
+    <div class="row"><div><b>Soy socio</b><small>50 % de descuento en parrilla, camping y cancha. Se valida en boletería.</small></div><label class="socio" style="display:flex;position:relative"><input type="checkbox" id="socio" style="position:absolute;opacity:0"><i class="sw"></i></label></div>
+   </div>
+   <div class="nav-p"><span></span><button class="btn" data-ir="2">Continuar <i class="flecha"></i></button></div>
+  </section>
+
+  <!-- Paso 2 -->
+  <section class="paso" data-p="2">
+   <h1>Arma tu día.</h1><p>Opcional. Precios del tarifario publicado de la sede Lima.</p>
+   <div class="bloque"><h2>Aventura y campo</h2>
+    <div class="row"><div><b>Canopy extremo</b><small>Domingos y feriados · S/ 15.00 por persona</small></div><div class="cnt" data-k="canopy" data-p="15"><button type="button" aria-label="Quitar">−</button><output>0</output><button type="button" aria-label="Agregar">+</button></div></div>
+    <div class="row"><div><b>Cuatrimoto</b><small>Todos los días · S/ 10.00</small></div><div class="cnt" data-k="cuatri" data-p="10"><button type="button" aria-label="Quitar">−</button><output>0</output><button type="button" aria-label="Agregar">+</button></div></div>
+    <div class="row"><div><b>Paseo a caballo</b><small>Sábados, domingos y feriados · S/ 10.00</small></div><div class="cnt" data-k="caballo" data-p="10"><button type="button" aria-label="Quitar">−</button><output>0</output><button type="button" aria-label="Agregar">+</button></div></div>
+   </div>
+   <div class="bloque"><h2>Parrilla y camping</h2>
+    <div class="row"><div><b>Parrilla · 2 horas</b><small>Hasta 10 personas · S/ 40.00, socio S/ 20.00 · no incluye carbón</small></div><div class="cnt" data-k="parrilla" data-p="40" data-s="20"><button type="button" aria-label="Quitar">−</button><output>0</output><button type="button" aria-label="Agregar">+</button></div></div>
+    <div class="row"><div><b>Camping · 1 noche</b><small>Hasta 4 por carpa · S/ 40.00, socio S/ 20.00 · trae tu carpa</small></div><div class="cnt" data-k="camping" data-p="40" data-s="20"><button type="button" aria-label="Quitar">−</button><output>0</output><button type="button" aria-label="Agregar">+</button></div></div>
+   </div>
+   <div class="nav-p"><button class="atras" data-ir="1">← Atrás</button><button class="btn" data-ir="3">Continuar <i class="flecha"></i></button></div>
+  </section>
+
+  <!-- Paso 3 -->
+  <section class="paso" data-p="3">
+   <h1>¿A nombre de quién?</h1><p>Solo pedimos lo necesario para emitir tu entrada y tu comprobante.</p>
+   <form class="bloque" id="datos" novalidate><h2>Titular de la reserva</h2>
+    <div class="campos">
+     <label>Nombres y apellidos<input name="nombre" autocomplete="name" required></label>
+     <label>DNI o carné de extranjería<input name="doc" inputmode="numeric" required pattern="[0-9]{8,12}"></label>
+     <label>Correo<input name="correo" type="email" autocomplete="email" required></label>
+     <label>Celular<input name="cel" type="tel" autocomplete="tel" required pattern="9[0-9]{8}"></label>
+    </div>
+    <div class="consent">
+     <label><input type="checkbox" required name="c1"><span>Acepto que Club El Tumi use mis datos para gestionar esta reserva, según la <a href="privacidad.html" target="_blank">política de privacidad</a>. <b>Obligatorio.</b></span></label>
+     <label><input type="checkbox" name="c2"><span>Quiero recibir promociones por WhatsApp o correo. Opcional; puedo retirarlo cuando quiera.</span></label>
+    </div>
+   </form>
+   <div class="nav-p"><button class="atras" data-ir="2">← Atrás</button><button class="btn" data-ir="4">Ir al pago <i class="flecha"></i></button></div>
+  </section>
+
+  <!-- Paso 4 -->
+  <section class="paso" data-p="4">
+   <h1>Paga y listo.</h1><p>Pago seguro. Club El Tumi no guarda los datos de tu tarjeta.</p>
+   <div class="bloque metodos"><h2>Método de pago</h2>
+    <label><input type="radio" name="pago" checked><div><b>Yape o Plin</b><small>Escanea el código desde tu celular</small></div><span class="tag">QR</span></label>
+    <label><input type="radio" name="pago"><div><b>Tarjeta de crédito o débito</b><small>Visa, Mastercard, Amex, Diners</small></div><span class="tag">Pasarela</span></label>
+    <label><input type="radio" name="pago"><div><b>Pago en agente o banca móvil</b><small>Te enviamos un código CIP por correo</small></div><span class="tag">CIP</span></label>
+   </div>
+   <div class="nav-p"><button class="atras" data-ir="3">← Atrás</button><button class="btn" id="pagar">Pagar <span id="montoBtn"></span></button></div>
+  </section>
+
+  <!-- Confirmación -->
+  <section class="paso conf" data-p="5">
+   <h1>Reserva confirmada.</h1><p>Te enviamos la entrada al correo y por WhatsApp.</p>
+   <div class="codigo" id="codigo">TUM-0000</div>
+   <ol><li>Muestra este código en boletería con tu DNI.</li><li>Si eres socio, lleva tu carné para validar el descuento.</li><li>¿Cambio de fecha? Escríbenos al 987 201 139 hasta un día antes.</li></ol>
+   <div class="nav-p"><a class="btn linea" href="index.html" style="color:var(--marino)">Volver al inicio</a><span></span></div>
+  </section>
+ </div>
+
+ <aside class="res" aria-live="polite">
+  <div class="img"><img id="rImg" src="assets/img/oficial/lima-aerea.jpg" alt=""><span id="rSede">Lima</span></div>
+  <ul id="rLista"></ul>
+  <div class="tot"><span>Total a pagar hoy</span><b id="rTot">S/ 0.00</b></div>
+  <p class="aviso"><b>Prototipo.</b> La entrada general no figura en los tarifarios publicados; se cobrará cuando la sede la valide. Ningún pago es real.</p>
+ </aside>
+</main>
+
+<script>
+const st={ad:2,ni:2,canopy:0,cuatri:0,caballo:0,parrilla:0,camping:0,socio:false,sede:"Lima",fecha:null};
+const ENTRADA=null; // tarifa no publicada: se completa cuando la sede la valide
+const N={canopy:"Canopy",cuatri:"Cuatrimoto",caballo:"Paseo a caballo",parrilla:"Parrilla · 2 h",camping:"Camping · 1 noche"};
+const fmt=n=>"S/ "+n.toFixed(2);
+// fechas: próximos 14 días
+const dias=["dom","lun","mar","mié","jue","vie","sáb"],meses=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+const fc=document.getElementById('fechas');const hoy=new Date();
+for(let i=1;i<=14;i++){const d=new Date(hoy);d.setDate(hoy.getDate()+i);const b=document.createElement('button');b.type='button';b.innerHTML=`${dias[d.getDay()]}<b>${d.getDate()}</b>${meses[d.getMonth()]}`;b.setAttribute('aria-pressed',i===1);b.onclick=()=>{fc.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));st.fecha=d;pinta()};fc.appendChild(b);if(i===1)st.fecha=d}
+document.querySelectorAll('.cnt').forEach(c=>{const k=c.dataset.k,o=c.querySelector('output');const[m,p]=c.querySelectorAll('button');
+ m.onclick=()=>{st[k]=Math.max(k==="ad"?1:0,st[k]-1);o.value=st[k];pinta()};p.onclick=()=>{st[k]=Math.min(20,st[k]+1);o.value=st[k];pinta()}});
+document.getElementById('socio').onchange=e=>{st.socio=e.target.checked;pinta()};
+document.querySelectorAll('input[name=sede]').forEach(r=>r.onchange=()=>{st.sede=r.value;document.getElementById('rImg').src=`assets/img/oficial/${r.dataset.img}.jpg`;pinta()});
+function total(){let t=0;document.querySelectorAll('.cnt[data-p]').forEach(c=>{const k=c.dataset.k;const pr=st.socio&&c.dataset.s?+c.dataset.s:+c.dataset.p;t+=st[k]*pr});return t}
+function pinta(){
+ document.getElementById('rSede').textContent=st.sede;
+ const f=st.fecha?`${dias[st.fecha.getDay()]} ${st.fecha.getDate()} ${meses[st.fecha.getMonth()]}`:"—";
+ let h=`<li><span>Fecha</span><b>${f}</b></li><li><span>Entradas</span><b>${st.ad} adulto${st.ad>1?"s":""}${st.ni?` · ${st.ni} niño${st.ni>1?"s":""}`:""}</b></li><li class="pc"><span>Entrada general</span><b>${ENTRADA==null?"por confirmar":fmt(ENTRADA)}</b></li>`;
+ document.querySelectorAll('.cnt[data-p]').forEach(c=>{const k=c.dataset.k;if(st[k]){const pr=st.socio&&c.dataset.s?+c.dataset.s:+c.dataset.p;h+=`<li><span>${st[k]} × ${N[k]}${st.socio&&c.dataset.s?" (socio)":""}</span><b>${fmt(st[k]*pr)}</b></li>`}});
+ document.getElementById('rLista').innerHTML=h;const t=total();document.getElementById('rTot').textContent=fmt(t);document.getElementById('montoBtn').textContent=fmt(t);
+}
+pinta();
+const P=[...document.querySelectorAll('.paso')],L=[...document.querySelectorAll('#pasos li')];
+function ir(n){if(n===4&&!valida())return;P.forEach(p=>p.classList.toggle('on',+p.dataset.p===n));L.forEach((l,i)=>{l.classList.toggle('on',i+1===n);l.classList.toggle('ok',i+1<n)});scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('[data-ir]').forEach(b=>b.onclick=()=>ir(+b.dataset.ir));
+function valida(){let ok=true;const f=document.getElementById('datos');f.querySelectorAll('.campos label').forEach(l=>{const i=l.querySelector('input');l.classList.remove('err');l.querySelector('em')?.remove();if(!i.checkValidity()){ok=false;l.classList.add('err');l.insertAdjacentHTML('beforeend',`<em>${i.value?"Revisa el formato":"Completa este dato"}</em>`)}});
+ const c=f.querySelector('[name=c1]');if(!c.checked){ok=false;c.closest('label').style.color='#c4320a'}else c.closest('label').style.color='';if(!ok)f.querySelector('.err input, [name=c1]')?.focus();return ok}
+document.getElementById('pagar').onclick=e=>{const b=e.currentTarget;b.classList.add('cargando');setTimeout(()=>{document.getElementById('codigo').textContent='TUM-'+Math.floor(1000+Math.random()*9000);ir(5);L.forEach(l=>{l.classList.remove('on');l.classList.add('ok')})},1200)};
+</script>
+</body>
+</html>

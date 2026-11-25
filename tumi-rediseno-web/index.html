@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Club El Tumi · Sedes, tarifas y reservas</title>
+<meta name="description" content="Propuesta de rediseño web para Club El Tumi: cuatro sedes, tarifas como datos, reserva y pago en línea.">
+<link rel="icon" href="assets/icons/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Montserrat+Alternates:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tumi.css">
+</head>
+<body>
+
+<header class="nav">
+ <div class="wrap">
+  <a href="#" aria-label="Club El Tumi, inicio"><img src="assets/img/logo-tumi-lima-white.png" alt="Club El Tumi"></a>
+  <ul>
+   <li><a href="#sedes">Sedes</a></li><li><a href="#tarifas">Tarifas</a></li><li><a href="#quedarse">Hospedaje</a></li>
+   <li><a href="#socios">Membresía</a></li><li><a href="#grupos">Empresas y colegios</a></li>
+  </ul>
+  <div class="der"><a class="tel" href="tel:+51987201139">987 201 139</a><a class="btn" href="reserva.html">Reservar</a><button class="menu" aria-label="Abrir menú">Menú</button></div>
+ </div>
+</header>
+
+<section class="hero" id="inicio">
+ <svg class="ondas" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true"><g fill="none" stroke="#37BEE9" stroke-opacity=".22" stroke-width="1">
+  <path d="M0 620 C 240 560 420 690 720 620 S 1200 540 1440 600"/><path d="M0 660 C 240 600 420 730 720 660 S 1200 580 1440 640"/>
+  <path d="M0 700 C 240 640 420 770 720 700 S 1200 620 1440 680"/><path d="M0 740 C 240 680 420 810 720 740 S 1200 660 1440 720"/>
+  <path d="M0 780 C 240 720 420 850 720 780 S 1200 700 1440 760"/></g></svg>
+ <div class="wrap cuerpo">
+  <div>
+   <h1>Sol, piscina y campo <span class="sol">a 33 km de Lima.</span></h1>
+   <p class="bajada">Toboganes, canopy, caballos, parrillas y hotel en Carabayllo. Y tres sedes más en Chiclayo, Ica y Tarapoto.</p>
+   <div class="datos"><div><b>4</b><span>sedes en el Perú</span></div><div><b>9:00–17:30</b><span>todos los días</span></div><div><b>50 %</b><span>menos para socios</span></div></div>
+  </div>
+  <figure class="arco">
+   <div class="foto"><img src="assets/img/oficial/lima-aerea.jpg" alt="Vista aérea de la piscina con toboganes de la sede Lima"></div>
+   <div class="franjas" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+   <figcaption class="pie"><b>Sede Lima</b>Av. Túpac Amaru 740, Carabayllo</figcaption>
+  </figure>
+ </div>
+ <div class="wrap">
+  <form class="reserva" id="reserva" action="reserva.html">
+   <label><span>Sede</span><select><option>Lima · Carabayllo</option><option>Chiclayo</option><option>Ica</option><option>Tarapoto</option></select></label>
+   <label><span>Fecha</span><input type="date" value="2026-12-06"></label>
+   <label><span>Personas</span><select><option>2 adultos</option><option selected>2 adultos · 2 niños</option><option>Grupo (10+)</option></select></label>
+   <label class="socio"><input type="checkbox" id="esSocio"><i class="sw"></i><div><span>Soy socio</span><b style="font-size:14px">Precio socio</b></div></label>
+   <button class="btn" type="submit">Ver precio y reservar <i class="flecha"></i></button>
+  </form>
+ </div>
+</section>
+
+<section class="vuelo" id="vuelo" aria-label="La sede Lima desde el aire">
+ <div class="pin">
+  <figure class="lienzo"><img src="assets/img/oficial/lima-aerea-hd.jpg" alt="Vista aérea en alta resolución de la piscina principal, los toboganes y las áreas verdes de la sede Lima"></figure>
+  <div class="intro"><span class="k">Sede Lima · vista aérea</span><h2>Baja para entrar al club.</h2></div>
+  <div class="capa wrap">
+   <h2>Todo cabe en un día de campo.</h2>
+   <div class="cifras">
+    <div><b data-cnt="33.1" data-dec="1">0</b><span>km desde Lima por la carretera a Canta</span></div>
+    <div><b data-cnt="8.5" data-dec="1" data-suf=" h">0</b><span>abiertos al día, de 9:00 a 17:30</span></div>
+    <div><b data-cnt="4">0</b><span>sedes: Lima, Chiclayo, Ica y Tarapoto</span></div>
+    <div><b data-cnt="50" data-suf=" %">0</b><span>menos para socios en parrilla y camping</span></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<div class="cinta" aria-label="Galería del club"><div class="pista"><figure><img src="assets/img/oficial/lima-piscina.jpg" alt="Piscinas con toboganes" loading="lazy"><figcaption>Piscinas con toboganes</figcaption></figure><figure><img src="assets/img/oficial/canopy.jpg" alt="Canopy extremo" loading="lazy"><figcaption>Canopy extremo</figcaption></figure><figure><img src="assets/img/oficial/parrilla-gente.jpg" alt="Zona de parrillas" loading="lazy"><figcaption>Zona de parrillas</figcaption></figure><figure><img src="assets/img/oficial/escalada.jpg" alt="Palestra de escalada" loading="lazy"><figcaption>Palestra de escalada</figcaption></figure><figure><img src="assets/img/oficial/camping-2.jpg" alt="Camping" loading="lazy"><figcaption>Camping</figcaption></figure><figure><img src="assets/img/oficial/hab-jacuzzi.jpg" alt="Habitación con jacuzzi" loading="lazy"><figcaption>Habitación con jacuzzi</figcaption></figure><figure><img src="assets/img/oficial/cuatrimoto.jpg" alt="Cuatrimotos" loading="lazy"><figcaption>Cuatrimotos</figcaption></figure><figure><img src="assets/img/oficial/evento-15.jpg" alt="Eventos y quinceañeros" loading="lazy"><figcaption>Eventos y quinceañeros</figcaption></figure><figure><img src="assets/img/oficial/ica-ninos.jpg" alt="Sede Ica" loading="lazy"><figcaption>Sede Ica</figcaption></figure><figure><img src="assets/img/oficial/restaurante.jpg" alt="Restaurante" loading="lazy"><figcaption>Restaurante</figcaption></figure><figure><img src="assets/img/oficial/chiclayo-aerea.jpg" alt="Sede Chiclayo" loading="lazy"><figcaption>Sede Chiclayo</figcaption></figure><figure><img src="assets/img/oficial/tarapoto.jpg" alt="Sede Tarapoto" loading="lazy"><figcaption>Sede Tarapoto</figcaption></figure><figure aria-hidden="true"><img src="assets/img/oficial/lima-piscina.jpg" alt="Piscinas con toboganes" loading="lazy"><figcaption>Piscinas con toboganes</figcaption></figure><figure aria-hidden="true"><img src="assets/img/oficial/canopy.jpg" alt="Canopy extremo" loading="lazy"><figcaption>Canopy extremo</figcaption></figure><figure aria-hidden="true"><img src="assets/img/oficial/parrilla-gente.jpg" alt="Zona de parrillas" loading="lazy"><figcaption>Zona de parrillas</figcaption></figure><figure aria-hidden="true"><img src="assets/img/oficial/escalada.jpg" alt="Palestra de escalada" loading="lazy"><figcaption>Palestra de escalada</figcaption></figure><figure aria-hidden="true"><img src="assets/img/oficial/camping-2.jpg" alt="Camping" loading="lazy"><figcaption>Camping</figcaption></figure><figure aria-hidden="true"><img src="assets/img/oficial/hab-jacuzzi.jpg" alt="Habitación con jacuzzi" loading="lazy"><figcaption>Habitación con jacuzzi</figcaption></figure><figure aria-hidden="true"><img src="assets/img/oficial/cuatrimoto.jpg" alt="Cuatrimotos" loading="lazy"><figcaption>Cuatrimotos</figcaption></figure><figure aria-hidden="true"><img src="assets/img/oficial/evento-15.jpg" alt="Eventos y quinceañeros" loading="lazy"><figcaption>Eventos y quinceañeros</figcaption></figure><figure aria-hidden="true"><img src="assets/img/oficial/ica-ninos.jpg" alt="Sede Ica" loading="lazy"><figcaption>Sede Ica</figcaption></figure><figure aria-hidden="true"><img src="assets/img/oficial/restaurante.jpg" alt="Restaurante" loading="lazy"><figcaption>Restaurante</figcaption></figure><figure aria-hidden="true"><img src="assets/img/oficial/chiclayo-aerea.jpg" alt="Sede Chiclayo" loading="lazy"><figcaption>Sede Chiclayo</figcaption></figure><figure aria-hidden="true"><img src="assets/img/oficial/tarapoto.jpg" alt="Sede Tarapoto" loading="lazy"><figcaption>Sede Tarapoto</figcaption></figure></div></div>
+
+<section class="sedes" id="sedes">
+ <div class="wrap cab rv">
+  <h2 class="palabras">Elige tu sede.<br>Misma marca, otro paisaje.</h2>
+  <p class="lead">Cada sede publica su horario, sus servicios y sus tarifas en una sola ficha. La web, el asistente y el dashboard leen de esa misma ficha.</p>
+ </div>
+ <div class="paneles" role="list">
+  <article class="panel on" role="listitem" tabindex="0"><img src="assets/img/oficial/lima-hotel-dron.jpg" alt="Hotel y piscina con toboganes de la sede Lima vistos desde un dron"><span class="num">Lima · Carabayllo</span>
+   <div class="t"><h3>Lima</h3><p class="reg">Carretera Lima–Canta, km 33.1</p><div class="mas"><ul><li>Toboganes</li><li>Canopy</li><li>Cuatrimotos</li><li>Hotel</li><li>Camping</li><li>Parrillas</li></ul><a class="btn" href="sede-lima.html">Ver sede Lima <i class="flecha"></i></a></div></div></article>
+  <article class="panel" role="listitem" tabindex="0"><img src="assets/img/oficial/chiclayo-aerea.jpg" alt="Vista aérea de las piscinas de la sede Chiclayo"><span class="num">Lambayeque</span>
+   <div class="t"><h3>Chiclayo</h3><p class="reg">Sede norte</p><div class="mas"><ul><li>Piscinas</li><li>Áreas verdes</li><li>Cuatrimotos</li><li>Eventos</li></ul><a class="btn" href="#">Ver sede Chiclayo <i class="flecha"></i></a></div></div></article>
+  <article class="panel" role="listitem" tabindex="0"><img src="assets/img/oficial/ica-portada.jpg" alt="Piscina y edificio principal de la sede Ica"><span class="num">Ica</span>
+   <div class="t"><h3>Ica</h3><p class="reg">Sede sur</p><div class="mas"><ul><li>Piscinas</li><li>Áreas verdes</li><li>Shows infantiles</li><li>Comida típica</li></ul><a class="btn" href="#">Ver sede Ica <i class="flecha"></i></a></div></div></article>
+  <article class="panel" role="listitem" tabindex="0"><img src="assets/img/oficial/tarapoto.jpg" alt="Piscina rodeada de jardines y montañas en la sede Tarapoto"><span class="num">San Martín</span>
+   <div class="t"><h3>Tarapoto</h3><p class="reg">Sede selva</p><div class="mas"><ul><li>Piscina</li><li>Jardines</li><li>Naturaleza</li></ul><a class="btn" href="#">Ver sede Tarapoto <i class="flecha"></i></a></div></div></article>
+ </div>
+</section>
+
+<section class="dia">
+ <div class="wrap">
+  <div class="cab rv" style="margin-bottom:0">
+   <h2 class="palabras">Así se vive un sábado en la sede Lima.</h2>
+   <p class="lead">De la apertura al cierre, con el precio de cada actividad a la vista. Sin bajar un afiche para saber cuánto cuesta.</p>
+  </div>
+  <div class="linea-t">
+   <article class="hito rv" style="--c:var(--cielo)"><div class="h"><b>9:00</b><span class="k">Apertura</span></div><img src="assets/img/oficial/lima-piscina.jpg" alt="Piscina con toboganes de colores"><div class="tx"><h3>Primero, la piscina</h3><p>Toboganes y piscinas para grandes y chicos.</p><div class="p"><span>Incluido</span><b>con la entrada</b></div></div></article>
+   <article class="hito rv" style="--c:var(--naranja)"><div class="h"><b>11:00</b><span class="k">Aventura</span></div><img src="assets/img/oficial/canopy.jpg" alt="Persona deslizándose en el canopy"><div class="tx"><h3>Canopy y escalada</h3><p>Canopy extremo, palestra y puente tibetano.</p><div class="p"><span>Desde</span><b>S/ 15.00</b></div></div></article>
+   <article class="hito rv" style="--c:var(--amarillo)"><div class="h"><b>13:00</b><span class="k">Almuerzo</span></div><img src="assets/img/oficial/carapulcra.jpg" alt="Plato de carapulcra con sopa seca"><div class="tx"><h3>Comida peruana</h3><p>Restaurante con carta criolla, o tu propia parrilla.</p><div class="p"><span>Parrilla 2 h</span><b>S/ 40.00</b></div></div></article>
+   <article class="hito rv" style="--c:var(--verde)"><div class="h"><b>15:00</b><span class="k">Campo</span></div><img src="assets/img/oficial/cuatrimoto.jpg" alt="Padre e hija en una cuatrimoto"><div class="tx"><h3>Cuatrimotos y caballos</h3><p>Paseo a caballo, carruaje y cuatrimoto.</p><div class="p"><span>Desde</span><b>S/ 8.00</b></div></div></article>
+   <article class="hito rv" style="--c:var(--azul)"><div class="h"><b>17:30</b><span class="k">Cierre</span></div><img src="assets/img/oficial/camping.jpg" alt="Carpas armadas en la zona de camping"><div class="tx"><h3>O quédate a dormir</h3><p>Hotel con desayuno, o carpa en la zona de camping.</p><div class="p"><span>Camping / noche</span><b>S/ 40.00</b></div></div></article>
+  </div>
+ </div>
+</section>
+
+<section class="juega" id="tarifas">
+ <div class="wrap">
+  <div class="cab rv" style="margin-bottom:0">
+   <h2 class="palabras">Elige tu aventura.</h2>
+   <div class="cab-der"><p class="lead">Precios de la sede Lima, a la vista y sin afiches.</p>
+    <label class="tg"><input type="checkbox" id="tgSocio"><i class="sw"></i><span>Ver precio de socio</span></label></div>
+  </div>
+  <div class="tiles">
+<article class="tile g" style="--n:0"><img src="assets/img/oficial/lima-piscina.jpg" alt="Piscinas y toboganes" loading="lazy"><div class="tt"><h3>Piscinas y toboganes</h3><p>Toda la tarde en el agua.</p></div><span class="pr"><b>Incluido</b><small>con tu entrada</small></span></article>
+<article class="tile " style="--n:1"><img src="assets/img/oficial/canopy.jpg" alt="Canopy extremo" loading="lazy"><div class="tt"><h3>Canopy extremo</h3><p>Cruza el club por el aire.</p></div><span class="pr"><small class="ant">S/ 15</small><b>S/ <em>15</em></b><small>por persona</small></span></article>
+<article class="tile " style="--n:2"><img src="assets/img/oficial/escalada.jpg" alt="Escalada" loading="lazy"><div class="tt"><h3>Escalada</h3><p>Palestra para chicos y grandes.</p></div><span class="pr"><small class="ant">S/ 15</small><b>S/ <em>15</em></b><small>por persona</small></span></article>
+<article class="tile " style="--n:3"><img src="assets/img/oficial/cuatrimoto.jpg" alt="Cuatrimotos" loading="lazy"><div class="tt"><h3>Cuatrimotos</h3><p>Una vuelta por el circuito.</p></div><span class="pr"><small class="ant">S/ 10</small><b>S/ <em>10</em></b><small>por persona</small></span></article>
+<article class="tile a" style="--n:4"><img src="assets/img/oficial/parrilla-gente.jpg" alt="Tu parrilla" loading="lazy"><div class="tt"><h3>Tu parrilla</h3><p>Dos horas, hasta 10 personas.</p></div><span class="pr" data-g=40 data-s=20><small class="ant">S/ 40</small><b>S/ <em>40</em></b><small>2 horas</small></span></article>
+<article class="tile " style="--n:5"><img src="assets/img/oficial/camping.jpg" alt="Camping" loading="lazy"><div class="tt"><h3>Camping</h3><p>Duerme bajo las estrellas.</p></div><span class="pr" data-g=40 data-s=20><small class="ant">S/ 40</small><b>S/ <em>40</em></b><small>por noche</small></span></article>
+  </div>
+  <details class="tarifario">
+   <summary>Ver todos los precios <i class="flecha"></i></summary>
+   <div class="filtros" role="group" aria-label="Filtrar tarifas">
+    <button aria-pressed="true" data-f="todas">Todas</button><button aria-pressed="false" data-f="aventura">Aventura</button><button aria-pressed="false" data-f="juegos">Juegos</button><button aria-pressed="false" data-f="parrilla">Parrillas y camping</button><button aria-pressed="false" data-f="deporte">Cancha</button>
+   </div>
+   <table class="tabla"><thead><tr><th>Servicio</th><th>Días</th><th>General</th><th>Socio</th></tr></thead><tbody id="tb"></tbody></table>
+   <p class="pie2">Precios del tarifario publicado. Confírmalos antes de tu visita por WhatsApp.</p>
+  </details>
+ </div>
+</section>
+
+<section class="quedarse" id="quedarse">
+ <div class="wrap">
+  <div class="cab rv" style="margin-bottom:0">
+   <h2 class="palabras">Quédate una noche más.</h2>
+   <p class="lead">Hotel con desayuno incluido o tu propia carpa junto a las áreas verdes.</p>
+  </div>
+  <div class="dos">
+   <article class="rv"><img src="assets/img/oficial/hab-jacuzzi.jpg" alt="Habitación con cama matrimonial y jacuzzi">
+    <div class="tx"><div><h3>Hotel</h3><p>Frigobar, baño propio, TV cable y agua caliente en todas las habitaciones.</p>
+     <ul class="ficha"><li><span>Check-in / check-out</span><b>14:00 / 12:00</b></li><li><span>Desayuno</span><b>8:30 – 10:30</b></li><li><span>Persona adicional</span><b>S/ 30.00 por noche</b></li></ul></div>
+     <div class="precio"><span>Tarifa por habitación</span><b>—</b><span>por confirmar</span></div></div></article>
+   <article class="rv"><img src="assets/img/oficial/camping-2.jpg" alt="Familias acampando en carpas de colores sobre el césped">
+    <div class="tx"><div><h3>Camping</h3><p>Trae tu carpa. Máximo cuatro personas por carpa; la entrada al club se paga aparte.</p>
+     <ul class="ficha"><li><span>Armado / desarme</span><b>18:00 / 8:00</b></li><li><span>Permanencia</span><b>9:00 a 17:30 del día siguiente</b></li><li><span>Socio</span><b>S/ 20.00 por noche</b></li></ul></div>
+     <div class="precio"><span>Por noche y espacio</span><b>S/ 40</b><span>tarifa general</span></div></div></article>
+  </div>
+ </div>
+</section>
+
+<section class="socios" id="socios">
+ <div class="wrap g">
+  <div class="rv"><h2>Socio paga la mitad.</h2><p>Con la membresía anual, la parrilla, el camping y la cancha te cuestan la mitad.</p><a class="btn" href="#">Quiero ser socio <i class="flecha"></i></a></div>
+  <div class="baja rv">
+   <div class="pb"><img src="assets/img/oficial/parrillas.jpg" alt="Zona de parrillas" loading="lazy"><div><span>Parrilla</span><s>S/ 40</s><b>S/ 20</b></div></div>
+   <div class="pb"><img src="assets/img/oficial/camping-2.jpg" alt="Zona de camping" loading="lazy"><div><span>Camping</span><s>S/ 40</s><b>S/ 20</b></div></div>
+  </div>
+ </div>
+</section>
+
+<section class="grupos" id="grupos">
+ <img src="assets/img/oficial/empresas-mesas.jpg" alt="Grupo grande almorzando en mesas largas bajo techo, visto desde arriba">
+ <div class="wrap">
+  <h2 class="rv">Un día de integración para 40 o para 400.</h2>
+  <p class="lead rv">Combo para empresas y colegios: entrada, almuerzo, juegos y movilidad coordinados en una sola cotización.</p>
+  <div class="pasos rv"><div><b>1 · Cuéntanos</b>Fecha, sede y número de personas.</div><div><b>2 · Recibe la cotización</b>Por correo y WhatsApp, en 24 horas.</div><div><b>3 · Confirma</b>Con un adelanto, en línea.</div></div>
+  <div class="acc rv"><a class="btn" href="#">Cotizar combo <i class="flecha"></i></a><a class="btn linea" href="#">Eventos y quinceañeros</a></div>
+ </div>
+</section>
+
+<section class="ia">
+ <div class="wrap g">
+  <div class="rv">
+   <h2 class="palabras">Pregúntale al Tumi.</h2>
+   <p class="lead" style="margin-top:20px">Un asistente que responde a cualquier hora, solo con datos oficiales y citando de dónde salen.</p>
+   <ul class="reglas">
+    <li><b>Responde con fuente</b><span>Cada respuesta enlaza la tarifa o la ficha de sede que usó.</span></li>
+    <li><b>No inventa</b><span>Si el dato no está validado, lo dice y deriva a WhatsApp.</span></li>
+    <li><b>No guarda datos personales</b><span>Ni DNI ni teléfono sin consentimiento expreso.</span></li>
+   </ul>
+  </div>
+  <div class="chat rv" aria-label="Vista previa del asistente">
+   <div class="top"><b>Asistente Club El Tumi</b><span>En línea</span></div>
+   <div class="msgs" id="msgs">
+    <div class="m u">¿Cuánto cuesta la parrilla un domingo?</div>
+    <div class="m b">S/ 40.00 por dos horas (S/ 20.00 si eres socio). Incluye el uso de la parrilla y el comedor; no incluye carbón ni entrada. Máximo 10 personas y no se reserva: se paga en boletería.<span class="src">Fuente: <a href="#tarifas">Tarifario Lima · Zona parrillas</a> · vigencia publicada vencida, por confirmar</span></div>
+   </div>
+   <div class="sug"><button data-q="camping">¿Puedo acampar?</button><button data-q="horario">¿A qué hora abren?</button><button data-q="entrada">¿Cuánto cuesta la entrada?</button></div>
+   <form onsubmit="event.preventDefault()"><input placeholder="Escribe tu pregunta" aria-label="Pregunta"><button class="btn">Enviar</button></form>
+  </div>
+ </div>
+</section>
+
+<footer>
+ <div class="wrap">
+  <div class="ft">
+   <div><p class="grande">¿Dudas? Escríbenos al <a href="https://wa.me/51987201139">987 201 139</a></p></div>
+   <div><h4>Sede Lima</h4><ul><li>Av. Túpac Amaru 740, Carabayllo</li><li>Carretera Lima–Canta km 33.1</li><li>Todos los días, 9:00–17:30</li></ul></div>
+   <div><h4>Contacto</h4><ul><li><a href="tel:+51987201139">+51 987 201 139</a></li><li><a href="tel:+51943628223">+51 943 628 223</a></li><li><a href="#reserva">Reservar en línea</a></li></ul></div>
+   <div><h4>El club</h4><ul><li><a href="#sedes">Sedes</a></li><li><a href="#tarifas">Tarifas</a></li><li><a href="#socios">Membresía</a></li><li><a href="privacidad.html">Política de privacidad</a></li></ul></div>
+  </div>
+  <div class="legal"><img src="assets/img/logo-tumi-lima-white.png" alt="Club El Tumi"><span>Propuesta de rediseño · fotografías del sitio oficial clubeltumi.com · tarifas transcritas de los tarifarios publicados</span></div>
+ </div>
+</footer>
+<a class="wa" href="https://wa.me/51987201139" aria-label="WhatsApp"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.2Z"/></svg><span>WhatsApp</span></a>
+
+<div class="tip" id="tip" role="tooltip"></div>
+<script>
+// Tarifas como datos (transcritas de los tarifarios oficiales de la sede Lima)
+const T=[
+ {s:"Canopy extremo",d:"Domingos y feriados",g:15,so:null,c:"aventura",v:"30 dic 2024"},
+ {s:"Escalada en palestra",d:"Domingos y feriados",g:15,so:null,c:"aventura",v:"30 dic 2024"},
+ {s:"Puente tibetano",d:"Domingos y feriados",g:15,so:null,c:"aventura",v:"30 dic 2024"},
+ {s:"Paseo a caballo",d:"Sábados, domingos y feriados",g:10,so:null,c:"aventura",v:"30 dic 2024"},
+ {s:"Cuatrimoto",d:"Todos los días",g:10,so:null,c:"aventura",v:"30 dic 2024"},
+ {s:"Carruaje",det:"Por persona",d:"Sábados, domingos y feriados",g:8,so:null,c:"juegos",v:"30 dic 2024"},
+ {s:"Tagada",d:"Sábados, domingos y feriados",g:10,so:null,c:"juegos",v:"30 dic 2024"},
+ {s:"Tubulares",d:"Todos los días",g:10,so:null,c:"juegos",v:"30 dic 2024"},
+ {s:"Globo inflable",d:"Sábados, domingos y feriados",g:7,so:null,c:"juegos",v:"30 dic 2024"},
+ {s:"Salti globo · cama saltarina · laberinto",d:"Todos los días",g:7,so:null,c:"juegos",v:"30 dic 2024"},
+ {s:"Pinturita · jockey de mesa",d:"Todos los días",g:5,so:null,c:"juegos",v:"30 dic 2024"},
+ {s:"Mesa de fulbito",d:"Todos los días",g:3,so:null,c:"juegos",v:"30 dic 2024"},
+ {s:"Zona de parrilla",det:"2 horas · máx. 10 personas · sin carbón ni entrada",d:"Lunes a domingo",g:40,so:20,c:"parrilla",v:"31 mar 2025"},
+ {s:"Zona de camping",det:"Por noche y espacio · máx. 4 por carpa",d:"Lunes a domingo",g:40,so:20,c:"parrilla",v:"31 mar 2025"},
+ {s:"Cancha de grass sintético · día",det:"Por hora",d:"Todos los días",g:30,so:20,c:"deporte",v:"30 dic 2024"},
+ {s:"Cancha de grass sintético · noche",det:"Por hora",d:"Todos los días",g:50,so:30,c:"deporte",v:"30 dic 2024"},
+ {s:"Entrada general",det:"No figura en los tarifarios publicados",d:"—",g:null,so:null,c:"x",v:null}
+];
+const fmt=n=>n==null?"—":"S/ "+n.toFixed(2);
+function pinta(f){document.getElementById('tb').innerHTML=T.filter(r=>r.g!=null&&(f==="todas"||r.c===f)).map(r=>`<tr><td><b>${r.s}</b>${r.det?`<div class="det">${r.det}</div>`:""}</td><td>${r.d}</td><td class="n">${fmt(r.g)}</td><td class="n s">${fmt(r.so)}</td></tr>`).join("")}
+pinta("todas");
+document.querySelectorAll('.filtros button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.filtros button').forEach(x=>x.setAttribute('aria-pressed',x===b));pinta(b.dataset.f)});
+// Paneles de sedes
+const P=[...document.querySelectorAll('.panel')];
+P.forEach(p=>{const on=()=>{P.forEach(x=>x.classList.toggle('on',x===p))};p.addEventListener('mouseenter',on);p.addEventListener('focus',on);p.addEventListener('click',on)});
+// Asistente (respuestas desde los mismos datos)
+const R={camping:["¿Puedo acampar?","Sí, en la sede Lima. Traes tu carpa (máx. 4 personas), la armas desde las 18:00 y la desarmas a las 8:00. Cuesta S/ 40.00 por noche (S/ 20.00 socio) y la entrada se paga aparte.","Tarifario Lima · Zona camping"],
+ horario:["¿A qué hora abren?","La sede Lima atiende todos los días de 9:00 a 17:30. Los horarios de Chiclayo, Ica y Tarapoto están pendientes de validar en su ficha de sede.","Ficha de sede Lima"],
+ entrada:["¿Cuánto cuesta la entrada?","No tengo ese dato validado: la entrada general no figura en los tarifarios publicados. Te derivo a WhatsApp 987 201 139 para confirmarlo.","Sin fuente validada · derivado a un asesor"]};
+document.querySelectorAll('.sug button').forEach(b=>b.onclick=()=>{const [q,a,s]=R[b.dataset.q];const m=document.getElementById('msgs');m.insertAdjacentHTML('beforeend',`<div class="m u">${q}</div><div class="m b">${a}<span class="src">Fuente: ${s}</span></div>`);b.remove()});
+// Revelado
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+const wa=document.querySelector(".wa");addEventListener("scroll",()=>{const v=scrollY>innerHeight*.8;wa.style.opacity=v?1:0;wa.style.transform=v?"none":"";wa.style.pointerEvents=v?"auto":"none"},{passive:true});
+requestAnimationFrame(()=>document.querySelector('.hero').classList.add('ok'));
+const af=document.querySelector('.arco .foto img');if(!matchMedia('(prefers-reduced-motion: reduce)').matches)addEventListener('scroll',()=>{const y=Math.min(scrollY,innerHeight);af.style.transform=`scale(${1+y/2400}) translateY(${y*.06}px)`},{passive:true});
+</script>
+<script src="js/interaccion.js"></script>
+</body>
+</html>

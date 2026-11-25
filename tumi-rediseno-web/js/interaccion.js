@@ -105,4 +105,41 @@
   document.querySelectorAll('.tiles').forEach(el => ioT.observe(el));
 
   addEventListener('scroll', oculta, { passive: true });
+
+  // ---------- Botón de WhatsApp arrastrable ----------
+  const wa = $('.wa');
+  if (wa) {
+    const CLAVE = 'tumi-wa-pos';
+    const limita = (x, y) => [
+      Math.min(Math.max(8, x), innerWidth - wa.offsetWidth - 8),
+      Math.min(Math.max(8, y), innerHeight - wa.offsetHeight - 8)
+    ];
+    const coloca = (x, y) => {
+      [x, y] = limita(x, y);
+      Object.assign(wa.style, { left: x + 'px', top: y + 'px', right: 'auto', bottom: 'auto' });
+      return [x, y];
+    };
+    try { const g = JSON.parse(localStorage.getItem(CLAVE)); if (g) coloca(g[0] * innerWidth, g[1] * innerHeight); } catch (e) {}
+    let ini = null, movio = false;
+    wa.addEventListener('pointerdown', e => {
+      const r = wa.getBoundingClientRect();
+      ini = { dx: e.clientX - r.left, dy: e.clientY - r.top, x: e.clientX, y: e.clientY }; movio = false;
+      wa.setPointerCapture(e.pointerId);
+    });
+    wa.addEventListener('pointermove', e => {
+      if (!ini) return;
+      if (!movio && Math.hypot(e.clientX - ini.x, e.clientY - ini.y) < 6) return;
+      movio = true; wa.classList.add('arrastrando');
+      coloca(e.clientX - ini.dx, e.clientY - ini.dy);
+    });
+    const suelta = () => {
+      if (!ini) return; ini = null; wa.classList.remove('arrastrando');
+      if (movio) { const r = wa.getBoundingClientRect(); try { localStorage.setItem(CLAVE, JSON.stringify([r.left / innerWidth, r.top / innerHeight])); } catch (e) {} }
+    };
+    wa.addEventListener('pointerup', suelta); wa.addEventListener('pointercancel', suelta);
+    // Si se arrastró, no abrir WhatsApp; si fue un toque, sí.
+    wa.addEventListener('click', e => { if (movio) { e.preventDefault(); movio = false; } });
+    wa.addEventListener('dragstart', e => e.preventDefault());
+    addEventListener('resize', () => { if (wa.style.left) { const r = wa.getBoundingClientRect(); coloca(r.left, r.top); } });
+  }
 })();

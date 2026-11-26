@@ -30,7 +30,7 @@ Luego abre la dirección que aparece (por ejemplo `http://localhost:3000`). Abri
 
 ## Configuración (archivo `js/config.js`)
 
-- `whatsapp`: **ahora es un número de prueba (`51987654321`)**. Cámbialo por el tuyo: código de país y número, sin `+`.
+- `whatsapp`: número de ventas (`51942356571`): código de país y número, sin `+`.
 - `supabaseUrl` y `supabaseAnonKey`: déjalos vacíos para el modo demo.
 - `blackFriday`: fechas de la campaña. Al terminar, los precios regulares vuelven solos.
 - `adelanto`, `agencias` y `plazoEntrega`: modalidad de compra.

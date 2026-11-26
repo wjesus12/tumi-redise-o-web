@@ -6,8 +6,7 @@ export const CONFIG = {
   eslogan: 'Relojes Invicta para hombres que marcan el ritmo',
 
   // WhatsApp de ventas: código de país + número, sin "+" ni espacios.
-  // ⚠️ NÚMERO DE PRUEBA — reemplázalo por el tuyo antes de publicar.
-  whatsapp: '51987654321',
+  whatsapp: '51942356571',
 
   moneda: 'S/',
   locale: 'es-PE',

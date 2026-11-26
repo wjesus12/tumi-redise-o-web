@@ -1,7 +1,7 @@
 // Probador real: foto de muñeca según el tono de piel elegido + foto frontal real del reloj, a escala.
 import { OUTFITS } from './catalogo.js';
 import { MUNECA, TONOS, RELOJES_PROBADOR } from './probador-datos.js';
-import { LOOKS, capaLook } from './looks.js';
+import { LOOKS } from './looks.js';
 import { CONFIG, soles } from './config.js';
 import { estado, $, $$, esc, producto, preciosHTML, precio, agregar, toast } from './tienda.js';
 
@@ -19,9 +19,8 @@ export function iniciarProbador() {
   $('#tonos').innerHTML = TONOS.map((t, k) => `<button class="tono ${t.id === pr.tono ? 'activo' : ''}" data-tono="${t.id}" style="background:${t.color}" aria-label="Tono ${k + 1}: ${t.nombre}" title="${t.nombre}"></button>`).join('');
   $('#looks').innerHTML = LOOKS.map(l => `<button class="outfit ${l.id === pr.look ? 'activo' : ''}" data-look="${l.id}">${l.nombre}</button>`).join('');
   LOOKS.forEach(l => { if (l.colores) pr.colores[l.id] = l.colores[0][1]; });
-  // la silueta embebida permite exportar la imagen con mangas o tattoo
-  fetch(MUNECA.silueta).then(r => r.blob()).then(b => new Promise(ok => { const fr = new FileReader(); fr.onload = () => ok(fr.result); fr.readAsDataURL(b); }))
-    .then(d => { MUNECA.siluetaData = d; pintar(); }).catch(() => {});
+  // precarga de prendas (primer color de cada una) y tatuaje
+  LOOKS.forEach(l => { const src = l.tinta || l.colores?.[0][2]; if (src) { const i = new Image(); i.src = src; } });
 
   $('#tonos').addEventListener('click', e => { const b = e.target.closest('[data-tono]'); if (!b) return; pr.tono = b.dataset.tono; marcar('#tonos', b); pintar(); });
   $('#look-colores').addEventListener('click', e => {
@@ -75,7 +74,7 @@ function pintarColores() {
   const l = LOOKS.find(x => x.id === pr.look);
   const cont = $('#look-colores');
   cont.hidden = !l.colores;
-  $('#nombre-color').textContent = l.id === 'tattoo' ? 'Tatuaje blackwork original de AURUM TEMPO sobre la muñeca descubierta.' : '';
+  $('#nombre-color').textContent = l.id === 'tattoo' ? 'Tatuaje realista en todo el antebrazo: brújula y montañas.' : '';
   if (!l.colores) return;
   const actual = pr.colores[l.id];
   cont.innerHTML = l.colores.map(([n, c]) => `<button class="tono ${c === actual ? 'activo' : ''}" data-color="${c}" style="background:${c}" title="${n}" aria-label="Color ${n}"></button>`).join('');
@@ -110,7 +109,18 @@ function geometria(p, cm) {
   const r = fotoReloj(p.id);
   const pxPorMm = MUNECA.grosor / (cm * 10 * 0.331); // grosor visible ≈ 33 % del contorno
   const ancho = p.visual.tam * pxPorMm * r.ajuste;
-  return { ancho, x: MUNECA.x, y: MUNECA.y, angulo: MUNECA.angulo, cx: r.cx ?? .5, cy: r.cy ?? .5 };
+  return { ancho, x: MUNECA.x, y: MUNECA.y, angulo: MUNECA.angulo, cx: r.cx ?? .5, cy: r.cy ?? .5, radio: ancho / r.ajuste / 2 };
+}
+
+// Prenda o tatuaje del look activo: imagen y desplazamiento horizontal del puño (px de la foto)
+function capaActual(g) {
+  const l = LOOKS.find(x => x.id === pr.look);
+  if (l?.tinta) return { tipo: 'tinta', src: l.tinta, dx: 0 };
+  if (!l?.colores) return null;
+  const col = l.colores.find(([, c]) => c === pr.colores[l.id]) || l.colores[0];
+  // el puño termina justo donde empieza la caja: el reloj queda completo y a la vista, sin tocar la manga
+  const dx = Math.min(0, (g.x - g.radio * 1.06 - 4) - l.puno);
+  return { tipo: 'prenda', src: col[2], dx };
 }
 
 function pintar() {
@@ -122,10 +132,15 @@ function pintar() {
   const g = geometria(p, cm);
 
   $('#foto-muneca').src = tono.foto;
-  const capa = capaLook(pr.look, pr.colores[pr.look]);
-  const cl = $('#capa-look');
-  if (cl.dataset.k !== pr.look + pr.colores[pr.look] + !!MUNECA.siluetaData) { cl.innerHTML = capa.svg; cl.dataset.k = pr.look + pr.colores[pr.look] + !!MUNECA.siluetaData; }
-  cl.style.mixBlendMode = capa.mezcla;
+  const capa = capaActual(g);
+  const tinta = $('#capa-look'), prenda = $('#capa-prenda');
+  tinta.hidden = capa?.tipo !== 'tinta';
+  prenda.hidden = capa?.tipo !== 'prenda';
+  if (capa?.tipo === 'tinta' && tinta.getAttribute('src') !== capa.src) tinta.src = capa.src;
+  if (capa?.tipo === 'prenda') {
+    if (prenda.getAttribute('src') !== capa.src) prenda.src = capa.src;
+    prenda.style.transform = `translateX(${capa.dx / MUNECA.ancho * 100}%)`;
+  }
   $('#nombre-tono').textContent = `Tono ${TONOS.indexOf(tono) + 1} de ${TONOS.length}: ${tono.nombre}`;
   const img = $('#reloj-en-muneca');
   img.src = fotoReloj(p.id).foto;
@@ -240,16 +255,16 @@ async function generarImagen() {
     const [base, sil] = await Promise.all([cargar(TONOS.find(t => t.id === pr.tono).foto), cargar(MUNECA.silueta)]);
     c.width = MUNECA.ancho; c.height = MUNECA.alto;
     ctx.drawImage(base, 0, 0, c.width, c.height);
-    const capaL = capaLook(pr.look, pr.colores[pr.look]);
-    if (capaL.svg) {
-      const imgL = await cargar('data:image/svg+xml;charset=utf-8,' + encodeURIComponent(capaL.svg.replace('<svg ', `<svg width="${c.width}" height="${c.height}" `)));
-      ctx.globalCompositeOperation = capaL.mezcla === 'multiply' ? 'multiply' : 'source-over';
+    const g = geometria(p, estado.muneca.cm);
+    const capaL = capaActual(g);
+    const imgL = capaL ? await cargar(capaL.src) : null;
+    if (capaL?.tipo === 'tinta') {
+      ctx.globalCompositeOperation = 'multiply';
       ctx.drawImage(imgL, 0, 0, c.width, c.height);
       ctx.globalCompositeOperation = 'source-over';
     }
     const capa = document.createElement('canvas'); capa.width = c.width; capa.height = c.height;
     const cx = capa.getContext('2d');
-    const g = geometria(p, estado.muneca.cm);
     const h = g.ancho * reloj.height / reloj.width;
     cx.save(); cx.translate(g.x, g.y); cx.rotate(g.angulo * Math.PI / 180); cx.scale(1, .94);
     cx.shadowColor = 'rgba(0,0,0,.35)'; cx.shadowBlur = 18; cx.shadowOffsetY = 10;
@@ -257,6 +272,7 @@ async function generarImagen() {
     cx.globalCompositeOperation = 'destination-in';
     cx.drawImage(sil, 0, 0, c.width, c.height);
     ctx.drawImage(capa, 0, 0);
+    if (capaL?.tipo === 'prenda') ctx.drawImage(imgL, capaL.dx, 0, c.width, c.height);
   }
   ctx.fillStyle = 'rgba(0,0,0,.6)'; ctx.fillRect(0, c.height - 70, c.width, 70);
   ctx.fillStyle = '#d4af37'; ctx.font = '700 28px Manrope, sans-serif'; ctx.textAlign = 'left';

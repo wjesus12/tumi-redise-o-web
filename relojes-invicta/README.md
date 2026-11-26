@@ -129,4 +129,4 @@ La lupa del menú reconoce modelos, líneas y referencias aunque estén incomple
 
 ## Probador: looks
 
-Estándar (muñeca sola), Formal · camisa, Casual · polo, Invierno · chompa (cada uno con 6 colores) y Tattoo (diseño blackwork original). Se dibujan en `js/looks.js` siguiendo el contorno real del brazo (`MUNECA.perfil` en `js/probador-datos.js`).
+Estándar (muñeca sola), Formal · camisa, Formal · terno, Casual · polo, Invierno · chompa y Tattoo. Las prendas y el tatuaje son fotos reales generadas sobre la misma muñeca (`img/looks/`), con 6 colores por prenda. Con prenda, el puño se ubica justo antes de la caja del reloj para que se vea completo; con muñeca sola o tatuaje, el reloj va sobre la piel. Datos en `js/looks.js`.

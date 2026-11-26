@@ -3,10 +3,10 @@
 // MUNECA: geometría medida sobre las fotos (en px de la imagen de 1200×800).
 export const MUNECA = {
   ancho: 1200, alto: 800,
-  x: 432,              // centro del reloj (eje horizontal)
-  y: 390,              // centro del reloj (eje vertical)
+  x: 585,              // centro del reloj (eje horizontal) · justo sobre la muñeca
+  y: 383,              // centro del reloj (eje vertical)
   grosor: 320,        // grosor visible del antebrazo en esa zona
-  angulo: -9.93,     // inclinación del brazo (grados)
+  angulo: -1,     // inclinación del brazo (grados)
   cmReferencia: 17.5,  // contorno de muñeca que corresponde a la foto
   silueta: 'img/munecas/silueta.png',
   // contorno del brazo cada 20 px: [x, borde superior, borde inferior]

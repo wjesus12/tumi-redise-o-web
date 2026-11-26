@@ -79,7 +79,7 @@ function ajuste(tam, cm) {
   if (tam <= ideal && tam >= min - 2) return { clase: 'ideal', texto: 'Ajuste ideal', det: `Un ${tam} mm queda proporcionado en una muñeca de ${cm} cm.` };
   if (tam < min - 2) return { clase: 'ideal', texto: 'Discreto', det: `${tam} mm se verá sobrio y elegante en tu muñeca de ${cm} cm.` };
   if (tam <= ideal + 5) return { clase: 'audaz', texto: 'Statement', det: `${tam} mm tendrá presencia fuerte en ${cm} cm: perfecto si buscas que se note.` };
-  return { clase: 'grande', texto: 'Muy grande', det: `${tam} mm puede sobresalir en una muñeca de ${cm} cm.` };
+  return { clase: 'grande', texto: 'Grande', det: `${tam} mm en una muñeca de ${cm} cm luce atrevido y sobresaliente: ideal si quieres un reloj que no pase desapercibido.` };
 }
 
 // Geometría del reloj sobre la foto (en px de la foto original)

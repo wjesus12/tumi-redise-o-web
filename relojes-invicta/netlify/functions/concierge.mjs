@@ -27,6 +27,7 @@ function sistema() {
     return `- ${p.nombre} | línea ${p.linea} | ${p.categoria} | ${p.visual.tam} mm | ${p.movimiento}${p.visual.crono ? ' | cronógrafo' : ''} | `
       + (final < p.precio ? `S/ ${final} (antes S/ ${p.precio}, -${p.bf}%)` : `S/ ${p.precio}`)
       + (p.etiquetas?.length ? ` | ${p.etiquetas.join(', ')}` : '')
+      + (p.agua ? ` | resistencia al agua ${p.agua}` : '')
       + ` | ideal para: ${(p.outfits || []).join(', ')}`;
   }).join('\n');
   const faq = FAQ.map(f => `P: ${f.pregunta}\nR: ${f.respuesta}`).join('\n\n');

@@ -12,9 +12,10 @@ import { iniciarConcierge, abrirChat } from './concierge.js';
 import { escena } from './escenas.js';
 import { FOTOS_HERO } from './hero.js';
 import { iniciarWow } from './wow.js';
+import { ACTIVIDADES, NIVELES, nivelDe, metrosDe, icono } from './agua.js';
 import { iniciarBuscador, buscar } from './buscador.js';
 
-const filtro = { linea: null, cat: 'todos', texto: '', orden: 'destacados', outfit: null, soloFavs: false };
+const filtro = { linea: null, cat: 'todos', texto: '', orden: 'destacados', outfit: null, soloFavs: false, agua: 0 };
 
 // ═════════ Inicio ═════════
 async function iniciar() {
@@ -36,6 +37,7 @@ async function iniciar() {
   iniciarFiltros();
   pintarGrid();
   pintarFAQ();
+  pintarAgua();
   iniciarCarrito();
   iniciarProbador();
   iniciarConcierge();
@@ -170,6 +172,7 @@ function filtrados() {
   if (filtro.cat === 'deportivo' || filtro.cat === 'formal') ps = ps.filter(p => p.categoria === filtro.cat);
   if (filtro.cat === 'Automático') ps = ps.filter(p => p.movimiento === 'Automático');
   if (filtro.cat === 'ofertas') ps = ps.filter(p => bfActivo() && p.bf >= 30);
+  if (filtro.agua) ps = ps.filter(p => metrosDe(p) >= filtro.agua);
   if (filtro.texto) {
     const orden = buscar(filtro.texto, ps).map(p => p.id);
     ps = orden.map(id => ps.find(p => p.id === id));
@@ -215,12 +218,13 @@ function pintarGrid() {
   if (filtro.linea) partes.push(filtro.linea);
   if (filtro.outfit) partes.push(`ideales para look ${filtro.outfit}`);
   if (filtro.soloFavs) partes.push('favoritos');
+  if (filtro.agua) partes.push(`resistentes a ${filtro.agua} m o más`);
   $('#resultados-info').innerHTML = `${ps.length} reloj${ps.length === 1 ? '' : 'es'}${partes.length ? ' · ' + esc(partes.join(' · ')) + ' · <a href="#catalogo" id="quitar-filtros" style="color:var(--oro)">quitar filtros</a>' : ''}`;
   $('#limpiar')?.addEventListener('click', limpiarFiltros);
   $('#quitar-filtros')?.addEventListener('click', limpiarFiltros);
 }
 function limpiarFiltros() {
-  Object.assign(filtro, { linea: null, cat: 'todos', texto: '', outfit: null, soloFavs: false });
+  Object.assign(filtro, { linea: null, cat: 'todos', texto: '', outfit: null, soloFavs: false, agua: 0 });
   $('#buscar').value = '';
   $$('#chips-cat .chip').forEach((c, i) => c.classList.toggle('activo', i === 0));
   pintarLineas(); pintarGrid();
@@ -251,6 +255,7 @@ export function verDetalle(id) {
       <div class="precios" style="margin-top:14px">${preciosHTML(p)}</div>
       <p class="desc">${esc(p.descripcion)}</p>
       <div class="specs">${specs}</div>
+      ${aguaFicha(p)}
       <div class="detalle-acciones">
         <button class="btn btn-oro" data-agregar><svg><use href="#i-bolsa"/></svg>Agregar al carrito</button>
         ${puedeProbar(p.id) ? '<button class="btn btn-borde" data-probar><svg><use href="#i-espejo"/></svg>Probármelo</button>' : ''}
@@ -424,6 +429,30 @@ async function enviarPedido(e) {
 }
 
 const DEPARTAMENTOS = ['Amazonas', 'Áncash', 'Apurímac', 'Arequipa', 'Ayacucho', 'Cajamarca', 'Callao', 'Cusco', 'Huancavelica', 'Huánuco', 'Ica', 'Junín', 'La Libertad', 'Lambayeque', 'Lima', 'Loreto', 'Madre de Dios', 'Moquegua', 'Pasco', 'Piura', 'Puno', 'San Martín', 'Tacna', 'Tumbes', 'Ucayali'];
+
+// ═════════ Resistencia al agua ═════════
+function pintarAgua() {
+  const cab = `<div class="agua-fila agua-cab" role="row"><div class="agua-nivel" role="columnheader"><span>Nivel</span></div>${ACTIVIDADES.map(a => `<div class="agua-celda" role="columnheader">${icono(a, 'agua-ico')}<b>${a.nombre}</b><small>${a.detalle}</small></div>`).join('')}<div class="agua-accion" role="columnheader"></div></div>`;
+  const filas = NIVELES.map(n => {
+    const cant = estado.productos.filter(p => metrosDe(p) >= n.metros).length;
+    return `<div class="agua-fila" role="row" data-m="${n.metros}">
+      <div class="agua-nivel" role="rowheader"><b>${n.mas ? '+' : ''}${n.metros}<small>m</small></b><span>${n.mas ? '≥ ' : ''}${n.atm} ATM</span></div>
+      ${ACTIVIDADES.map(a => { const ok = n.apto.includes(a.id); return `<div class="agua-celda ${ok ? 'si' : 'no'}" role="cell" aria-label="${a.nombre}: ${ok ? 'apto' : 'no apto'}"><span class="agua-marca">${ok ? '<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>' : '<svg viewBox="0 0 24 24"><path d="M7 12h10"/></svg>'}</span><small class="agua-movil">${a.nombre}</small></div>`; }).join('')}
+      <div class="agua-accion" role="cell">${cant ? `<button class="btn btn-borde" data-agua="${n.metros}">Ver ${cant} reloj${cant === 1 ? '' : 'es'}</button>` : ''}</div>
+    </div>`;
+  }).join('');
+  $('#agua-tabla').innerHTML = cab + filas;
+  $('#agua-tabla').addEventListener('click', e => {
+    const b = e.target.closest('[data-agua]'); if (!b) return;
+    Object.assign(filtro, { agua: +b.dataset.agua, linea: null, outfit: null });
+    pintarLineas(); pintarGrid(); $('#catalogo').scrollIntoView({ behavior: 'smooth' });
+  });
+}
+
+function aguaFicha(p) {
+  const n = nivelDe(p); if (!n) return '';
+  return `<div class="agua-ficha"><span class="agua-ficha-t">Resistencia ${metrosDe(p)} m · apto para</span><div>${ACTIVIDADES.map(a => `<span class="agua-ficha-i ${n.apto.includes(a.id) ? 'si' : 'no'}" title="${a.nombre}: ${n.apto.includes(a.id) ? 'apto' : 'no recomendado'}">${icono(a)}<small>${a.nombre}</small></span>`).join('')}</div></div>`;
+}
 
 // ═════════ FAQ ═════════
 function pintarFAQ() {

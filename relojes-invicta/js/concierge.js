@@ -67,8 +67,22 @@ async function enviar(texto) {
 // ── Respaldo sin IA ──
 const norm = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 
+function aguaModelo(q) {
+  if (!/agua|nadar|ducha|piscina|mar|bucear|buceo|snorkel|surf|sumergible|mojar|lluvia/.test(q)) return null;
+  const p = estado.productos.find(x => q.includes(String(x.ref).toLowerCase()) || q.includes(norm(x.nombre)));
+  if (!p) return null;
+  const m = parseInt(p.agua || p.specs?.['Resistencia al agua'] || '0', 10);
+  if (!m) return null;
+  const usos = m >= 200 ? 'salpicaduras, ducha, natación, deportes acuáticos y buceo con tanque'
+    : m >= 100 ? 'salpicaduras, ducha, natación y deportes acuáticos sin equipo (no buceo con tanque)'
+    : m >= 50 ? 'salpicaduras, ducha y natación en superficie (no deportes acuáticos ni buceo)'
+    : 'solo salpicaduras: lavarte las manos, lluvia (no ducha, natación ni buceo)';
+  return `El *${p.nombre}* tiene resistencia de ${m} m (${Math.round(m / 10)} ATM): sirve para ${usos}. Recuerda no presionar botones ni girar la corona bajo el agua.`;
+}
+
 function responderLocal(texto) {
   const q = norm(texto);
+  const agua = aguaModelo(q); if (agua) return agua;
   if (/^(hola|buenas|buenos|hey|que tal)/.test(q)) return '¡Hola! 👋 Cuéntame qué buscas: ¿deportivo, formal o un regalo? Y si tienes un presupuesto, dímelo para recomendarte.';
   if (/gracias/.test(q)) return '¡Con gusto! Si quieres, te atendemos también por WhatsApp para separar tu reloj. ⌚';
 

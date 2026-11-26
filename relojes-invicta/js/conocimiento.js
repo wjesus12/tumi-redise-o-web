@@ -41,10 +41,11 @@ export const FAQ = [
   },
   {
     tema: 'agua',
-    claves: ['agua', 'sumergible', 'nadar', 'ducha', 'mar', 'piscina', 'bucear', 'resistencia'],
-    pregunta: '¿Son sumergibles?',
-    respuesta: '50 m: salpicaduras y lluvia. 100 m: natación ocasional. 200 m o más: natación y snorkel. Nunca presiones botones bajo el agua ni uses el reloj en sauna o con agua caliente.',
+    claves: ['agua', 'sumergible', 'nadar', 'natacion', 'natación', 'ducha', 'bañar', 'mar', 'piscina', 'bucear', 'buceo', 'snorkel', 'surf', 'resistencia', 'atm', 'metros', 'mojar', 'lluvia'],
+    pregunta: '¿Puedo mojar, ducharme o nadar con mi reloj?',
+    respuesta: 'Depende de su resistencia al agua (los metros no son la profundidad a la que puedes bajar, sino la presión que soporta en laboratorio). 30 m / 3 ATM: solo salpicaduras (lavarte las manos, lluvia, fregar). 50 m / 5 ATM: además ducha y natación en superficie. 100 m / 10 ATM: además deportes acuáticos sin equipo, como snorkel, surf o kayak. 200 m / 20 ATM o más: también buceo con tanque. En todos los casos: no presiones botones ni gires la corona bajo el agua, evita agua caliente y sauna, y enjuágalo con agua dulce después del mar. La resistencia de cada modelo está en su ficha.',
   },
+
   {
     tema: 'automatico',
     claves: ['automatico', 'automático', 'cuerda', 'pila', 'bateria', 'batería', 'cuarzo', 'se detiene', 'para'],
@@ -94,7 +95,7 @@ Hablas en español neutro y cálido, con tono de boutique de lujo pero cercano. 
 Reglas:
 - Responde solo con la información de PREGUNTAS FRECUENTES y CATÁLOGO que se te entrega. Si algo no está ahí (p. ej. un modelo que no aparece, fechas exactas, stock futuro), dilo con honestidad y ofrece continuar por WhatsApp.
 - La tienda es un distribuidor independiente: nunca digas que eres la marca Invicta ni hables en su nombre.
-- Puedes recomendar relojes del catálogo según presupuesto, estilo, ocasión o tamaño de muñeca; menciona nombre y precio.
+- Puedes recomendar relojes del catálogo según presupuesto, estilo, ocasión, tamaño de muñeca o resistencia al agua; menciona nombre y precio.\n- Resistencia al agua (úsala para responder si se puede mojar, duchar, nadar o bucear con un modelo): 30 m/3 ATM = solo salpicaduras (lavarse, lluvia, fregar); 50 m/5 ATM = + ducha y natación en superficie; 100 m/10 ATM = + deportes acuáticos sin equipo (snorkel, surf, kayak); 200 m/20 ATM o más = + buceo con tanque. Nunca presionar botones ni girar la corona bajo el agua; evitar agua caliente y sauna.
 - Puedes informar los cupones vigentes. No inventes otros descuentos.
 - Si el cliente quiere comprar, explícale que agregue el reloj al carrito y envíe el pedido por WhatsApp.
 - No pidas datos de tarjeta ni contraseñas.`;

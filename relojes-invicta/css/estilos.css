@@ -621,3 +621,51 @@ footer a:hover { color: var(--oro); }
 .buscador-global .buscador-txt em { display: block; font-style: normal; font-size: 11.5px; color: var(--verde); margin-top: 2px; }
 .buscador-global .buscador-flecha { color: var(--wsp); }
 a.buscador-item { color: inherit; }
+
+/* ── Resistencia al agua ── */
+.agua { background: var(--sup); }
+.agua-tabla { border: 1px solid var(--linea); background: var(--bg); }
+.agua-fila { display: grid; grid-template-columns: 170px repeat(4, 1fr) 170px; border-bottom: 1px solid var(--linea); transition: background .25s; }
+.agua-fila:last-child { border-bottom: 0; }
+.agua-fila:not(.agua-cab):hover { background: var(--oro-suave); }
+.agua-fila > div { padding: 22px 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; }
+.agua-fila > div + div { border-left: 1px solid var(--linea); }
+.agua-cab .agua-celda b { font-size: 11.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+.agua-cab .agua-celda small { font-size: 12px; color: var(--texto3); font-weight: 300; line-height: 1.35; }
+.agua-cab .agua-nivel span { font-size: 10.5px; letter-spacing: .3em; text-transform: uppercase; color: var(--texto3); }
+.agua-ico { width: 38px; height: 38px; color: var(--oro); margin-bottom: 4px; }
+.agua-nivel { align-items: flex-start !important; text-align: left !important; }
+.agua-nivel b { font-family: var(--f-display); font-size: 46px; font-weight: 400; line-height: .9; }
+.agua-nivel b small { font-size: 22px; margin-left: 3px; color: var(--texto3); }
+.agua-nivel span { font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: var(--oro); }
+.agua-marca svg { width: 30px; height: 30px; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.agua-celda.si .agua-marca svg { stroke: var(--texto); }
+.agua-celda.no .agua-marca svg { stroke: var(--linea-fuerte); }
+.agua-celda.si .agua-marca { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--oro-suave); }
+.agua-movil { display: none; }
+.agua-accion .btn { padding: 11px 14px; font-size: 10.5px; }
+.agua-nota { margin-top: 18px; font-size: 13px; color: var(--texto3); font-weight: 300; }
+.agua-ficha { margin: -8px 0 22px; padding: 14px 0; border-bottom: 1px solid var(--linea); }
+.agua-ficha-t { display: block; font-size: 9.5px; letter-spacing: .24em; text-transform: uppercase; color: var(--texto3); margin-bottom: 10px; }
+.agua-ficha > div { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.agua-ficha-i { display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; }
+.agua-ficha-i svg { width: 26px; height: 26px; }
+.agua-ficha-i small { font-size: 10.5px; line-height: 1.2; }
+.agua-ficha-i.si { color: var(--oro); }
+.agua-ficha-i.si small { color: var(--texto); }
+.agua-ficha-i.no { color: var(--linea-fuerte); }
+.agua-ficha-i.no small { color: var(--texto3); text-decoration: line-through; }
+@media (max-width: 900px) {
+  .agua-cab { display: none !important; }
+  .agua-fila { grid-template-columns: 1fr 1fr; }
+  .agua-fila > div + div { border-left: 0; }
+  .agua-nivel { grid-column: 1 / -1; flex-direction: row !important; align-items: baseline !important; gap: 12px !important; border-bottom: 1px solid var(--linea); }
+  .agua-fila > div { padding: 14px; }
+  .agua-celda { flex-direction: row !important; justify-content: flex-start !important; text-align: left !important; }
+  .agua-movil { display: block; font-size: 12px; }
+  .agua-celda.no .agua-movil { color: var(--texto3); text-decoration: line-through; }
+  .agua-celda.si .agua-marca { width: 34px; height: 34px; flex: none; }
+  .agua-marca svg { width: 22px; height: 22px; }
+  .agua-accion { grid-column: 1 / -1; }
+  .agua-accion .btn { width: 100%; }
+}

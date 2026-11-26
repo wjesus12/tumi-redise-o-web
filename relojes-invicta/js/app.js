@@ -87,7 +87,7 @@ function iniciarHero() {
     const p = destacados[k];
     const caja = $('#hero-reloj');
     caja.animate([{ opacity: 0, transform: 'translateY(16px) scale(.96)' }, { opacity: 1, transform: 'none' }], { duration: 600, easing: 'cubic-bezier(.2,.8,.2,1)' });
-    caja.innerHTML = media(p);
+    caja.innerHTML = media(p, { forzarSVG: true });
     $('#hero-precio').innerHTML = `<small>${esc(p.linea)} · Más vendido</small><div class="nombre">${esc(p.nombre)}</div><div class="precios">${preciosHTML(p).replace(/<span class="ahorro">.*<\/span>/, '')}</div>
       <button class="btn btn-oro" style="padding:10px 16px;font-size:11px;margin-top:10px;width:100%" data-ver="${p.id}">Ver detalle</button>`;
     $('#hero-desc').textContent = bfActivo() ? `-${p.bf}%` : 'NEW';
@@ -114,7 +114,7 @@ function iniciarVida() {
     img.addEventListener('error', () => { img.hidden = true; });
     card.insertAdjacentHTML('afterbegin', `<div class="vida-fallback">${escena(card.dataset.escena, 800, 1160)}</div>`);
     const p = producto(card.dataset.reloj);
-    if (p) card.insertAdjacentHTML('beforeend', `<div class="vida-reloj">${media(p)}</div>`);
+    if (p) card.insertAdjacentHTML('beforeend', `<div class="vida-reloj">${media(p, { forzarSVG: true })}</div>`);
   });
 }
 
@@ -131,7 +131,7 @@ function pintarLineas() {
     if (!ps.length) return '';
     const desde = Math.min(...ps.map(precio));
     return `<button class="linea-card ${filtro.linea === l ? 'activa' : ''}" data-linea="${esc(l)}" role="tab" aria-selected="${filtro.linea === l}">
-      <div class="mini">${media(ps[0], { conCorrea: false, forzarSVG: !ps[0].imagen })}</div>
+      <div class="mini">${media(ps[0], { conCorrea: false, forzarSVG: true })}</div>
       <b>${esc(l)}</b><span>${ps.length} modelos · desde ${soles(desde)}</span></button>`;
   }).join('');
   cont.onclick = (e) => {
@@ -244,7 +244,7 @@ export function verDetalle(id) {
   const specs = Object.entries(p.specs || {}).map(([k, v]) => `<div><small>${esc(k)}</small><b>${esc(v)}</b></div>`).join('');
   const consulta = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(`Hola, me interesa el ${p.nombre} (${p.linea}) que vi a ${soles(precio(p))}. ¿Está disponible?`)}`;
   $('#detalle-contenido').innerHTML = `<div class="detalle">
-    <div class="detalle-media">${media(p)}<span class="hora-real">${p.imagen ? 'Foto referencial' : 'Marcando la hora real de Lima'}</span></div>
+    <div class="detalle-media">${media(p)}<span class="hora-real">${p.imagen ? 'Foto oficial del modelo' : 'Marcando la hora real de Lima'}</span></div>
     <div class="detalle-info">
       <span class="card-linea">${esc(p.linea)} · ${p.categoria === 'formal' ? 'Formal' : 'Deportivo'}</span>
       <h2 class="card-nombre">${esc(p.nombre)}</h2>

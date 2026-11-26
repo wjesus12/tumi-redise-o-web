@@ -234,7 +234,7 @@ select.sel { background: var(--negro); border: 1px solid var(--linea); border-ra
 .badge { font-size: 10.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; padding: 5px 9px; border-radius: 6px; }
 .badge-bf { background: var(--rojo); color: #fff; }
 .badge-oro { background: var(--oro); color: #140f02; }
-.badge-ultimas { background: rgba(255, 255, 255, .1); color: #ffb4bd; border: 1px solid rgba(208, 20, 44, .5); }
+.badge-ultimas { background: #1a0a0e; color: #ffb4bd; border: 1px solid rgba(208, 20, 44, .7); }
 .badge-navy { background: var(--navy-claro); color: #fff; }
 .card-fav { position: absolute; top: 10px; right: 10px; z-index: 2; width: 38px; height: 38px; border-radius: 50%; background: rgba(0, 0, 0, .45); display: grid; place-items: center; }
 .card-fav svg { width: 18px; }
@@ -552,3 +552,10 @@ footer a:hover { color: var(--oro-claro); }
   .flotante { width: 52px; height: 52px; }
   .chat { right: 12px; bottom: 76px; }
 }
+
+/* ── Fotos oficiales: fondo de estudio ── */
+.card-media:has(img), .detalle-media:has(img), .item-carrito .mini:has(img) { background: radial-gradient(80% 70% at 50% 40%, #ffffff, #e9e5dc); }
+.card-media img, .detalle-media img, .item-carrito .mini img { mix-blend-mode: multiply; }
+.card-media img { width: 94%; height: 94%; }
+.detalle-media:has(img) .hora-real { color: #6b6f76; }
+.nota-envio svg, .carrito-vacio svg { height: auto; aspect-ratio: 1; }

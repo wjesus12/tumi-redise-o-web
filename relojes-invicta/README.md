@@ -8,7 +8,7 @@ Tienda web para hombres de 18 a 50 años. Incluye catálogo de 30 modelos (80 % 
 |---|---|
 | **Portada** | Reloj animado que marca la hora real, contador de Black Friday y beneficios. |
 | **Estilo de vida** | Estatus, Aventura, Diversión y Madurez: cada tarjeta filtra el catálogo por outfit. |
-| **Catálogo** | 30 relojes con filtros (línea, deportivo/formal, automático, ofertas), búsqueda, orden y favoritos. |
+| **Catálogo** | 30 relojes de invicta.com.pe con filtros (línea, deportivo/formal, automático, ofertas), búsqueda, orden y favoritos. |
 | **Black Friday** | De 15 % a 40 % automático por modelo, sin cupón. Termina el 30/11 a las 23:59 (hora de Lima). |
 | **Cupones** | `BIENVENIDA10` (10 %), `TIEMPO15` (15 % desde S/ 600) y `LUJO20` (20 % desde S/ 1,000). Se suman al Black Friday. |
 | **Probador** | 6 tonos de piel, 6 outfits, muñeca estándar o personalizada, vista del look, detalle en muñeca a escala y prueba con cámara o foto. Permite compartir la imagen por WhatsApp. |
@@ -70,9 +70,12 @@ npm run semilla
   - `vida-estatus.jpg`, `vida-aventura.jpg`, `vida-diversion.jpg`, `vida-madurez.jpg`
   - `look-formal.jpg`, `look-deportivo.jpg`, `look-elegante.jpg`, `look-semiformal.jpg`, `look-casual.jpg`, `look-aventura.jpg`
 
-## Pendiente: sincronizar con invicta.com.pe
+## Catálogo de invicta.com.pe
 
-Los 30 modelos usan nombres de líneas reales (Pro Diver, Bolt, Speedway, Racing, Reserve, Specialty y Vintage), pero **los precios, las descripciones y las referencias son provisionales**. El entorno donde se construyó la web no tenía acceso a invicta.com.pe. Hay que reemplazarlos por los datos y fotos oficiales de cada modelo.
+Los 30 modelos (`js/productos.js`) se tomaron de invicta.com.pe el 26/11/2026, con modelos disponibles en esa fecha: referencia, foto oficial, precio vigente, medida, cristal y resistencia al agua. Las descripciones son textos propios por línea. **Revisa precios y disponibilidad antes de cada campaña**, porque la tienda oficial los cambia.
+
+- No había ningún Reserve disponible entre S/ 299 y 1,500, así que se reemplazaron por 3 automáticos (Pro Diver 8929, Pro Diver 8930OBXL y Speedway 48079).
+- Los % de Black Friday se aplican sobre el precio oficial vigente.
 
 ## Aviso legal
 

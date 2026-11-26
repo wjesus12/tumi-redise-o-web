@@ -12,7 +12,7 @@ export const LOOKS = [
   "id": "camisa",
   "nombre": "Formal · camisa",
   "estilo": "formal",
-  "puno": 300,
+  "puno": 301,
   "colores": [
    [
     "Blanco",

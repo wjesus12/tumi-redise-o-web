@@ -12,6 +12,7 @@ import { iniciarConcierge, abrirChat } from './concierge.js';
 import { escena } from './escenas.js';
 import { FOTOS_HERO } from './hero.js';
 import { iniciarWow } from './wow.js';
+import { iniciarBuscador, buscar } from './buscador.js';
 
 const filtro = { linea: null, cat: 'todos', texto: '', orden: 'destacados', outfit: null, soloFavs: false };
 
@@ -42,6 +43,10 @@ async function iniciar() {
   iniciarTicTac();
   iniciarWow();
   iniciarTema();
+  iniciarBuscador({
+    verDetalle,
+    filtrarCatalogo: (q) => { $('#buscar').value = q; filtro.texto = q; filtro.linea = null; filtro.outfit = null; pintarLineas(); pintarGrid(); $('#catalogo').scrollIntoView({ behavior: 'smooth' }); },
+  });
   actualizarBurbujas();
   alCambiar(() => { actualizarBurbujas(); pintarCarrito(); });
 
@@ -166,19 +171,15 @@ function filtrados() {
   if (filtro.cat === 'Automático') ps = ps.filter(p => p.movimiento === 'Automático');
   if (filtro.cat === 'ofertas') ps = ps.filter(p => bfActivo() && p.bf >= 30);
   if (filtro.texto) {
-    const q = normal(filtro.texto);
-    ps = ps.filter(p => {
-      const v = p.visual || {};
-      const texto = normal([p.nombre, p.linea, p.categoria, p.movimiento, p.descripcion, v.crono ? 'cronografo crono' : '', v.caja === 'oro' ? 'oro dorado gold' : '', v.caja === 'negro' ? 'negro black' : '', v.correa].join(' '));
-      return q.split(/\s+/).every(w => texto.includes(w));
-    });
+    const orden = buscar(filtro.texto, ps).map(p => p.id);
+    ps = orden.map(id => ps.find(p => p.id === id));
   }
   const o = filtro.orden;
   if (o === 'precio-asc') ps.sort((a, b) => precio(a) - precio(b));
   if (o === 'precio-desc') ps.sort((a, b) => precio(b) - precio(a));
   if (o === 'descuento') ps.sort((a, b) => (b.bf || 0) - (a.bf || 0));
   if (o === 'tam') ps.sort((a, b) => b.visual.tam - a.visual.tam);
-  if (o === 'destacados') ps.sort((a, b) => (b.etiquetas?.includes('mas-vendido') ? 1 : 0) - (a.etiquetas?.includes('mas-vendido') ? 1 : 0));
+  if (o === 'destacados' && !filtro.texto) ps.sort((a, b) => (b.etiquetas?.includes('mas-vendido') ? 1 : 0) - (a.etiquetas?.includes('mas-vendido') ? 1 : 0));
   return ps;
 }
 

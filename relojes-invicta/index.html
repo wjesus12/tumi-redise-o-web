@@ -60,6 +60,7 @@
       <a href="#concierge">Concierge</a>
     </nav>
     <div class="acciones-header">
+      <button class="icono-btn" id="btn-buscar" aria-label="Buscar reloj" title="Buscar (tecla /)"><svg><use href="#i-buscar"/></svg></button>
       <button class="icono-btn" id="btn-tema" aria-label="Cambiar a modo oscuro" title="Modo claro / oscuro"><svg class="tema-luna"><use href="#i-luna"/></svg><svg class="tema-sol"><use href="#i-sol"/></svg></button>
       <button class="icono-btn" id="btn-favs" aria-label="Favoritos"><svg><use href="#i-corazon"/></svg><span class="burbuja" id="burbuja-favs">0</span></button>
       <button class="icono-btn" id="btn-carrito" aria-label="Abrir carrito"><svg><use href="#i-bolsa"/></svg><span class="burbuja" id="burbuja-carrito">0</span></button>
@@ -141,7 +142,7 @@
           <button class="chip" data-cat="Automático">Automáticos</button>
           <button class="chip" data-cat="ofertas">-30% o más</button>
         </div>
-        <label class="campo-busqueda"><svg><use href="#i-buscar"/></svg><span class="sr">Buscar</span><input id="buscar" type="search" placeholder="Buscar: azul, cronógrafo, oro…"></label>
+        <label class="campo-busqueda"><svg><use href="#i-buscar"/></svg><span class="sr">Buscar</span><input id="buscar" type="search" placeholder="Modelo o referencia: Bolt, 44716, dorado…"></label>
         <select class="sel" id="orden" aria-label="Ordenar">
           <option value="destacados">Destacados</option>
           <option value="precio-asc">Precio: menor a mayor</option>
@@ -282,6 +283,18 @@
 <div class="flotantes">
   <button class="flotante ia" id="abrir-chat" aria-label="Abrir Concierge IA"><svg><use href="#i-chispa"/></svg></button>
   <a class="flotante wsp" id="flotante-wsp" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"><svg><use href="#i-wsp"/></svg></a>
+</div>
+
+<!-- Buscador -->
+<div class="buscador" id="buscador" role="dialog" aria-modal="true" aria-label="Buscar reloj" aria-hidden="true">
+  <div class="buscador-caja">
+    <div class="buscador-barra">
+      <svg><use href="#i-buscar"/></svg>
+      <input id="buscador-input" type="search" placeholder="Busca por modelo o referencia: Pro Diver, Bolt, 44716…" autocomplete="off" aria-label="Buscar por modelo o referencia">
+      <button id="buscador-cerrar" aria-label="Cerrar buscador">×</button>
+    </div>
+    <div class="buscador-resultados" id="buscador-resultados" role="listbox"></div>
+  </div>
 </div>
 
 <div class="velo" id="velo"></div>

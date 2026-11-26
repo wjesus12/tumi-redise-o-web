@@ -2,6 +2,7 @@
 import { OUTFITS, TONOS_PIEL } from './catalogo.js';
 import { relojSVG } from './reloj-svg.js';
 import { CONFIG, soles } from './config.js';
+import { escena } from './escenas.js';
 import { estado, $, $$, esc, producto, preciosHTML, precio, agregar, toast } from './tienda.js';
 
 const pr = { tono: 'medio', outfit: 'deportivo', reloj: null, vista: 'look' };
@@ -98,6 +99,7 @@ function pintar() {
     foto.alt = `Look ${o.nombre}`;
   }
   $('.vista-look').style.background = `linear-gradient(135deg, ${o.fondo[0]}, ${o.fondo[1]})`;
+  if ($('#look-escena').dataset.o !== o.id) { $('#look-escena').innerHTML = escena(o.id); $('#look-escena').dataset.o = o.id; }
   $('#look-eyebrow').textContent = `Outfit ${o.nombre}`;
   $('#look-titulo').textContent = o.frase.replace(/\.$/, '');
   $('#look-frase').textContent = o.tip;

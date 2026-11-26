@@ -112,10 +112,10 @@
         <p>Estatus en la reunión, adrenalina el fin de semana, carácter en la noche. Elige el que acompaña tu ritmo.</p>
       </div>
       <div class="vida-grid">
-        <a href="#catalogo" data-filtro-outfit="formal" class="vida-card aparecer"><img src="img/vida-estatus.jpg" alt="Hombre de traje con reloj dorado en una oficina de lujo" loading="lazy"><span class="num">01</span><div class="txt"><b>Estatus</b><span>Para el que ya llegó.</span></div></a>
-        <a href="#catalogo" data-filtro-outfit="aventura" class="vida-card aparecer"><img src="img/vida-aventura.jpg" alt="Hombre en la montaña con reloj deportivo" loading="lazy"><span class="num">02</span><div class="txt"><b>Aventura</b><span>Sin señal, sin límites.</span></div></a>
-        <a href="#catalogo" data-filtro-outfit="casual" class="vida-card aparecer"><img src="img/vida-diversion.jpg" alt="Amigos celebrando de noche en una terraza" loading="lazy"><span class="num">03</span><div class="txt"><b>Diversión</b><span>La noche es tuya.</span></div></a>
-        <a href="#catalogo" data-filtro-outfit="elegante" class="vida-card aparecer"><img src="img/vida-madurez.jpg" alt="Hombre maduro elegante ajustando su reloj" loading="lazy"><span class="num">04</span><div class="txt"><b>Madurez</b><span>Nada que demostrar.</span></div></a>
+        <a href="#catalogo" data-filtro-outfit="formal" data-escena="ciudad" data-reloj="reserve-gold-chrono" class="vida-card aparecer"><img src="img/vida-estatus.jpg" alt="Hombre de traje con reloj dorado en una oficina de lujo" loading="lazy"><span class="num">01</span><div class="txt"><b>Estatus</b><span>Para el que ya llegó.</span></div></a>
+        <a href="#catalogo" data-filtro-outfit="aventura" data-escena="montana" data-reloj="pro-diver-jungle" class="vida-card aparecer"><img src="img/vida-aventura.jpg" alt="Hombre en la montaña con reloj deportivo" loading="lazy"><span class="num">02</span><div class="txt"><b>Aventura</b><span>Sin señal, sin límites.</span></div></a>
+        <a href="#catalogo" data-filtro-outfit="casual" data-escena="neon" data-reloj="racing-red-line" class="vida-card aparecer"><img src="img/vida-diversion.jpg" alt="Amigos celebrando de noche en una terraza" loading="lazy"><span class="num">03</span><div class="txt"><b>Diversión</b><span>La noche es tuya.</span></div></a>
+        <a href="#catalogo" data-filtro-outfit="elegante" data-escena="salon" data-reloj="vintage-gold-black" class="vida-card aparecer"><img src="img/vida-madurez.jpg" alt="Hombre maduro elegante ajustando su reloj" loading="lazy"><span class="num">04</span><div class="txt"><b>Madurez</b><span>Nada que demostrar.</span></div></a>
       </div>
     </div>
     <div class="cinta" aria-hidden="true"><div class="cinta-pista" id="cinta"></div></div>
@@ -178,6 +178,7 @@
           </div>
           <div class="escena" id="escena">
             <div class="vista vista-look activa" data-vista="look">
+              <div id="look-escena" style="position:absolute;inset:0"></div>
               <img class="look-foto" id="look-foto" alt="">
               <div class="look-velo"></div>
               <div class="look-info"><span class="eyebrow" id="look-eyebrow">Outfit</span><h3 class="titulo" id="look-titulo"></h3><p id="look-frase"></p></div>

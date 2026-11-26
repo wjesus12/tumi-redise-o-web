@@ -9,6 +9,7 @@ import {
 } from './tienda.js';
 import { iniciarProbador, probarReloj } from './probador.js';
 import { iniciarConcierge, abrirChat } from './concierge.js';
+import { escena } from './escenas.js';
 
 const filtro = { linea: null, cat: 'todos', texto: '', orden: 'destacados', outfit: null, soloFavs: false };
 
@@ -27,6 +28,7 @@ async function iniciar() {
   iniciarCuenta();
   iniciarHero();
   iniciarCinta();
+  iniciarVida();
   pintarLineas();
   iniciarFiltros();
   pintarGrid();
@@ -104,6 +106,16 @@ function iniciarHero() {
     $('#hero-reloj').style.transform = `rotateY(${x * 22}deg) rotateX(${-y * 16}deg)`;
   });
   escena.addEventListener('pointerleave', () => { $('#hero-reloj').style.transform = ''; });
+}
+
+function iniciarVida() {
+  $$('.vida-card[data-escena]').forEach(card => {
+    const img = card.querySelector('img');
+    img.addEventListener('error', () => { img.hidden = true; });
+    card.insertAdjacentHTML('afterbegin', `<div class="vida-fallback">${escena(card.dataset.escena, 800, 1160)}</div>`);
+    const p = producto(card.dataset.reloj);
+    if (p) card.insertAdjacentHTML('beforeend', `<div class="vida-reloj">${media(p)}</div>`);
+  });
 }
 
 function iniciarCinta() {

@@ -559,3 +559,17 @@ footer a:hover { color: var(--oro-claro); }
 .card-media img { width: 94%; height: 94%; }
 .detalle-media:has(img) .hora-real { color: #6b6f76; }
 .nota-envio svg, .carrito-vacio svg { height: auto; aspect-ratio: 1; }
+
+/* ── Portada con foto real ── */
+.hero-reloj { width: 440px; height: 560px; display: grid; place-items: center; }
+.hero-reloj img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 30px 40px rgba(0,0,0,.75)) drop-shadow(0 0 60px rgba(212,175,55,.12)); }
+.hero-escena::after { content: ''; position: absolute; left: 50%; bottom: 9%; width: 300px; height: 40px; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(closest-side, rgba(0,0,0,.6), transparent); z-index: -1; }
+@media (max-width: 900px) { .hero-reloj { width: 320px; height: 400px; } }
+/* ── Estilo de vida con fotos reales ── */
+.vida-card img { object-position: var(--pos, center); }
+.vida-modelo { display: inline-block; margin-top: 8px; font-style: normal; font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 999px; background: rgba(212,175,55,.92); color: #120d02; }
+/* ── Miniaturas de líneas con foto ── */
+.linea-card .mini:has(img) { border-radius: 12px; background: radial-gradient(80% 80% at 50% 45%, #fff, #e6e2d8); }
+.linea-card .mini img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+.vida-card[data-filtro-outfit="aventura"] img { object-position: 85% 50%; }
+.vida-card[data-filtro-outfit="casual"] img { object-position: 78% 50%; }

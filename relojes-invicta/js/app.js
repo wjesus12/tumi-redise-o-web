@@ -10,6 +10,7 @@ import {
 import { iniciarProbador, probarReloj } from './probador.js';
 import { iniciarConcierge, abrirChat } from './concierge.js';
 import { escena } from './escenas.js';
+import { FOTOS_HERO } from './hero.js';
 
 const filtro = { linea: null, cat: 'todos', texto: '', orden: 'destacados', outfit: null, soloFavs: false };
 
@@ -77,25 +78,28 @@ function iniciarCuenta() {
 
 // ═════════ Hero ═════════
 function iniciarHero() {
-  const destacados = estado.productos.filter(p => p.etiquetas?.includes('mas-vendido')).slice(0, 4);
-  if (!destacados.length) destacados.push(...estado.productos.slice(0, 3));
+  // Fotos reales de modelos que vendemos, en orden aleatorio
+  const fotos = FOTOS_HERO.filter(f => producto(f.id)).sort(() => Math.random() - .5);
   let i = 0, timer;
   const sel = $('#hero-selector');
-  sel.innerHTML = destacados.map((p, k) => `<button aria-label="Ver ${esc(p.nombre)}" data-k="${k}"></button>`).join('');
+  sel.innerHTML = fotos.map((f, k) => `<button aria-label="Ver ${esc(producto(f.id).nombre)}" data-k="${k}"></button>`).join('');
+  // precarga
+  fotos.forEach(f => { const im = new Image(); im.src = f.src; });
   const mostrar = (k) => {
     i = k;
-    const p = destacados[k];
+    const f = fotos[k], p = producto(f.id);
     const caja = $('#hero-reloj');
-    caja.animate([{ opacity: 0, transform: 'translateY(16px) scale(.96)' }, { opacity: 1, transform: 'none' }], { duration: 600, easing: 'cubic-bezier(.2,.8,.2,1)' });
-    caja.innerHTML = media(p, { forzarSVG: true });
-    $('#hero-precio').innerHTML = `<small>${esc(p.linea)} · Más vendido</small><div class="nombre">${esc(p.nombre)}</div><div class="precios">${preciosHTML(p).replace(/<span class="ahorro">.*<\/span>/, '')}</div>
+    caja.innerHTML = `<img src="${f.src}" alt="${esc(p.nombre)}, reloj Invicta original">`;
+    caja.animate([{ opacity: 0, transform: 'translateY(18px) scale(.95)' }, { opacity: 1, transform: 'none' }], { duration: 700, easing: 'cubic-bezier(.2,.8,.2,1)' });
+    const mas = p.etiquetas?.includes('mas-vendido') ? ' · Más vendido' : '';
+    $('#hero-precio').innerHTML = `<small>${esc(p.linea)}${mas}</small><div class="nombre">${esc(p.nombre)}</div><div class="precios">${preciosHTML(p).replace(/<span class="ahorro">.*<\/span>/, '')}</div>
       <button class="btn btn-oro" style="padding:10px 16px;font-size:11px;margin-top:10px;width:100%" data-ver="${p.id}">Ver detalle</button>`;
-    $('#hero-desc').textContent = bfActivo() ? `-${p.bf}%` : 'NEW';
+    $('#hero-desc').textContent = bfActivo() && p.bf ? `-${p.bf}%` : 'NEW';
     $$('button', sel).forEach((b, n) => b.classList.toggle('activo', n === k));
   };
   sel.addEventListener('click', e => { const b = e.target.closest('button'); if (b) { mostrar(+b.dataset.k); reiniciar(); } });
   $('#hero-precio').addEventListener('click', e => { const b = e.target.closest('[data-ver]'); if (b) verDetalle(b.dataset.ver); });
-  const reiniciar = () => { clearInterval(timer); timer = setInterval(() => mostrar((i + 1) % destacados.length), 6000); };
+  const reiniciar = () => { clearInterval(timer); timer = setInterval(() => mostrar((i + 1) % fotos.length), 5000); };
   mostrar(0); reiniciar();
 
   // Inclinación 3D con el mouse
@@ -111,10 +115,10 @@ function iniciarHero() {
 function iniciarVida() {
   $$('.vida-card[data-escena]').forEach(card => {
     const img = card.querySelector('img');
-    img.addEventListener('error', () => { img.hidden = true; });
-    card.insertAdjacentHTML('afterbegin', `<div class="vida-fallback">${escena(card.dataset.escena, 800, 1160)}</div>`);
     const p = producto(card.dataset.reloj);
-    if (p) card.insertAdjacentHTML('beforeend', `<div class="vida-reloj">${media(p, { forzarSVG: true })}</div>`);
+    if (p) card.querySelector('.txt').insertAdjacentHTML('beforeend', `<em class="vida-modelo">${esc(p.nombre)} · ${soles(precio(p))}</em>`);
+    // si la foto no carga, queda una escena ilustrada de respaldo
+    img.addEventListener('error', () => { img.hidden = true; card.insertAdjacentHTML('afterbegin', `<div class="vida-fallback">${escena(card.dataset.escena, 800, 1160)}</div>`); });
   });
 }
 
@@ -131,7 +135,7 @@ function pintarLineas() {
     if (!ps.length) return '';
     const desde = Math.min(...ps.map(precio));
     return `<button class="linea-card ${filtro.linea === l ? 'activa' : ''}" data-linea="${esc(l)}" role="tab" aria-selected="${filtro.linea === l}">
-      <div class="mini">${media(ps[0], { conCorrea: false, forzarSVG: true })}</div>
+      <div class="mini">${media(ps[0])}</div>
       <b>${esc(l)}</b><span>${ps.length} modelos · desde ${soles(desde)}</span></button>`;
   }).join('');
   cont.onclick = (e) => {

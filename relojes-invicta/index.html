@@ -5,13 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AURUM TEMPO · Relojes Invicta originales en Perú | Black Friday</title>
   <meta name="description" content="Relojes Invicta originales para hombre: Pro Diver, Bolt, Speedway, Racing y Reserve. Black Friday hasta 40% de descuento. Separa con S/ 20 y recoge en tu agencia.">
-  <meta name="theme-color" content="#07080a">
+  <meta name="theme-color" content="#ffffff">
+  <script>try{if(localStorage.getItem("at_tema")==="dark")document.documentElement.dataset.theme="dark"}catch(e){}</script>
   <meta property="og:title" content="AURUM TEMPO · Black Friday hasta 40%">
   <meta property="og:description" content="Relojes Invicta originales. Pruébatelos en nuestro probador virtual y sepáralos con S/ 20.">
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
@@ -31,6 +32,8 @@
   <symbol id="i-enviar" viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5l18-8.5L3 3.5 3 10l12 2-12 2z"/></symbol>
   <symbol id="i-camara" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 8h4l2-3h6l2 3h4v11H3z"/><circle cx="12" cy="13" r="3.5"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-sol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/></symbol>
+  <symbol id="i-luna" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
   <symbol id="i-reloj" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="6"/><path d="M12 9v3l2 1.5M9 6.5L9.5 2h5l.5 4.5M9 17.5l.5 4.5h5l.5-4.5"/></symbol>
 </svg>
 
@@ -46,7 +49,7 @@
 <header class="header">
   <div class="contenedor">
     <a href="#inicio" class="logo" aria-label="AURUM TEMPO, inicio">
-      <svg class="logo-marca" viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f1d77f"/><stop offset=".5" stop-color="#d4af37"/><stop offset="1" stop-color="#9c7a1c"/></linearGradient></defs><circle cx="20" cy="20" r="18" fill="none" stroke="url(#lg)" stroke-width="2"/><path d="M11 29 20 9l9 20M14.5 22h11" fill="none" stroke="url(#lg)" stroke-width="2.4" stroke-linejoin="round"/><circle cx="20" cy="20" r="1.6" fill="#d0142c"/></svg>
+      <svg class="logo-marca" viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#cfb47c"/><stop offset=".5" stop-color="#a8843f"/><stop offset="1" stop-color="#7c5f27"/></linearGradient></defs><circle cx="20" cy="20" r="18" fill="none" stroke="url(#lg)" stroke-width="1.2"/><path d="M11 29 20 9l9 20M14.5 22h11" fill="none" stroke="url(#lg)" stroke-width="1.6" stroke-linejoin="round"/><circle cx="20" cy="20" r="1.4" fill="#c4122f"/></svg>
       <span class="logo-texto">AURUM TEMPO<small>RELOJES INVICTA · PERÚ</small></span>
     </a>
     <nav class="nav" id="nav">
@@ -57,6 +60,7 @@
       <a href="#concierge">Concierge</a>
     </nav>
     <div class="acciones-header">
+      <button class="icono-btn" id="btn-tema" aria-label="Cambiar a modo oscuro" title="Modo claro / oscuro"><svg class="tema-luna"><use href="#i-luna"/></svg><svg class="tema-sol"><use href="#i-sol"/></svg></button>
       <button class="icono-btn" id="btn-favs" aria-label="Favoritos"><svg><use href="#i-corazon"/></svg><span class="burbuja" id="burbuja-favs">0</span></button>
       <button class="icono-btn" id="btn-carrito" aria-label="Abrir carrito"><svg><use href="#i-bolsa"/></svg><span class="burbuja" id="burbuja-carrito">0</span></button>
       <button class="icono-btn menu-movil" id="btn-menu" aria-label="Menú"><svg><use href="#i-menu"/></svg></button>
@@ -73,7 +77,7 @@
         <h1 class="titulo">El tiempo<br>es de los<span class="linea-oro">que se atreven</span></h1>
         <p class="hero-sub">Relojes Invicta originales para hombres que marcan su propio ritmo. Pruébatelos en nuestro probador virtual, sepáralos con <strong>S/ 20</strong> y recógelos en tu agencia en 24 a 72 horas.</p>
         <div class="hero-ctas">
-          <a href="#catalogo" class="btn btn-rojo">Ver ofertas Black Friday</a>
+          <a href="#catalogo" class="btn btn-negro">Ver ofertas Black Friday</a>
           <a href="#probador" class="btn btn-borde"><svg><use href="#i-espejo"/></svg>Probador virtual</a>
         </div>
         <div class="cuenta-hero" id="cuenta-hero" aria-live="off">
@@ -84,10 +88,10 @@
           <div class="cuenta-caja"><b data-u="s">00</b><small>Seg</small></div>
         </div>
       </div>
-      <div class="hero-escena" id="hero-escena">
+      <div class="hero-escena" id="hero-escena" data-wow>
         <div class="hero-aro"></div>
         <div class="hero-chip" style="--r:-8deg"><b id="hero-desc">-30%</b><small>BLACK FRIDAY</small></div>
-        <div class="hero-reloj" id="hero-reloj"></div>
+        <div class="hero-reloj wow-obj" id="hero-reloj"></div>
         <div class="hero-precio" id="hero-precio"></div>
         <div class="hero-selector" id="hero-selector"></div>
       </div>

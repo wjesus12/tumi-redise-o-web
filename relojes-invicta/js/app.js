@@ -11,6 +11,7 @@ import { iniciarProbador, probarReloj, puedeProbar } from './probador.js';
 import { iniciarConcierge, abrirChat } from './concierge.js';
 import { escena } from './escenas.js';
 import { FOTOS_HERO } from './hero.js';
+import { iniciarWow } from './wow.js';
 
 const filtro = { linea: null, cat: 'todos', texto: '', orden: 'destacados', outfit: null, soloFavs: false };
 
@@ -39,6 +40,8 @@ async function iniciar() {
   iniciarConcierge();
   iniciarAparecer();
   iniciarTicTac();
+  iniciarWow();
+  iniciarTema();
   actualizarBurbujas();
   alCambiar(() => { actualizarBurbujas(); pintarCarrito(); });
 
@@ -101,15 +104,6 @@ function iniciarHero() {
   $('#hero-precio').addEventListener('click', e => { const b = e.target.closest('[data-ver]'); if (b) verDetalle(b.dataset.ver); });
   const reiniciar = () => { clearInterval(timer); timer = setInterval(() => mostrar((i + 1) % fotos.length), 5000); };
   mostrar(0); reiniciar();
-
-  // Inclinación 3D con el mouse
-  const escena = $('#hero-escena');
-  escena.addEventListener('pointermove', e => {
-    const r = escena.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-    $('#hero-reloj').style.transform = `rotateY(${x * 22}deg) rotateX(${-y * 16}deg)`;
-  });
-  escena.addEventListener('pointerleave', () => { $('#hero-reloj').style.transform = ''; });
 }
 
 function iniciarVida() {
@@ -198,7 +192,7 @@ function tarjeta(p) {
   return `<article class="card" data-id="${p.id}">
     <div class="card-badges">${badges.join('')}</div>
     <button class="card-fav ${fav ? 'activo' : ''}" data-fav aria-label="${fav ? 'Quitar de' : 'Agregar a'} favoritos" aria-pressed="${fav}"><svg><use href="#i-corazon"/></svg></button>
-    <div class="card-media" data-ver>${media(p)}</div>
+    <div class="card-media" data-ver data-wow>${media(p)}</div>
     <div class="card-cuerpo">
       <span class="card-linea">${esc(p.linea)}</span>
       <h3 class="card-nombre">${esc(p.nombre)}</h3>
@@ -248,7 +242,7 @@ export function verDetalle(id) {
   const specs = Object.entries(p.specs || {}).map(([k, v]) => `<div><small>${esc(k)}</small><b>${esc(v)}</b></div>`).join('');
   const consulta = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(`Hola, me interesa el ${p.nombre} (${p.linea}) que vi a ${soles(precio(p))}. ¿Está disponible?`)}`;
   $('#detalle-contenido').innerHTML = `<div class="detalle">
-    <div class="detalle-media">${media(p)}<span class="hora-real">${p.imagen ? 'Foto oficial del modelo' : 'Marcando la hora real de Lima'}</span></div>
+    <div class="detalle-media" data-wow>${media(p)}<span class="hora-real">${p.imagen ? 'Foto oficial del modelo' : 'Marcando la hora real de Lima'}</span></div>
     <div class="detalle-info">
       <span class="card-linea">${esc(p.linea)} · ${p.categoria === 'formal' ? 'Formal' : 'Deportivo'}</span>
       <h2 class="card-nombre">${esc(p.nombre)}</h2>
@@ -440,6 +434,21 @@ function pintarFAQ() {
 function iniciarAparecer() {
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visto'); io.unobserve(e.target); } }), { threshold: .12 });
   $$('.aparecer').forEach(el => io.observe(el));
+}
+
+function iniciarTema() {
+  const b = $('#btn-tema');
+  const aplicar = (t) => {
+    if (t === 'dark') document.documentElement.dataset.theme = 'dark'; else delete document.documentElement.dataset.theme;
+    b.setAttribute('aria-label', t === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+    document.querySelector('meta[name=theme-color]').content = t === 'dark' ? '#0a0a0b' : '#ffffff';
+  };
+  aplicar(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
+  b.addEventListener('click', () => {
+    const t = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    aplicar(t); local.guardar('at_tema', t);
+    try { localStorage.setItem('at_tema', t); } catch { /* sin almacenamiento */ }
+  });
 }
 
 window.__abrirCheckout = abrirCheckout;

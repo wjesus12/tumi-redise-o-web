@@ -615,3 +615,7 @@ footer a:hover { color: var(--oro); }
 .look-colores { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-top: 12px; }
 .capa-look { position: absolute; inset: 0; pointer-events: none; }
 .capa-look svg { width: 100%; height: 100%; display: block; }
+.buscador-seccion { padding: 14px 12px 6px; font-size: 10.5px; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; color: var(--texto3); }
+.buscador-global .buscador-txt em { display: block; font-style: normal; font-size: 11.5px; color: var(--verde); margin-top: 2px; }
+.buscador-global .buscador-flecha { color: var(--wsp); }
+a.buscador-item { color: inherit; }

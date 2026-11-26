@@ -1,5 +1,22 @@
 // Buscador inteligente: reconoce modelo, línea o referencia aunque esté incompleto o mal escrito.
 import { estado, $, esc } from './tienda.js';
+import { CONFIG } from './config.js';
+
+// Índice de todos los modelos Invicta conocidos (se carga al abrir el buscador)
+let globales = null, cargando = null;
+function cargarGlobales() {
+  if (globales || cargando) return cargando;
+  cargando = fetch(new URL('./modelos-invicta.json', import.meta.url))
+    .then(r => r.json())
+    .then(lista => {
+      const enStock = new Set(estado.productos.map(p => String(p.ref).toUpperCase()));
+      globales = lista.filter(m => !enStock.has(m.r.toUpperCase()))
+        .map(m => ({ id: `g-${m.r}`, nombre: m.n, linea: m.l, ref: m.r, imagen: m.i, disponible: m.d, global: true }));
+    })
+    .catch(() => { globales = []; });
+  return cargando;
+}
+const consultaWsp = (m) => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(`Hola tio Aurum, estoy interesado en adquirir el Invicta ${m.nombre}`)}`;
 
 const norm = (s) => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').trim();
 const VACIAS = new Set(['reloj', 'relojes', 'relog', 'reloges', 'relojito', 'invicta', 'de', 'del', 'el', 'la', 'los', 'las', 'un', 'una', 'modelo', 'ref', 'referencia', 'para', 'hombre', 'con', 'y', 'quiero', 'busco']);
@@ -54,7 +71,7 @@ export function buscar(consulta, productos = estado.productos) {
 export function iniciarBuscador({ verDetalle, filtrarCatalogo }) {
   const panel = $('#buscador'), input = $('#buscador-input'), lista = $('#buscador-resultados');
   let sel = -1, resultados = [];
-  const abrirB = () => { panel.classList.add('visible'); panel.setAttribute('aria-hidden', 'false'); setTimeout(() => input.focus(), 60); pintar(); };
+  const abrirB = () => { cargarGlobales()?.then(() => panel.classList.contains('visible') && pintar()); panel.classList.add('visible'); panel.setAttribute('aria-hidden', 'false'); setTimeout(() => input.focus(), 60); pintar(); };
   const cerrarB = () => { panel.classList.remove('visible'); panel.setAttribute('aria-hidden', 'true'); };
   $('#btn-buscar').addEventListener('click', abrirB);
   $('#buscador-cerrar').addEventListener('click', cerrarB);
@@ -73,12 +90,19 @@ export function iniciarBuscador({ verDetalle, filtrarCatalogo }) {
       lista.innerHTML = `<p class="buscador-ayuda">Escribe un modelo, línea o referencia. Prueba con:</p><div class="buscador-sug">${sug.map(s => `<button type="button">${s}</button>`).join('')}</div>`;
       return;
     }
-    if (!resultados.length) { lista.innerHTML = `<p class="buscador-ayuda">No encontramos "${esc(q)}". Prueba con otra palabra o con el número de referencia.</p>`; return; }
-    lista.innerHTML = resultados.slice(0, 8).map((p, i) => `<button type="button" class="buscador-item ${i === sel ? 'activo' : ''}" data-id="${p.id}" role="option">
+    const otros = globales ? buscar(q, globales).slice(0, 6) : [];
+    if (!resultados.length && !otros.length) { lista.innerHTML = `<p class="buscador-ayuda">${globales ? `No encontramos "${esc(q)}". Prueba con otra palabra o con el número de referencia.` : 'Buscando…'}</p>`; return; }
+    const bloqueOtros = otros.length ? `<p class="buscador-seccion">Otros modelos Invicta · bajo pedido</p>` + otros.map(m => `<a class="buscador-item buscador-global" href="${consultaWsp(m)}" target="_blank" rel="noopener">
+        <span class="buscador-foto">${m.imagen ? `<img src="${esc(m.imagen)}" alt="" loading="lazy">` : ''}</span>
+        <span class="buscador-txt"><small>${esc(m.linea)} · Ref. ${esc(m.ref)}</small><b>${resaltar(m.nombre, q)}</b><em>Consultar disponibilidad por WhatsApp</em></span>
+        <span class="buscador-flecha" aria-hidden="true"><svg width="18" height="18"><use href="#i-wsp"/></svg></span></a>`).join('') : '';
+    if (!resultados.length) { lista.innerHTML = `<p class="buscador-ayuda">"${esc(q)}" no está en nuestra colección actual, pero podemos conseguirlo:</p>` + bloqueOtros; return; }
+    lista.innerHTML = `<p class="buscador-seccion">En nuestra colección</p>` + resultados.slice(0, 8).map((p, i) => `<button type="button" class="buscador-item ${i === sel ? 'activo' : ''}" data-id="${p.id}" role="option">
         <span class="buscador-foto">${p.imagen ? `<img src="${esc(p.imagen)}" alt="">` : ''}</span>
         <span class="buscador-txt"><small>${esc(p.linea)} · Ref. ${esc(p.ref)}</small><b>${resaltar(p.nombre, q)}</b></span>
         <span class="buscador-flecha" aria-hidden="true">→</span></button>`).join('')
-      + (resultados.length > 8 ? `<button type="button" class="buscador-todos">Ver los ${resultados.length} resultados en el catálogo →</button>` : `<button type="button" class="buscador-todos">Ver en el catálogo →</button>`);
+      + (resultados.length > 8 ? `<button type="button" class="buscador-todos">Ver los ${resultados.length} resultados en el catálogo →</button>` : `<button type="button" class="buscador-todos">Ver en el catálogo →</button>`)
+      + bloqueOtros;
   }
   function resaltar(texto, q) {
     let t = esc(texto);

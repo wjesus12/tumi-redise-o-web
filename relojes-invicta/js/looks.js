@@ -86,7 +86,7 @@ export const LOOKS = [
  },
  {
   "id": "polo",
-  "nombre": "Casual · polo",
+  "nombre": "Casual · manga larga",
   "estilo": "casual",
   "puno": 575,
   "colores": [

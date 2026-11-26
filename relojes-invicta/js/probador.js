@@ -32,11 +32,7 @@ export function iniciarProbador() {
     pr.look = b.dataset.look; marcar('#looks', b);
     pr.outfit = LOOKS.find(l => l.id === pr.look).estilo;
     pintarColores();
-    const actual = producto(pr.reloj);
-    if (!actual?.outfits?.includes(pr.outfit)) {
-      const sug = disponibles().find(p => p.outfits?.includes(pr.outfit));
-      if (sug) { pr.reloj = sug.id; toast(`★ Para este look te sugerimos el ${sug.nombre}`); }
-    }
+    // el reloj elegido se mantiene; las ★ solo sugieren qué modelos van mejor con el look
     pintarMinis(); pintar();
   });
   $('#seg-muneca').addEventListener('click', e => {

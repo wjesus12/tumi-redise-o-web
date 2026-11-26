@@ -7,7 +7,7 @@ import {
   estado, alCambiar, $, $$, esc, producto, media, preciosHTML, precio, agregar, cambiarCantidad, quitar, vaciar,
   lineasCarrito, cantidadCarrito, alternarFavorito, toast, abrir, cerrar, bfActivo,
 } from './tienda.js';
-import { iniciarProbador, probarReloj } from './probador.js';
+import { iniciarProbador, probarReloj, puedeProbar } from './probador.js';
 import { iniciarConcierge, abrirChat } from './concierge.js';
 import { escena } from './escenas.js';
 import { FOTOS_HERO } from './hero.js';
@@ -206,7 +206,7 @@ function tarjeta(p) {
       <div class="precios">${preciosHTML(p)}</div>
       <div class="card-acciones">
         <button class="btn btn-oro" data-agregar><svg><use href="#i-bolsa"/></svg>Agregar</button>
-        <button class="btn-probar" data-probar aria-label="Probar ${esc(p.nombre)}" title="Probar en el probador"><svg><use href="#i-espejo"/></svg></button>
+        ${puedeProbar(p.id) ? `<button class="btn-probar" data-probar aria-label="Probar ${esc(p.nombre)}" title="Probar en el probador"><svg><use href="#i-espejo"/></svg></button>` : ''}
       </div>
     </div>
   </article>`;
@@ -258,14 +258,14 @@ export function verDetalle(id) {
       <div class="specs">${specs}</div>
       <div class="detalle-acciones">
         <button class="btn btn-oro" data-agregar><svg><use href="#i-bolsa"/></svg>Agregar al carrito</button>
-        <button class="btn btn-borde" data-probar><svg><use href="#i-espejo"/></svg>Probármelo</button>
+        ${puedeProbar(p.id) ? '<button class="btn btn-borde" data-probar><svg><use href="#i-espejo"/></svg>Probármelo</button>' : ''}
         <a class="btn btn-wsp" href="${consulta}" target="_blank" rel="noopener"><svg><use href="#i-wsp"/></svg>Consultar por WhatsApp</a>
       </div>
       <div class="nota-envio"><svg><use href="#i-camion"/></svg><span>Sepáralo con <b>${soles(CONFIG.adelanto)}</b> y recógelo en tu agencia en ${CONFIG.plazoEntrega}. Pagas el saldo al recoger.</span></div>
     </div></div>`;
   const c = $('#detalle-contenido');
   c.querySelector('[data-agregar]').onclick = () => { agregar(id); cerrar(); setTimeout(() => abrir($('#carrito')), 250); };
-  c.querySelector('[data-probar]').onclick = () => { cerrar(); probarReloj(id); };
+  const bp = c.querySelector('[data-probar]'); if (bp) bp.onclick = () => { cerrar(); probarReloj(id); };
   abrir($('#modal-detalle'));
 }
 

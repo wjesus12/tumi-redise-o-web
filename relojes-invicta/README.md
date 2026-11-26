@@ -11,7 +11,7 @@ Tienda web para hombres de 18 a 50 años. Incluye catálogo de 30 modelos (80 % 
 | **Catálogo** | 30 relojes de invicta.com.pe con filtros (línea, deportivo/formal, automático, ofertas), búsqueda, orden y favoritos. |
 | **Black Friday** | De 15 % a 40 % automático por modelo, sin cupón. Termina el 30/11 a las 23:59 (hora de Lima). |
 | **Cupones** | `BIENVENIDA10` (10 %), `TIEMPO15` (15 % desde S/ 600) y `LUJO20` (20 % desde S/ 1,000). Se suman al Black Friday. |
-| **Probador** | 6 tonos de piel, 6 outfits, muñeca estándar o personalizada, vista del look, detalle en muñeca a escala y prueba con cámara o foto. Permite compartir la imagen por WhatsApp. |
+| **Probador** | Fotos reales de muñeca en 10 tonos de piel (de claro a oscuro, `img/munecas/`) con la foto frontal real del reloj encima, a escala según los mm de la caja y la medida de muñeca. Incluye prueba con cámara o foto propia y opción de compartir la imagen. Solo se pueden probar los modelos con foto frontal (`js/probador-datos.js`). |
 | **Compra** | Separas con S/ 20 y pagas el saldo al recoger en agencia (Shalom, Olva, Marvisur, Flores o Cruz del Sur). El pedido se registra con un código y abre WhatsApp con el mensaje listo. |
 | **Concierge IA** | Responde dudas y recomienda relojes. Sin clave de IA funciona con las preguntas frecuentes. |
 | **Panel `/admin.html`** | Resumen de ventas, pedidos con estados, CRM de clientes (etiquetas y notas), productos (precio, % Black Friday y foto) y cupones. Exporta a CSV. |

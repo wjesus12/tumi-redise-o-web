@@ -578,3 +578,18 @@ footer a:hover { color: var(--oro-claro); }
 @media (max-width: 560px) { .hero-precio { padding: 12px 14px; } .hero-precio .nombre { font-size: 17px; } .hero-precio .precio { font-size: 26px; } }
 .hero-reloj img { max-width: 420px; max-height: 520px; }
 @media (max-width: 900px) { .hero-reloj img { max-width: 270px; max-height: 340px; } }
+
+/* ── Probador real ── */
+.tonos { grid-template-columns: repeat(5, 1fr); }
+.outfit { padding: 10px 6px; }
+.escena { min-height: 0; aspect-ratio: 3 / 2; background: #fff; }
+.vista-real .foto-muneca { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.capa-reloj { position: absolute; inset: 0; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; pointer-events: none; }
+.capa-reloj img { position: absolute; height: auto; filter: drop-shadow(0 10px 12px rgba(0,0,0,.35)); transition: width .35s ease; }
+.vista-real .consejo { background: rgba(7, 8, 10, .82); }
+.reloj-mini { background: #fff; }
+.reloj-mini img { object-fit: contain; }
+.overlay-reloj img { width: 100%; height: auto; pointer-events: none; }
+.vista-camara { background: #0a0b0e; }
+.consejo.consejo-abajo { position: static; margin-top: 12px; background: var(--carbon); }
+.escena:has(.vista-camara.activa) { aspect-ratio: auto; min-height: 480px; }

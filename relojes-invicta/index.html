@@ -156,35 +156,30 @@
     <div class="contenedor">
       <div class="sec-cabecera aparecer">
         <div><span class="eyebrow">Probador virtual</span><h2 class="titulo">Míralo puesto<br><em>antes de decidir</em></h2></div>
-        <p>Elige tu tono de piel, tu outfit y la medida de tu muñeca. Mira el look completo, el detalle en tu muñeca o pruébatelo con tu cámara.</p>
+        <p>Elige tu tono de piel y el reloj: lo ves en una muñeca real, a escala según los milímetros de la caja. También puedes probártelo con tu cámara.</p>
       </div>
       <div class="probador-grid">
         <aside class="panel">
-          <div class="paso"><div class="paso-titulo"><i>1</i>Tono de piel</div><div class="tonos" id="tonos"></div></div>
-          <div class="paso"><div class="paso-titulo"><i>2</i>Outfit</div><div class="outfits" id="outfits"></div></div>
+          <div class="paso"><div class="paso-titulo"><i>1</i>Tu tono de piel</div><div class="tonos" id="tonos"></div><p class="ayuda" id="nombre-tono"></p></div>
+          <div class="paso"><div class="paso-titulo"><i>2</i>Tu estilo</div><div class="outfits" id="outfits"></div></div>
           <div class="paso">
             <div class="paso-titulo"><i>3</i>Tu muñeca</div>
             <div class="segmentado" id="seg-muneca"><button class="activo" data-m="estandar">Estándar</button><button data-m="personalizado">Personalizado</button></div>
             <div class="medida" id="medida"><input type="range" id="rango-muneca" min="14" max="22" step="0.5" value="17.5" aria-label="Medida de muñeca en centímetros"><output id="valor-muneca">17.5 cm</output></div>
             <p class="ayuda" id="ayuda-muneca">Estándar: 17.5 cm (promedio masculino). Elige "Personalizado" para usar tu medida.</p>
           </div>
-          <div class="paso"><div class="paso-titulo"><i>4</i>Reloj <small style="margin-left:auto;font-weight:600;letter-spacing:0;text-transform:none;color:var(--gris)">★ ideal para tu outfit</small></div><div class="relojes-mini" id="relojes-mini"></div></div>
+          <div class="paso"><div class="paso-titulo"><i>4</i>Reloj <small style="margin-left:auto;font-weight:600;letter-spacing:0;text-transform:none;color:var(--gris)">★ ideal para tu estilo</small></div><div class="relojes-mini" id="relojes-mini"></div></div>
         </aside>
         <div>
           <div class="escena-tabs" role="tablist">
-            <button class="activo" data-vista="look">Look completo</button>
-            <button data-vista="muneca">Detalle en muñeca</button>
+            <button class="activo" data-vista="muneca">En una muñeca real</button>
             <button data-vista="camara"><svg width="16" height="16" style="display:inline;vertical-align:-3px;margin-right:4px"><use href="#i-camara"/></svg>Con mi cámara</button>
           </div>
           <div class="escena" id="escena">
-            <div class="vista vista-look activa" data-vista="look">
-              <div id="look-escena" style="position:absolute;inset:0"></div>
-              <img class="look-foto" id="look-foto" alt="">
-              <div class="look-velo"></div>
-              <div class="look-info"><span class="eyebrow" id="look-eyebrow">Outfit</span><h3 class="titulo" id="look-titulo"></h3><p id="look-frase"></p></div>
-              <div class="look-medallon"><div class="zoom" id="look-reloj"></div></div>
+            <div class="vista vista-real activa" data-vista="muneca">
+              <img class="foto-muneca" id="foto-muneca" alt="Muñeca con el tono de piel elegido">
+              <div class="capa-reloj" id="capa-reloj"><img id="reloj-en-muneca" alt=""></div>
             </div>
-            <div class="vista vista-muneca" data-vista="muneca"><div id="muneca-svg" style="position:absolute;inset:0"></div><div class="consejo" id="consejo"></div></div>
             <div class="vista vista-camara" data-vista="camara">
               <video id="video" playsinline muted></video>
               <canvas class="foto" id="foto-subida" hidden></canvas>
@@ -200,7 +195,7 @@
                   </div>
                 </div>
               </div>
-              <div class="overlay-reloj" id="overlay-reloj" hidden></div>
+              <div class="overlay-reloj" id="overlay-reloj" hidden><img id="overlay-img" alt=""></div>
               <div class="camara-controles" id="camara-controles">
                 <label>Tamaño <input type="range" id="ctrl-tam" min="60" max="320" value="150"></label>
                 <label>Giro <input type="range" id="ctrl-giro" min="-90" max="90" value="0"></label>
@@ -208,6 +203,7 @@
               </div>
             </div>
           </div>
+          <div class="consejo consejo-abajo" id="consejo"></div>
           <div class="probador-resumen">
             <div><span class="card-linea" id="pr-linea"></span><div class="nombre" id="pr-nombre"></div><div class="precios" id="pr-precios"></div></div>
             <div class="probador-acciones" style="margin:0">

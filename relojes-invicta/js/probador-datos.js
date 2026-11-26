@@ -82,203 +82,203 @@ export const RELOJES_PROBADOR = [
  {
   "id": "pro-diver-44716",
   "foto": "img/probador/pro-diver-44716.webp",
-  "ajuste": 1.085,
+  "ajuste": 1.095,
   "cx": 0.459,
   "cy": 0.5
  },
  {
   "id": "pro-diver-44715",
   "foto": "img/probador/pro-diver-44715.webp",
-  "ajuste": 1.087,
+  "ajuste": 1.095,
   "cx": 0.459,
-  "cy": 0.499
+  "cy": 0.5
  },
  {
   "id": "pro-diver-44713",
   "foto": "img/probador/pro-diver-44713.webp",
-  "ajuste": 1.087,
+  "ajuste": 1.095,
   "cx": 0.459,
   "cy": 0.499
  },
  {
   "id": "pro-diver-26972",
   "foto": "img/probador/pro-diver-26972.webp",
-  "ajuste": 1.104,
+  "ajuste": 1.114,
   "cx": 0.452,
   "cy": 0.494
  },
  {
   "id": "pro-diver-30026",
   "foto": "img/probador/pro-diver-30026.webp",
-  "ajuste": 1.088,
+  "ajuste": 1.097,
   "cx": 0.458,
   "cy": 0.5
  },
  {
   "id": "pro-diver-51147",
   "foto": "img/probador/pro-diver-51147.webp",
-  "ajuste": 1.1,
+  "ajuste": 1.109,
   "cx": 0.453,
-  "cy": 0.5
+  "cy": 0.499
  },
  {
   "id": "pro-diver-51146",
   "foto": "img/probador/pro-diver-51146.webp",
-  "ajuste": 1.101,
+  "ajuste": 1.109,
   "cx": 0.453,
   "cy": 0.499
  },
  {
   "id": "pro-diver-33944",
   "foto": "img/probador/pro-diver-33944.webp",
-  "ajuste": 1.087,
+  "ajuste": 1.093,
   "cx": 0.458,
   "cy": 0.5
  },
  {
   "id": "pro-diver-8929",
-  "foto": "img/hero/pro-diver-8929-16.webp",
-  "ajuste": 1.112,
-  "cx": 0.46,
+  "foto": "img/probador/pro-diver-8929.webp",
+  "ajuste": 1.107,
+  "cx": 0.458,
   "cy": 0.499
  },
  {
   "id": "pro-diver-8930obxl",
   "foto": "img/probador/pro-diver-8930obxl.webp",
-  "ajuste": 1.095,
+  "ajuste": 1.103,
   "cx": 0.457,
-  "cy": 0.499
+  "cy": 0.5
  },
  {
   "id": "bolt-24215",
-  "foto": "img/hero/bolt-24215-18.webp",
-  "ajuste": 1.095,
-  "cx": 0.463,
+  "foto": "img/probador/bolt-24215.webp",
+  "ajuste": 1.09,
+  "cx": 0.464,
   "cy": 0.507
  },
  {
   "id": "bolt-25518",
-  "foto": "img/hero/bolt-25518-20.webp",
-  "ajuste": 1.073,
-  "cx": 0.474,
-  "cy": 0.5
+  "foto": "img/probador/bolt-25518.webp",
+  "ajuste": 1.07,
+  "cx": 0.471,
+  "cy": 0.499
  },
  {
   "id": "bolt-25517",
-  "foto": "img/hero/bolt-25517-23.webp",
-  "ajuste": 1.072,
-  "cx": 0.474,
-  "cy": 0.502
+  "foto": "img/probador/bolt-25517.webp",
+  "ajuste": 1.068,
+  "cx": 0.472,
+  "cy": 0.5
  },
  {
   "id": "bolt-25532",
-  "foto": "img/hero/bolt-25532-25.webp",
-  "ajuste": 1.07,
-  "cx": 0.473,
+  "foto": "img/probador/bolt-25532.webp",
+  "ajuste": 1.069,
+  "cx": 0.472,
   "cy": 0.514
  },
  {
   "id": "bolt-25528",
   "foto": "img/probador/bolt-25528.webp",
-  "ajuste": 1.079,
-  "cx": 0.473,
-  "cy": 0.518
+  "ajuste": 1.069,
+  "cx": 0.472,
+  "cy": 0.514
  },
  {
   "id": "speedway-46841",
   "foto": "img/probador/speedway-46841.webp",
-  "ajuste": 1.059,
+  "ajuste": 1.065,
   "cx": 0.471,
   "cy": 0.499
  },
  {
   "id": "speedway-46856",
   "foto": "img/probador/speedway-46856.webp",
-  "ajuste": 1.059,
+  "ajuste": 1.066,
   "cx": 0.473,
   "cy": 0.499
  },
  {
   "id": "speedway-48913",
   "foto": "img/probador/speedway-48913.webp",
-  "ajuste": 1.06,
+  "ajuste": 1.066,
   "cx": 0.472,
   "cy": 0.5
  },
  {
   "id": "speedway-20306",
-  "foto": "img/hero/speedway-20306-30.webp",
-  "ajuste": 1.123,
-  "cx": 0.463,
+  "foto": "img/probador/speedway-20306.webp",
+  "ajuste": 1.111,
+  "cx": 0.462,
   "cy": 0.495
  },
  {
   "id": "speedway-48079",
   "foto": "img/probador/speedway-48079.webp",
-  "ajuste": 1.092,
-  "cx": 0.46,
-  "cy": 0.498
- },
- {
-  "id": "racing-50755",
-  "foto": "img/probador/racing-50755.webp",
-  "ajuste": 1.069,
+  "ajuste": 1.077,
   "cx": 0.467,
   "cy": 0.499
  },
  {
-  "id": "racing-50756",
-  "foto": "img/probador/racing-50756.webp",
-  "ajuste": 1.067,
+  "id": "racing-50755",
+  "foto": "img/probador/racing-50755.webp",
+  "ajuste": 1.075,
   "cx": 0.467,
   "cy": 0.498
  },
  {
+  "id": "racing-50756",
+  "foto": "img/probador/racing-50756.webp",
+  "ajuste": 1.074,
+  "cx": 0.467,
+  "cy": 0.499
+ },
+ {
   "id": "racing-50754",
   "foto": "img/probador/racing-50754.webp",
-  "ajuste": 1.069,
-  "cx": 0.466,
+  "ajuste": 1.078,
+  "cx": 0.467,
   "cy": 0.499
  },
  {
   "id": "specialty-47405",
   "foto": "img/probador/specialty-47405.webp",
-  "ajuste": 1.069,
+  "ajuste": 1.075,
   "cx": 0.468,
   "cy": 0.499
  },
  {
   "id": "specialty-47398",
   "foto": "img/probador/specialty-47398.webp",
-  "ajuste": 1.067,
+  "ajuste": 1.074,
   "cx": 0.469,
   "cy": 0.499
  },
  {
   "id": "specialty-47406",
   "foto": "img/probador/specialty-47406.webp",
-  "ajuste": 1.069,
+  "ajuste": 1.075,
   "cx": 0.468,
   "cy": 0.499
  },
  {
   "id": "specialty-48292",
   "foto": "img/probador/specialty-48292.webp",
-  "ajuste": 1.079,
+  "ajuste": 1.085,
   "cx": 0.465,
   "cy": 0.499
  },
  {
   "id": "vintage-48011",
   "foto": "img/probador/vintage-48011.webp",
-  "ajuste": 1.136,
+  "ajuste": 1.142,
   "cx": 0.446,
   "cy": 0.493
  },
  {
   "id": "vintage-48010",
   "foto": "img/probador/vintage-48010.webp",
-  "ajuste": 1.136,
+  "ajuste": 1.142,
   "cx": 0.446,
   "cy": 0.493
  }

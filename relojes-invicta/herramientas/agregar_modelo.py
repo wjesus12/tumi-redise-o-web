@@ -149,22 +149,29 @@ def foto_frontal(ref):
 
 
 def quitar_fondo(im):
-    im = im.convert('RGBA')
-    a = np.array(im)
-    if a[..., 3].min() == 255:  # sin transparencia: el fondo blanco que toca los bordes se elimina
-        rgb = a[..., :3].astype(int)
-        claro = (rgb.min(axis=2) > 232) & ((rgb.max(axis=2) - rgb.min(axis=2)) < 18)
-        lab, _ = ndimage.label(claro)
-        bordes = set(np.unique(np.concatenate([lab[0], lab[-1], lab[:, 0], lab[:, -1]]))) - {0}
-        a[..., 3] = np.where(np.isin(lab, list(bordes)), 0, 255)
-        alfa = Image.fromarray(a[..., 3]).filter(ImageFilter.MinFilter(3)).filter(ImageFilter.GaussianBlur(1))
-        a[..., 3] = np.array(alfa)
-    m = a[..., 3] > 40
-    lab, n = ndimage.label(m)
-    if n > 1:  # quedarse solo con el reloj (descarta accesorios sueltos)
-        tam = ndimage.sum(m, lab, range(1, n + 1))
-        a[..., 3] = np.where(lab == (np.argmax(tam) + 1), a[..., 3], 0)
-    return Image.fromarray(a)
+    """Quita el fondo blanco conservando partes blancas o claras del reloj (correas, biseles)."""
+    rgb = np.asarray(im.convert('RGB')).astype(int); h, w, _ = rgb.shape
+    mx, mn = rgb.max(2), rgb.min(2)
+    blanco = (mn > 238) & ((mx - mn) < 14)
+    lab, _ = ndimage.label(blanco)
+    bordes = set(np.unique(np.concatenate([lab[0], lab[-1], lab[:, 0], lab[:, -1]]))) - {0}
+    obj = ndimage.binary_fill_holes(~np.isin(lab, list(bordes)))
+    lab2, n = ndimage.label(obj)
+    if n > 1:
+        obj = lab2 == (np.argmax(ndimage.sum(obj, lab2, range(1, n + 1))) + 1)
+    d = ndimage.distance_transform_edt(obj); cy, cx = np.unravel_index(np.argmax(d), d.shape); r = d[cy, cx]
+    full = obj.copy()
+    x0 = max(0, int(cx - r * 1.2))
+    for y in range(h):  # la correa es una banda continua arriba y abajo de la caja
+        if abs(y - cy) < r * .85:
+            continue
+        xs = np.where(obj[y, x0:int(cx + r * 1.2)])[0]
+        if len(xs) >= 2:
+            full[y, x0 + xs[0]:x0 + xs[-1] + 1] = True
+    full = ndimage.binary_fill_holes(ndimage.binary_closing(np.pad(full, 10, mode='edge'), iterations=2)[10:-10, 10:-10])
+    alfa = Image.fromarray((full * 255).astype('uint8')).filter(ImageFilter.MinFilter(3)).filter(ImageFilter.GaussianBlur(.9))
+    out = im.convert('RGBA'); out.putalpha(alfa)
+    return out
 
 
 def solo_frente(im):

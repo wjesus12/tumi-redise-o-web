@@ -105,15 +105,15 @@ function consejoLook(p) {
   switch (pr.look) {
     case 'camisa':
     case 'terno':
-      if (clasico) return `Con ${pr.look === 'terno' ? 'terno' : 'camisa'}, sus ${tam} mm son la medida clásica: elegante y discreto.`;
-      if (v.correa === 'silicona') return `Con ${pr.look === 'terno' ? 'terno' : 'camisa'}, un ${tam} mm con ${correa} es una apuesta deportiva y moderna: ideal para eventos casuales o after office.`;
-      return `Con ${pr.look === 'terno' ? 'terno' : 'camisa'}, sus ${tam} mm en ${metal} lo convierten en la pieza protagonista del look.`;
+      if (clasico) return `Con ${pr.look === 'terno' ? 'terno' : 'camisa'}, su tamaño clásico se ve elegante y discreto.`;
+      if (v.correa === 'silicona') return `Con ${pr.look === 'terno' ? 'terno' : 'camisa'}, su ${correa} es una apuesta deportiva y moderna: ideal para eventos casuales o after office.`;
+      return `Con ${pr.look === 'terno' ? 'terno' : 'camisa'}, su presencia en ${metal} lo convierte en la pieza protagonista del look.`;
     case 'polo':
-      return grande ? `Sobre manga larga, un ${tam} mm se luce sin competir con la prenda: look urbano y seguro.` : `Con manga larga, sus ${tam} mm aportan un toque limpio y versátil para el día a día.`;
+      return grande ? 'Sobre manga larga se luce sin competir con la prenda: look urbano y seguro.' : 'Con manga larga aporta un toque limpio y versátil para el día a día.';
     case 'chompa':
       return oro ? `El ${metal} contrasta muy bien con los tejidos de invierno: aporta calidez y estatus.` : `Con chompa, el ${metal} con ${correa} mantiene el look sobrio y cómodo.`;
     case 'tattoo':
-      return grande ? `Junto al tatuaje, sus ${tam} mm equilibran el diseño: el reloj se vuelve parte de tu estilo.` : `Con tatuaje, una caja de ${tam} mm deja respirar el diseño y lo complementa.`;
+      return grande ? 'Junto al tatuaje equilibra el diseño: el reloj se vuelve parte de tu estilo.' : 'Con tatuaje deja respirar el diseño y lo complementa.';
     default:
       return v.correa === 'silicona' ? `Su ${correa} lo hace ideal para el día a día y el deporte.` : `Su ${correa} en ${metal} combina tanto con ropa casual como formal.`;
   }
@@ -121,10 +121,10 @@ function consejoLook(p) {
 
 function ajuste(tam, cm) {
   const ideal = cm * 2.55, min = cm * 2.2;
-  if (tam <= ideal && tam >= min - 2) return { clase: 'ideal', texto: 'Ajuste ideal', det: `Un ${tam} mm queda proporcionado en una muñeca de ${cm} cm.` };
-  if (tam < min - 2) return { clase: 'ideal', texto: 'Discreto', det: `${tam} mm se verá sobrio y elegante en tu muñeca de ${cm} cm.` };
-  if (tam <= ideal + 5) return { clase: 'audaz', texto: 'Statement', det: `${tam} mm tendrá presencia fuerte en ${cm} cm: perfecto si buscas que se note.` };
-  return { clase: 'grande', texto: 'Grande', det: `${tam} mm en una muñeca de ${cm} cm luce atrevido y sobresaliente: ideal si quieres un reloj que no pase desapercibido.` };
+  if (tam <= ideal && tam >= min - 2) return { clase: 'ideal', texto: 'Ajuste ideal', det: 'Queda proporcionado en tu muñeca.' };
+  if (tam < min - 2) return { clase: 'ideal', texto: 'Discreto', det: 'Se verá sobrio y elegante en tu muñeca.' };
+  if (tam <= ideal + 5) return { clase: 'audaz', texto: 'Statement', det: 'Tendrá presencia fuerte: perfecto si buscas que se note.' };
+  return { clase: 'grande', texto: 'Grande', det: 'Luce atrevido y sobresaliente: ideal si quieres un reloj que no pase desapercibido.' };
 }
 
 // Geometría del reloj sobre la foto (en px de la foto original)

@@ -4,7 +4,10 @@
   "type": "module",
   "description": "Catálogo de relojes con pedidos por WhatsApp, Supabase y Concierge IA",
   "scripts": {
-    "semilla": "node herramientas/generar-semilla.mjs"
+    "semilla": "node herramientas/generar-semilla.mjs",
+    "agregar": "python3 herramientas/agregar_modelo.py",
+    "quitar": "python3 herramientas/agregar_modelo.py --quitar",
+    "modelos-invicta": "python3 herramientas/actualizar_modelos_invicta.py"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.14.0"

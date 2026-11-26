@@ -33,7 +33,8 @@ function m(p) {
 
 export const PRODUCTOS = PRODUCTOS_OFICIALES.map(m);
 
-export const LINEAS = ['Pro Diver', 'Bolt', 'Speedway', 'Racing', 'Specialty', 'Vintage'];
+// Líneas en el orden en que aparecen en el catálogo (se actualiza sola al agregar modelos)
+export const LINEAS = [...new Set(PRODUCTOS.map(p => p.linea))];
 
 // Precio final con Black Friday (si la campaña está activa)
 export const precioFinal = (p, bfActivo) => bfActivo && p.bf ? Math.round(p.precio * (1 - p.bf / 100)) : p.precio;

@@ -100,3 +100,33 @@ js/admin.js           Panel
 netlify/functions/    Función del Concierge IA
 supabase/             Esquema y datos iniciales
 ```
+
+## Agregar o retirar modelos (catálogo rotativo)
+
+Con solo la referencia, el comando busca el modelo en invicta.com.pe (foto, precio y especificaciones), descarga la foto **frontal** oficial de invictawatch.com (o usa la principal sin el brazalete trasero), recorta el fondo, mide la caja y actualiza el catálogo, el buscador, el probador y la semilla de Supabase.
+
+Requisitos (una sola vez):
+
+```bash
+pip3 install pillow numpy scipy
+```
+
+| Acción | Comando |
+|---|---|
+| Agregar un modelo | `npm run agregar -- 47182` |
+| Agregar con precio y descuento propios | `npm run agregar -- 47182 --precio 899 --bf 20 --etiquetas mas-vendido` |
+| Probar sin guardar nada | `npm run agregar -- 47182 --simular` |
+| Retirar un modelo | `npm run quitar -- 47182` |
+| Actualizar el índice de modelos Invicta del buscador | `npm run modelos-invicta` |
+
+Después de agregar o retirar modelos, guarda y publica los cambios (`git add -A`, `git commit`, `git push`). Si usas Supabase, vuelve a ejecutar `supabase/02-semilla.sql`.
+
+Una futura skill puede llamar a estos comandos directamente (por ejemplo, recorrer una lista de referencias y ejecutar `npm run agregar -- <ref>` para cada una).
+
+## Buscador
+
+La lupa del menú reconoce modelos, líneas y referencias aunque estén incompletos o con errores. Además de los relojes en stock, consulta `js/modelos-invicta.json` (≈4,900 modelos Invicta para hombre) y muestra los que no están en la colección como **bajo pedido**, con consulta directa por WhatsApp.
+
+## Probador: looks
+
+Estándar (muñeca sola), Formal · camisa, Casual · polo, Invierno · chompa (cada uno con 6 colores) y Tattoo (diseño blackwork original). Se dibujan en `js/looks.js` siguiendo el contorno real del brazo (`MUNECA.perfil` en `js/probador-datos.js`).

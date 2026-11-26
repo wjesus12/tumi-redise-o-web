@@ -87,7 +87,7 @@ function geometria(p, cm) {
   const r = fotoReloj(p.id);
   const pxPorMm = MUNECA.grosor / (cm * 10 * 0.331); // grosor visible ≈ 33 % del contorno
   const ancho = p.visual.tam * pxPorMm * r.ajuste;
-  return { ancho, x: MUNECA.x, y: MUNECA.y, angulo: MUNECA.angulo };
+  return { ancho, x: MUNECA.x, y: MUNECA.y, angulo: MUNECA.angulo, cx: r.cx ?? .5, cy: r.cy ?? .5 };
 }
 
 function pintar() {
@@ -107,7 +107,8 @@ function pintar() {
     width: `${g.ancho / MUNECA.ancho * 100}%`,
     left: `${g.x / MUNECA.ancho * 100}%`,
     top: `${g.y / MUNECA.alto * 100}%`,
-    transform: `translate(-50%, -50%) rotate(${g.angulo}deg) scaleY(.92)`,
+    transformOrigin: `${g.cx * 100}% ${g.cy * 100}%`,
+    transform: `translate(-${g.cx * 100}%, -${g.cy * 100}%) rotate(${g.angulo}deg) scaleY(.94)`,
   });
 
   const a = ajuste(p.visual.tam, cm);
@@ -216,9 +217,9 @@ async function generarImagen() {
     const cx = capa.getContext('2d');
     const g = geometria(p, estado.muneca.cm);
     const h = g.ancho * reloj.height / reloj.width;
-    cx.save(); cx.translate(g.x, g.y); cx.rotate(g.angulo * Math.PI / 180); cx.scale(1, .92);
+    cx.save(); cx.translate(g.x, g.y); cx.rotate(g.angulo * Math.PI / 180); cx.scale(1, .94);
     cx.shadowColor = 'rgba(0,0,0,.35)'; cx.shadowBlur = 18; cx.shadowOffsetY = 10;
-    cx.drawImage(reloj, -g.ancho / 2, -h / 2, g.ancho, h); cx.restore();
+    cx.drawImage(reloj, -g.ancho * g.cx, -h * g.cy, g.ancho, h); cx.restore();
     cx.globalCompositeOperation = 'destination-in';
     cx.drawImage(sil, 0, 0, c.width, c.height);
     ctx.drawImage(capa, 0, 0);

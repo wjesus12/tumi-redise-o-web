@@ -19,13 +19,13 @@ export const FAQ = [
     tema: 'envios',
     claves: ['envio', 'envío', 'delivery', 'llega', 'demora', 'provincia', 'lima', 'olva', 'shalom', 'despacho'],
     pregunta: '¿Hacen envíos? ¿Cuánto demora?',
-    respuesta: 'Sí. Lima Metropolitana: delivery en 24–48 h (S/ 15). Provincias: envío por agencia en 2–5 días hábiles (S/ 25). Envío gratis en compras desde S/ 400.',
+    respuesta: 'Sí, a todo el Perú. Enviamos tu reloj en 24 a 72 horas a la agencia que elijas (Shalom, Olva Courier, Marvisur, Flores o Cruz del Sur Cargo). Lo recoges en la agencia más cercana con tu DNI.',
   },
   {
     tema: 'pagos',
     claves: ['pago', 'pagar', 'yape', 'plin', 'tarjeta', 'transferencia', 'contraentrega', 'efectivo', 'cuotas'],
     pregunta: '¿Qué métodos de pago aceptan?',
-    respuesta: 'Yape, Plin, transferencia bancaria y tarjeta mediante link de pago. En Lima también aceptamos pago contraentrega. Al enviar tu pedido por WhatsApp te confirmamos los datos de pago.',
+    respuesta: 'Separas tu reloj con solo S/ 20 (Yape, Plin o transferencia) y pagas el resto al recogerlo en la agencia. Al enviar tu pedido por WhatsApp te pasamos los datos para el adelanto.',
   },
   {
     tema: 'cambios',
@@ -55,13 +55,25 @@ export const FAQ = [
     tema: 'cupones',
     claves: ['cupon', 'cupón', 'descuento', 'codigo', 'código', 'promocion', 'promoción', 'oferta'],
     pregunta: '¿Tienen códigos de descuento?',
-    respuesta: 'Sí: BIENVENIDA10 (10% en tu primera compra), TIEMPO15 (15% desde S/ 600) y LUJO20 (20% desde S/ 1,000). Ingrésalo en el carrito antes de enviar tu pedido. No son acumulables.',
+    respuesta: 'Sí. Por Black Friday (hasta el lunes 30 de noviembre) todos los relojes tienen entre 15% y 40% de descuento automático, sin cupón. Además puedes sumar un cupón: BIENVENIDA10 (10% extra), TIEMPO15 (15% extra desde S/ 600) o LUJO20 (20% extra desde S/ 1,000). Se aplica un cupón por pedido.',
+  },
+  {
+    tema: 'blackfriday',
+    claves: ['black', 'friday', 'cyber', 'oferta', 'rebaja', 'hasta cuando', 'hasta cuándo', 'precio'],
+    pregunta: '¿Hasta cuándo es el Black Friday?',
+    respuesta: 'Nuestro Black Friday va hasta el lunes 30 de noviembre a las 23:59 (hora de Lima). Los descuentos de 15% a 40% ya están aplicados en cada reloj y puedes sumar un cupón.',
+  },
+  {
+    tema: 'adelanto',
+    claves: ['separar', 'adelanto', '20 soles', 's/ 20', 'reservar', 'apartar', 'resto', 'saldo'],
+    pregunta: '¿Cómo funciona separar con S/ 20?',
+    respuesta: 'Pagas S/ 20 por Yape o Plin para separar tu reloj y lo enviamos a tu agencia en 24 a 72 horas. El saldo lo pagas al recogerlo. El adelanto se descuenta del total.',
   },
   {
     tema: 'pedido',
     claves: ['pedido', 'comprar', 'como compro', 'cómo compro', 'whatsapp', 'carrito', 'reservar'],
     pregunta: '¿Cómo hago mi pedido?',
-    respuesta: 'Agrega tus relojes al carrito, aplica tu cupón, completa tus datos y pulsa "Enviar pedido por WhatsApp". Tu pedido queda registrado con un código y te atendemos al instante para confirmar pago y entrega.',
+    respuesta: 'Agrega tu reloj al carrito, aplica tu cupón, completa tus datos y elige tu agencia. Pulsa "Separar por WhatsApp": tu pedido queda registrado con un código, separas con S/ 20 y pagas el resto al recoger.',
   },
   {
     tema: 'regalo',
@@ -73,11 +85,11 @@ export const FAQ = [
     tema: 'tienda',
     claves: ['tienda fisica', 'tienda física', 'local', 'direccion', 'dirección', 'recojo', 'ver en persona', 'horario'],
     pregunta: '¿Tienen tienda física?',
-    respuesta: 'Atendemos de forma online y con citas de entrega/recojo coordinadas. Horario de atención por WhatsApp: lunes a sábado de 9:00 a 20:00.',
+    respuesta: 'Somos una tienda online: enviamos a la agencia que elijas. Horario de atención por WhatsApp: lunes a sábado de 9:00 a 20:00.',
   },
 ];
 
-export const POLITICA_ASISTENTE = `Eres "Concierge", el asesor de una boutique online peruana que vende relojes Invicta originales.
+export const POLITICA_ASISTENTE = `Eres "Concierge", el asesor de AURUM TEMPO, boutique online peruana que vende relojes Invicta originales a hombres de 18 a 50 años.
 Hablas en español neutro y cálido, con tono de boutique de lujo pero cercano. Respuestas breves (máximo 4–5 oraciones o una lista corta).
 Reglas:
 - Responde solo con la información de PREGUNTAS FRECUENTES y CATÁLOGO que se te entrega. Si algo no está ahí (p. ej. un modelo que no aparece, fechas exactas, stock futuro), dilo con honestidad y ofrece continuar por WhatsApp.

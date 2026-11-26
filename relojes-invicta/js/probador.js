@@ -96,6 +96,29 @@ function cambiarVista(v) {
   if (v !== 'camara') detenerCamara();
 }
 
+// Consejo de estilo coherente con el reloj que se está probando (tamaño, color y correa)
+function consejoLook(p) {
+  const v = p.visual || {}, tam = v.tam, grande = tam >= 45, clasico = tam <= 42;
+  const oro = v.caja === 'oro', negro = v.caja === 'negro';
+  const metal = oro ? 'dorado' : negro ? 'negro' : 'acero';
+  const correa = v.correa === 'silicona' ? 'correa de silicona' : v.correa === 'cuero' ? 'correa de cuero' : 'brazalete';
+  switch (pr.look) {
+    case 'camisa':
+    case 'terno':
+      if (clasico) return `Con ${pr.look === 'terno' ? 'terno' : 'camisa'}, sus ${tam} mm son la medida clásica: elegante y discreto.`;
+      if (v.correa === 'silicona') return `Con ${pr.look === 'terno' ? 'terno' : 'camisa'}, un ${tam} mm con ${correa} es una apuesta deportiva y moderna: ideal para eventos casuales o after office.`;
+      return `Con ${pr.look === 'terno' ? 'terno' : 'camisa'}, sus ${tam} mm en ${metal} lo convierten en la pieza protagonista del look.`;
+    case 'polo':
+      return grande ? `Sobre manga larga, un ${tam} mm se luce sin competir con la prenda: look urbano y seguro.` : `Con manga larga, sus ${tam} mm aportan un toque limpio y versátil para el día a día.`;
+    case 'chompa':
+      return oro ? `El ${metal} contrasta muy bien con los tejidos de invierno: aporta calidez y estatus.` : `Con chompa, el ${metal} con ${correa} mantiene el look sobrio y cómodo.`;
+    case 'tattoo':
+      return grande ? `Junto al tatuaje, sus ${tam} mm equilibran el diseño: el reloj se vuelve parte de tu estilo.` : `Con tatuaje, una caja de ${tam} mm deja respirar el diseño y lo complementa.`;
+    default:
+      return v.correa === 'silicona' ? `Su ${correa} lo hace ideal para el día a día y el deporte.` : `Su ${correa} en ${metal} combina tanto con ropa casual como formal.`;
+  }
+}
+
 function ajuste(tam, cm) {
   const ideal = cm * 2.55, min = cm * 2.2;
   if (tam <= ideal && tam >= min - 2) return { clase: 'ideal', texto: 'Ajuste ideal', det: `Un ${tam} mm queda proporcionado en una muñeca de ${cm} cm.` };
@@ -154,7 +177,7 @@ function pintar() {
   });
 
   const a = ajuste(p.visual.tam, cm);
-  $('#consejo').innerHTML = `<span class="ajuste ${a.clase}">${a.texto}</span><span>${esc(a.det)} ${esc(o.tip)}</span>`;
+  $('#consejo').innerHTML = `<span class="ajuste ${a.clase}">${a.texto}</span><span>${esc(a.det)} ${esc(consejoLook(p))}</span>`;
   $('#overlay-img').src = fotoReloj(p.id).foto;
   $('#pr-linea').textContent = `${p.linea} · ${p.visual.tam} mm`;
   $('#pr-nombre').textContent = p.nombre;

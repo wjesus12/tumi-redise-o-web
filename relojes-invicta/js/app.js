@@ -117,7 +117,7 @@ function iniciarVida() {
 }
 
 function iniciarCinta() {
-  const frases = ['Black Friday hasta 40% OFF', 'Separa con S/ 20', 'Envío a agencia en 24–72 h', 'Relojes Invicta originales', 'Cupones acumulables', 'Pruébatelo en el probador virtual'];
+  const frases = ['Black Friday hasta 40% OFF', 'Separa desde S/ 20', 'Envíos diarios por Shalom', 'Relojes Invicta originales', 'Cupones acumulables', 'Pruébatelo en el probador virtual'];
   $('#cinta').innerHTML = [...frases, ...frases].map(f => `<span>${f}</span>`).join('');
 }
 
@@ -240,7 +240,7 @@ export function verDetalle(id) {
   const p = producto(id);
   if (!p) return;
   const specs = Object.entries(p.specs || {}).map(([k, v]) => `<div><small>${esc(k)}</small><b>${esc(v)}</b></div>`).join('');
-  const consulta = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(`Hola, me interesa el ${p.nombre} (${p.linea}) que vi a ${soles(precio(p))}. ¿Está disponible?`)}`;
+  const consulta = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(`Hola tio Aurum, estoy interesado en adquirir el Invicta ${p.nombre}`)}`;
   $('#detalle-contenido').innerHTML = `<div class="detalle">
     <div class="detalle-media" data-wow>${media(p)}<span class="hora-real">${p.imagen ? 'Foto oficial del modelo' : 'Marcando la hora real de Lima'}</span></div>
     <div class="detalle-info">
@@ -255,7 +255,7 @@ export function verDetalle(id) {
         ${puedeProbar(p.id) ? '<button class="btn btn-borde" data-probar><svg><use href="#i-espejo"/></svg>Probármelo</button>' : ''}
         <a class="btn btn-wsp" href="${consulta}" target="_blank" rel="noopener"><svg><use href="#i-wsp"/></svg>Consultar por WhatsApp</a>
       </div>
-      <div class="nota-envio"><svg><use href="#i-camion"/></svg><span>Sepáralo con <b>${soles(CONFIG.adelanto)}</b> y recógelo en tu agencia en ${CONFIG.plazoEntrega}. Pagas el saldo al recoger.</span></div>
+      <div class="nota-envio"><svg><use href="#i-camion"/></svg><span>Sepáralo con <b>${soles(CONFIG.adelanto)}</b> (S/ ${CONFIG.adelantoMultiple} desde 2 relojes). Enviamos todos los días a las ${CONFIG.horaEnvio} a tu agencia Shalom más cercana y te compartimos el tracking. Pagas el saldo al recoger.</span></div>
     </div></div>`;
   const c = $('#detalle-contenido');
   c.querySelector('[data-agregar]').onclick = () => { agregar(id); cerrar(); setTimeout(() => abrir($('#carrito')), 250); };
@@ -331,7 +331,7 @@ function pintarTotales() {
     ${t.descuentoCupon ? `<div class="cup"><span>Cupón ${esc(estado.cupon.codigo)} (${estado.cupon.porcentaje}%)</span><span>-${soles(t.descuentoCupon)}</span></div>` : ''}
     <div><span>Envío a agencia</span><span>Lo pagas al recoger</span></div>
     <div class="total"><span>Total</span><span>${soles(t.total)}</span></div>
-    <div class="adelanto"><b>Hoy solo separas con ${soles(t.adelanto)}</b><br>Saldo al recoger en agencia: ${soles(t.saldo)}</div>
+    <div class="adelanto"><b>Hoy solo separas con ${soles(t.adelanto)}</b>${t.unidades >= 2 ? ' (2 relojes o más)' : ''}<br>Saldo al recoger en Shalom: ${soles(t.saldo)}</div>
     ${falta ? `<div style="font-size:12px;color:var(--gris)">💡 Te faltan ${soles(falta.minimo - t.subtotal)} para usar <b style="color:var(--oro)">${falta.codigo}</b> (${falta.porcentaje}% extra).</div>` : ''}`;
 }
 
@@ -353,8 +353,9 @@ function abrirCheckout() {
         <div class="campo"><label for="f-dep">Departamento *</label><select id="f-dep" name="departamento" required>${DEPARTAMENTOS.map(d => `<option ${d === (guardado.departamento || 'Lima') ? 'selected' : ''}>${d}</option>`).join('')}</select></div>
         <div class="campo"><label for="f-prov">Provincia / ciudad *</label><input id="f-prov" name="provincia" required placeholder="Ej. Arequipa" value="${esc(guardado.provincia || '')}"></div>
         <div class="campo"><label for="f-dist">Distrito *</label><input id="f-dist" name="distrito" required placeholder="Ej. Cayma" value="${esc(guardado.distrito || '')}"></div>
-        <div class="campo"><label for="f-agencia">Agencia *</label><select id="f-agencia" name="agencia" required>${CONFIG.agencias.map(a => `<option ${a === guardado.agencia ? 'selected' : ''}>${a}</option>`).join('')}</select></div>
-        <div class="campo full"><label for="f-sede">Sede de la agencia más cercana</label><input id="f-sede" name="sede" placeholder="Ej. Shalom Av. Ejército 123 (si no sabes, te ayudamos)" value="${esc(guardado.sede || '')}"></div>
+        <input type="hidden" name="agencia" value="Shalom">
+        <div class="campo"><label>Agencia</label><input value="Shalom (exclusivo)" disabled></div>
+        <div class="campo full"><label for="f-sede">Agencia Shalom más cercana *</label><input id="f-sede" name="sede" required placeholder="Ej. Shalom Av. Ejército 123, Arequipa" value="${esc(guardado.sede || '')}"></div>
         <div class="campo"><label for="f-email">Correo (opcional)</label><input id="f-email" name="email" type="email" placeholder="tu@correo.com" value="${esc(guardado.email || '')}" autocomplete="email"></div>
         <div class="campo"><label for="f-muneca">Medida de muñeca</label><input id="f-muneca" name="muneca" placeholder="Ej. 18 cm (para ajustar)" value="${esc(muneca)}"></div>
         <div class="campo full"><label for="f-notas">Notas</label><textarea id="f-notas" name="notas" rows="2" placeholder="¿Es para regalo? ¿Alguna indicación?"></textarea></div>
@@ -372,7 +373,7 @@ function abrirCheckout() {
           <div class="total"><span>Total</span><span>${soles(t.total)}</span></div>
           <div class="adelanto"><b>Separas hoy: ${soles(t.adelanto)}</b><br>Pagas al recoger: ${soles(t.saldo)}</div>
         </div>
-        <p class="ayuda">📦 Envío a agencia en ${CONFIG.plazoEntrega}. El costo de envío de la agencia se paga al recoger.</p>
+        <p class="ayuda">📦 Enviamos todos los días a las ${CONFIG.horaEnvio} a tu agencia Shalom más cercana. El tiempo de llegada depende de Shalom y te compartimos el tracking para que lo recojas con tu DNI. El costo del envío se paga al recoger.</p>
       </aside>
     </div></div>`;
   $('#form-pedido').addEventListener('submit', enviarPedido);
@@ -410,7 +411,7 @@ async function enviarPedido(e) {
       <span class="eyebrow">Pedido registrado</span>
       <h2 class="titulo">¡Ya casi es tuyo!</h2>
       <div class="codigo">${esc(pedido.codigo)}</div>
-      <p>Envíanos el mensaje por WhatsApp para separar tu reloj con <b>${soles(pedido.adelanto)}</b>. Te confirmamos el envío a <b>${esc(d.agencia)}</b> en ${CONFIG.plazoEntrega}. Saldo al recoger: <b>${soles(pedido.saldo)}</b>.</p>
+      <p>Envíanos el mensaje por WhatsApp para separar tu reloj con <b>${soles(pedido.adelanto)}</b>. Lo enviamos a las ${CONFIG.horaEnvio} a <b>Shalom ${esc(d.sede)}</b> y te compartimos el tracking. Saldo al recoger: <b>${soles(pedido.saldo)}</b>.</p>
       <a class="btn btn-wsp" href="${url}" target="_blank" rel="noopener" id="ir-wsp"><svg><use href="#i-wsp"/></svg>Enviar pedido por WhatsApp</a>
       ${modoDemo() ? '<p class="ayuda" style="margin-top:16px">Modo demo: este pedido quedó guardado en tu navegador. Míralo en <a href="admin.html" style="color:var(--oro)">el panel de administración</a>.</p>' : ''}
     </div>`;

@@ -42,8 +42,9 @@ export async function obtenerProductos() {
 // ── Totales (misma lógica que la función SQL crear_pedido) ──
 export function calcularTotales(lineas, cupon) {
   const bf = estadoBlackFriday().activo;
-  let regular = 0, subtotal = 0;
+  let regular = 0, subtotal = 0, unidades = 0;
   lineas.forEach(({ producto, cantidad }) => {
+    unidades += cantidad;
     regular += producto.precio * cantidad;
     subtotal += precioFinal(producto, bf) * cantidad;
   });
@@ -51,8 +52,10 @@ export function calcularTotales(lineas, cupon) {
   let descuentoCupon = 0;
   if (cupon && subtotal >= (cupon.minimo || 0)) descuentoCupon = Math.round(subtotal * cupon.porcentaje / 100);
   const total = Math.max(0, subtotal - descuentoCupon);
-  const adelanto = total > 0 ? Math.min(CONFIG.adelanto, total) : 0;
-  return { regular, descuentoBF, subtotal, descuentoCupon, total, adelanto, saldo: total - adelanto, bf };
+  // S/ 20 por 1 reloj · S/ 40 desde 2 relojes
+  const base = unidades >= 2 ? CONFIG.adelantoMultiple : CONFIG.adelanto;
+  const adelanto = total > 0 ? Math.min(base, total) : 0;
+  return { regular, descuentoBF, subtotal, descuentoCupon, total, adelanto, saldo: total - adelanto, bf, unidades };
 }
 
 // ── Cupones ──
@@ -126,11 +129,11 @@ export function mensajeWhatsApp(pedido, lineas) {
   L.push(`Separo con: ${CONFIG.moneda} ${pedido.adelanto} · Saldo al recoger: ${CONFIG.moneda} ${pedido.saldo}`);
   L.push('');
   const e = pedido.entrega || {};
-  L.push(`📦 Agencia: ${[e.agencia, e.sede].filter(Boolean).join(' · ') || '-'}`);
+  L.push(`📦 Shalom: ${e.sede || 'sede por confirmar'}`);
   L.push(`📍 ${[e.distrito, e.provincia, e.departamento].filter(Boolean).join(', ')}`);
   if (e.muneca) L.push(`⌚ Muñeca: ${e.muneca}`);
   if (pedido.notas) L.push(`📝 ${pedido.notas}`);
   L.push('');
-  L.push('¿Me envían los datos para el adelanto por Yape/Plin?');
+  L.push('¿Me envían los datos para el adelanto por Yape/Plin? Quedo atento al tracking de Shalom.');
   return `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(L.join('\n'))}`;
 }

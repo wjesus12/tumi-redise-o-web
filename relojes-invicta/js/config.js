@@ -18,10 +18,12 @@ export const CONFIG = {
   // Asistente IA (función Netlify). Si no responde, el Concierge usa las FAQ locales.
   conciergeEndpoint: '/.netlify/functions/concierge',
 
-  // Modalidad de compra: separas con S/ 20 y pagas el resto al recoger en agencia
-  adelanto: 20,
-  agencias: ['Shalom', 'Olva Courier', 'Marvisur', 'Flores', 'Cruz del Sur Cargo'],
-  plazoEntrega: '24 a 72 horas',
+  // Modalidad de compra: separas y pagas el resto al recoger en tu agencia Shalom
+  adelanto: 20,          // 1 reloj
+  adelantoMultiple: 40,  // 2 relojes o más
+  agencias: ['Shalom'],  // entrega exclusiva por Shalom
+  horaEnvio: '7:00 p. m.',
+  plazoEntrega: 'envío diario a las 7:00 p. m. por Shalom',
 
   // Campaña Black Friday (hora de Lima, UTC-5)
   blackFriday: {

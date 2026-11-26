@@ -13,7 +13,8 @@ create table if not exists ajustes (
 );
 insert into ajustes (clave, valor) values
   ('black_friday', '{"inicio":"2026-11-26T00:00:00-05:00","fin":"2026-11-30T23:59:59-05:00"}'),
-  ('adelanto', '20')
+  ('adelanto', '20'),
+  ('adelanto_multiple', '40')
 on conflict (clave) do nothing;
 
 -- ── Productos ──
@@ -182,6 +183,8 @@ declare
   v_desc_cupon numeric := 0;
   v_total numeric;
   v_adelanto numeric := coalesce((select (valor #>> '{}')::numeric from ajustes where clave = 'adelanto'), 20);
+  v_adelanto_multiple numeric := coalesce((select (valor #>> '{}')::numeric from ajustes where clave = 'adelanto_multiple'), 40);
+  v_unidades int := 0;
   v_items jsonb := '[]'::jsonb;
   v_cupon cupones;
   it jsonb;
@@ -201,6 +204,7 @@ begin
     select * into pr from productos where id = it->>'id' and activo;
     if not found then raise exception 'Producto no disponible: %', it->>'id'; end if;
     v_cant := greatest(1, least(5, coalesce((it->>'cantidad')::int, 1)));
+    v_unidades := v_unidades + v_cant;
     v_unit := case when v_bf and pr.bf > 0 then round(pr.precio * (1 - pr.bf / 100.0)) else pr.precio end;
     v_regular := v_regular + pr.precio * v_cant;
     v_subtotal := v_subtotal + v_unit * v_cant;
@@ -219,6 +223,8 @@ begin
   end if;
 
   v_total := greatest(0, v_subtotal - v_desc_cupon);
+  -- S/ 20 por 1 reloj · S/ 40 desde 2 relojes
+  if v_unidades >= 2 then v_adelanto := v_adelanto_multiple; end if;
   v_adelanto := least(v_adelanto, v_total);
 
   insert into clientes (nombre, telefono, dni, email, departamento, provincia, distrito, acepta_marketing)

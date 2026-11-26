@@ -6,7 +6,7 @@ import { estado, $, esc, precio, bfActivo } from './tienda.js';
 const historial = []; // {role:'user'|'assistant', content}
 let iaDisponible = true;
 
-const SUGERENCIAS = ['¿Cómo separo con S/ 20?', 'Deportivo hasta S/ 400', '¿Hasta cuándo es el Black Friday?', '¿Son originales?', 'Reloj para traje', '¿Automático o cuarzo?'];
+const SUGERENCIAS = ['¿Cómo separo mi reloj?', 'Deportivo hasta S/ 400', '¿Hasta cuándo es el Black Friday?', '¿Son originales?', 'Reloj para traje', '¿Automático o cuarzo?'];
 
 export function iniciarConcierge() {
   $('#abrir-chat').addEventListener('click', () => alternar());
@@ -112,5 +112,5 @@ function recomendar(q) {
   if (!ps.length) return 'Con esos criterios no tengo un modelo exacto 🤔. Prueba ampliar el presupuesto o escríbenos por WhatsApp y te conseguimos opciones.';
   ps.sort((a, b) => (b.etiquetas?.includes('mas-vendido') ? 1 : 0) - (a.etiquetas?.includes('mas-vendido') ? 1 : 0) || (b.bf || 0) - (a.bf || 0));
   const top = ps.slice(0, 3).map(p => `• *${p.nombre}* — ${soles(precio(p))}${bfActivo() && p.bf ? ` (-${p.bf}%)` : ''} · ${p.visual.tam} mm, ${p.movimiento.toLowerCase()}`);
-  return `Te recomiendo:\n${top.join('\n')}\n\nPuedes probártelos en el *Probador* con tu outfit y separarlos con ${soles(CONFIG.adelanto)}.`;
+  return `Te recomiendo:\n${top.join('\n')}\n\nPuedes probártelos en el *Probador* con tu outfit y separarlos desde ${soles(CONFIG.adelanto)}.`;
 }

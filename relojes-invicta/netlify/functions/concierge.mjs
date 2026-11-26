@@ -35,7 +35,8 @@ function sistema() {
 
 DATOS DE LA TIENDA
 - Tienda: ${CONFIG.tienda}. Público: hombres de 18 a 50 años.
-- Compra: se separa con S/ ${CONFIG.adelanto} y el saldo se paga al recoger en agencia (${CONFIG.agencias.join(', ')}). Entrega en ${CONFIG.plazoEntrega}.
+- Compra: se separa con S/ ${CONFIG.adelanto} si es 1 reloj y con S/ ${CONFIG.adelantoMultiple} si son 2 relojes o más; el saldo se paga al recoger.
+- Entrega: exclusivamente en la agencia Shalom más cercana al cliente. Envíos todos los días a las ${CONFIG.horaEnvio}; después el tiempo depende de Shalom. Se comparte el tracking para que lo recoja con su DNI.
 - Black Friday: ${bf.activo ? `ACTIVO hasta el 30 de noviembre, 23:59 (hora de Lima). Los precios del catálogo ya incluyen el descuento.` : 'no activo en este momento.'}
 - Cupones (acumulables con Black Friday, uno por pedido): ${cupones}.
 - La web tiene un "Probador virtual" para ver el reloj con tu tono de piel, outfit y medida de muñeca.

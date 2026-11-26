@@ -17,15 +17,15 @@ export const FAQ = [
   },
   {
     tema: 'envios',
-    claves: ['envio', 'envío', 'delivery', 'llega', 'demora', 'provincia', 'lima', 'olva', 'shalom', 'despacho'],
+    claves: ['envio', 'envío', 'delivery', 'llega', 'demora', 'provincia', 'lima', 'olva', 'shalom', 'despacho', 'tracking', 'agencia', 'cuando llega', 'cuándo llega'],
     pregunta: '¿Hacen envíos? ¿Cuánto demora?',
-    respuesta: 'Sí, a todo el Perú. Enviamos tu reloj en 24 a 72 horas a la agencia que elijas (Shalom, Olva Courier, Marvisur, Flores o Cruz del Sur Cargo). Lo recoges en la agencia más cercana con tu DNI.',
+    respuesta: 'Sí, a todo el Perú. La entrega es exclusivamente a través de tu agencia Shalom más cercana. Hacemos envíos todos los días a las 7:00 p. m.; desde ahí, el tiempo de llegada depende de Shalom. Te compartimos el código de tracking para que vayas a recogerlo con tu DNI.',
   },
   {
     tema: 'pagos',
     claves: ['pago', 'pagar', 'yape', 'plin', 'tarjeta', 'transferencia', 'contraentrega', 'efectivo', 'cuotas'],
     pregunta: '¿Qué métodos de pago aceptan?',
-    respuesta: 'Separas tu reloj con solo S/ 20 (Yape, Plin o transferencia) y pagas el resto al recogerlo en la agencia. Al enviar tu pedido por WhatsApp te pasamos los datos para el adelanto.',
+    respuesta: 'Separas tu pedido con un adelanto por Yape, Plin o transferencia: S/ 20 si es 1 reloj y S/ 40 si son 2 relojes o más. El resto lo pagas al recogerlo en tu agencia Shalom. Al enviar tu pedido por WhatsApp te pasamos los datos para el adelanto.',
   },
   {
     tema: 'cambios',
@@ -65,15 +65,15 @@ export const FAQ = [
   },
   {
     tema: 'adelanto',
-    claves: ['separar', 'adelanto', '20 soles', 's/ 20', 'reservar', 'apartar', 'resto', 'saldo'],
-    pregunta: '¿Cómo funciona separar con S/ 20?',
-    respuesta: 'Pagas S/ 20 por Yape o Plin para separar tu reloj y lo enviamos a tu agencia en 24 a 72 horas. El saldo lo pagas al recogerlo. El adelanto se descuenta del total.',
+    claves: ['separar', 'adelanto', '20 soles', '40 soles', 's/ 20', 's/ 40', 'reservar', 'apartar', 'resto', 'saldo', 'dos relojes', '2 relojes'],
+    pregunta: '¿Cómo funciona separar mi reloj?',
+    respuesta: 'Separas con S/ 20 si llevas 1 reloj y con S/ 40 si llevas 2 relojes o más (por Yape o Plin). Enviamos todos los días a las 7:00 p. m. a tu agencia Shalom más cercana y te compartimos el tracking. El saldo lo pagas al recoger y el adelanto se descuenta del total.',
   },
   {
     tema: 'pedido',
     claves: ['pedido', 'comprar', 'como compro', 'cómo compro', 'whatsapp', 'carrito', 'reservar'],
     pregunta: '¿Cómo hago mi pedido?',
-    respuesta: 'Agrega tu reloj al carrito, aplica tu cupón, completa tus datos y elige tu agencia. Pulsa "Separar por WhatsApp": tu pedido queda registrado con un código, separas con S/ 20 y pagas el resto al recoger.',
+    respuesta: 'Agrega tu reloj al carrito, aplica tu cupón, completa tus datos e indica tu agencia Shalom más cercana. Pulsa "Separar por WhatsApp": tu pedido queda registrado con un código, separas con S/ 20 (S/ 40 desde 2 relojes) y pagas el resto al recoger.',
   },
   {
     tema: 'regalo',

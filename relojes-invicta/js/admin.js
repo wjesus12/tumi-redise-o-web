@@ -6,7 +6,7 @@ import { supabase, local } from './datos.js';
 const $ = (s, c = document) => c.querySelector(s);
 const esc = (t) => String(t ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const fecha = (f) => f ? new Date(f).toLocaleString('es-PE', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) : '-';
-const ESTADOS = { nuevo: 'Nuevo', separado: 'Separado (pagó S/ 20)', enviado: 'Enviado', en_agencia: 'En agencia', entregado: 'Entregado', cancelado: 'Cancelado' };
+const ESTADOS = { nuevo: 'Nuevo', separado: 'Separado (pagó adelanto)', enviado: 'Enviado', en_agencia: 'En agencia', entregado: 'Entregado', cancelado: 'Cancelado' };
 const ETIQUETAS = ['VIP', 'Recurrente', 'Interesado', 'Regalo', 'Provincia'];
 let sb = null;
 let datos = { pedidos: [], clientes: [], productos: [], cupones: [] };

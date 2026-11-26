@@ -126,7 +126,7 @@ export function mensajeWhatsApp(pedido, lineas) {
   L.push(`Separo con: ${CONFIG.moneda} ${pedido.adelanto} · Saldo al recoger: ${CONFIG.moneda} ${pedido.saldo}`);
   L.push('');
   const e = pedido.entrega || {};
-  L.push(`📦 Agencia: ${e.agencia || '-'} · ${e.sede || ''}`);
+  L.push(`📦 Agencia: ${[e.agencia, e.sede].filter(Boolean).join(' · ') || '-'}`);
   L.push(`📍 ${[e.distrito, e.provincia, e.departamento].filter(Boolean).join(', ')}`);
   if (e.muneca) L.push(`⌚ Muñeca: ${e.muneca}`);
   if (pedido.notas) L.push(`📝 ${pedido.notas}`);

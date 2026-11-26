@@ -26,7 +26,8 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: clip; }
+#estilo { overflow: hidden; }
 body {
   background: var(--negro);
   color: var(--marfil);
@@ -252,7 +253,8 @@ select.sel { background: var(--negro); border: 1px solid var(--linea); border-ra
 
 /* ── Probador ── */
 .probador { background: linear-gradient(180deg, var(--negro), #0a1222 40%, var(--negro)); }
-.probador-grid { display: grid; grid-template-columns: 340px 1fr; gap: 26px; }
+.probador-grid { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 26px; }
+.probador-grid > * { min-width: 0; }
 .panel { background: var(--carbon); border: 1px solid var(--linea); border-radius: 20px; padding: 22px; }
 .paso { margin-bottom: 22px; }
 .paso:last-child { margin-bottom: 0; }
@@ -500,7 +502,7 @@ footer a:hover { color: var(--oro-claro); }
   .vida-grid { grid-template-columns: 1fr 1fr; }
   .vida-card:nth-child(even) { transform: none; }
   .grid-productos { grid-template-columns: 1fr 1fr; gap: 12px; }
-  .probador-grid { grid-template-columns: 1fr; }
+  .probador-grid { grid-template-columns: minmax(0, 1fr); }
   .pasos-compra { grid-template-columns: 1fr 1fr; }
   .faq-grid { grid-template-columns: 1fr; }
   .concierge-promo { position: static; }
@@ -512,6 +514,9 @@ footer a:hover { color: var(--oro-claro); }
 }
 @media (max-width: 560px) {
   body { font-size: 14px; }
+  #bf-texto, .paso-titulo small { display: none; }
+  .barra-bf strong { font-size: 16px; }
+  .barra-bf .contenedor { gap: 8px; padding: 7px 0; }
   .logo-texto { font-size: 21px; }
   .logo-texto small { display: none; }
   .hero h1 { font-size: 58px; }

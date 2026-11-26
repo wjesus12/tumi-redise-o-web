@@ -4,8 +4,8 @@ Agrega (o quita) un modelo Invicta del catálogo de AURUM TEMPO con solo su refe
 
 Hace todo el proceso automáticamente:
   1. Busca el modelo en invicta.com.pe (foto oficial, precio, especificaciones).
-  2. Busca la foto FRONTAL oficial en invictawatch.com (si no existe, usa la principal
-     y le quita la parte trasera del brazalete).
+  2. Busca la foto FRONTAL oficial en invictawatch.com. Si no existe, el reloj entra al
+     catálogo y al buscador, pero NO al probador (no luciría bien en la muñeca).
   3. Recorta el fondo y calcula el centro y tamaño de la caja para el probador.
   4. Actualiza js/productos.js, js/probador-datos.js y supabase/02-semilla.sql.
 
@@ -182,6 +182,17 @@ def solo_frente(im):
     return Image.fromarray(a)
 
 
+def opaco(im):
+    """Sin transparencias dentro del reloj: la piel nunca debe verse a través de la caja o el bisel."""
+    a = np.array(im)
+    m = a[..., 3] > 60
+    interior = ndimage.binary_erosion(ndimage.binary_fill_holes(ndimage.binary_closing(m, iterations=2)), iterations=2)
+    _, (iy, ix) = ndimage.distance_transform_edt(~(a[..., 3] > 200), return_indices=True)
+    a[..., :3] = np.where((interior & (a[..., 3] < 120))[..., None], a[iy, ix, :3], a[..., :3])
+    a[..., 3] = np.where(interior, 255, a[..., 3])
+    return Image.fromarray(a)
+
+
 def datos_caja(im):
     bb = im.split()[3].point(lambda v: 255 if v > 40 else 0).getbbox()
     im = im.crop(bb)
@@ -236,36 +247,41 @@ def main():
 
     print('2/4 Buscando foto frontal en invictawatch.com…')
     im, origen = foto_frontal(ref)
-    if im is not None:
+    en_probador = im is not None
+    if en_probador:
         recorte = quitar_fondo(im)
+        print(f'    Foto: {origen}')
     else:
-        origen = 'foto principal de invicta.com.pe (sin brazalete trasero)'
-        recorte = solo_frente(quitar_fondo(Image.open(io.BytesIO(leer_url(prod['imagen'] + ('&' if '?' in prod['imagen'] else '?') + 'width=900', binario=True)))))
-    print(f'    Foto: {origen}')
+        # Regla: sin foto frontal oficial el reloj no luce en la muñeca → solo catálogo, no probador
+        print('    Sin foto frontal oficial: se agrega al catálogo pero NO al probador.')
 
     print('3/4 Recortando y midiendo la caja…')
-    recorte, caja = datos_caja(recorte)
-    print(f"    Centro de la caja: ({caja['cx']}, {caja['cy']}) · ajuste {caja['ajuste']}")
+    if en_probador:
+        recorte, caja = datos_caja(opaco(recorte))
+        print(f"    Centro de la caja: ({caja['cx']}, {caja['cy']}) · ajuste {caja['ajuste']}")
 
     if args.simular:
-        destino = Path('/tmp') / f"simulacion-{prod['id']}.webp"
-        recorte.save(destino, 'WEBP', quality=88)
         print(json.dumps(prod, ensure_ascii=False, indent=1))
-        print(f'(simulación) Recorte guardado en {destino}. No se modificó el catálogo.')
+        if en_probador:
+            destino = Path('/tmp') / f"simulacion-{prod['id']}.webp"
+            recorte.save(destino, 'WEBP', quality=88)
+            print(f'(simulación) Recorte guardado en {destino}.')
+        print('(simulación) No se modificó el catálogo.')
         return
 
     print('4/4 Actualizando catálogo, probador y semilla de Supabase…')
-    recorte.save(RAIZ / 'img' / 'probador' / f"{prod['id']}.webp", 'WEBP', quality=88)
+    if en_probador:
+        recorte.save(RAIZ / 'img' / 'probador' / f"{prod['id']}.webp", 'WEBP', quality=88)
     rp = RAIZ / 'js' / 'productos.js'
     s, i, j, prods = leer_js(rp, 'export const PRODUCTOS_OFICIALES = ')
     prods = [x for x in prods if x['ref'].upper() != ref] + [prod]
     escribir_js(rp, s, i, j, prods)
     rd = RAIZ / 'js' / 'probador-datos.js'
     s, i, j, rel = leer_js(rd, 'export const RELOJES_PROBADOR = ')
-    rel = [r for r in rel if r['id'] != prod['id']] + [{'id': prod['id'], 'foto': f"img/probador/{prod['id']}.webp", **caja}]
+    rel = [r for r in rel if r['id'] != prod['id']] + ([{'id': prod['id'], 'foto': f"img/probador/{prod['id']}.webp", **caja}] if en_probador else [])
     escribir_js(rd, s, i, j, rel)
     subprocess.run(['node', str(RAIZ / 'herramientas' / 'generar-semilla.mjs')], check=False)
-    print(f"✓ {prod['nombre']} agregado. Ya aparece en el catálogo, el buscador y el probador.")
+    print(f"✓ {prod['nombre']} agregado al catálogo y al buscador" + (" y al probador." if en_probador else " (sin probador: no tiene foto frontal oficial)."))
     print('  Recuerda guardar los cambios: git add -A && git commit -m "Nuevo modelo" && git push')
 
 

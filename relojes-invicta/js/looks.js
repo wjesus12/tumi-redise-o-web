@@ -12,11 +12,11 @@ export const LOOKS = [
   "id": "camisa",
   "nombre": "Formal · camisa",
   "estilo": "formal",
-  "puno": 572,
+  "puno": 300,
   "colores": [
    [
     "Blanco",
-    "#d2cfda",
+    "#dbd9e0",
     "img/looks/camisa-1.webp"
    ],
    [
@@ -50,11 +50,11 @@ export const LOOKS = [
   "id": "terno",
   "nombre": "Formal · terno",
   "estilo": "formal",
-  "puno": 545,
+  "puno": 354,
   "colores": [
    [
     "Gris medio",
-    "#525052",
+    "#454446",
     "img/looks/terno-1.webp"
    ],
    [
@@ -88,11 +88,11 @@ export const LOOKS = [
   "id": "polo",
   "nombre": "Casual · manga larga",
   "estilo": "casual",
-  "puno": 575,
+  "puno": 305,
   "colores": [
    [
     "Gris claro",
-    "#a0a1a8",
+    "#9b9a9e",
     "img/looks/polo-1.webp"
    ],
    [
@@ -126,11 +126,11 @@ export const LOOKS = [
   "id": "chompa",
   "nombre": "Invierno · chompa",
   "estilo": "casual",
-  "puno": 583,
+  "puno": 410,
   "colores": [
    [
     "Beige",
-    "#c3b3a3",
+    "#b4a28e",
     "img/looks/chompa-1.webp"
    ],
    [

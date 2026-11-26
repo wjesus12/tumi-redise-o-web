@@ -206,13 +206,6 @@ export const RELOJES_PROBADOR = [
   "cy": 0.5
  },
  {
-  "id": "speedway-50883",
-  "foto": "img/probador/speedway-50883.webp",
-  "ajuste": 1.043,
-  "cx": 0.497,
-  "cy": 0.404
- },
- {
   "id": "speedway-20306",
   "foto": "img/hero/speedway-20306-30.webp",
   "ajuste": 1.123,

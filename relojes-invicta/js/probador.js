@@ -1,10 +1,11 @@
 // Probador real: foto de muñeca según el tono de piel elegido + foto frontal real del reloj, a escala.
 import { OUTFITS } from './catalogo.js';
 import { MUNECA, TONOS, RELOJES_PROBADOR } from './probador-datos.js';
+import { LOOKS, capaLook } from './looks.js';
 import { CONFIG, soles } from './config.js';
 import { estado, $, $$, esc, producto, preciosHTML, precio, agregar, toast } from './tienda.js';
 
-const pr = { tono: TONOS[4].id, outfit: 'deportivo', reloj: null, vista: 'muneca' };
+const pr = { tono: TONOS[4].id, outfit: 'deportivo', look: 'estandar', colores: {}, reloj: null, vista: 'muneca' };
 const ESTANDAR = 17.5;
 const fotoReloj = (id) => RELOJES_PROBADOR.find(r => r.id === id);
 export const puedeProbar = (id) => !!fotoReloj(id);
@@ -16,16 +17,26 @@ export function iniciarProbador() {
   [...TONOS.map(t => t.foto), ...RELOJES_PROBADOR.map(r => r.foto), MUNECA.silueta].forEach(src => { const i = new Image(); i.src = src; });
 
   $('#tonos').innerHTML = TONOS.map((t, k) => `<button class="tono ${t.id === pr.tono ? 'activo' : ''}" data-tono="${t.id}" style="background:${t.color}" aria-label="Tono ${k + 1}: ${t.nombre}" title="${t.nombre}"></button>`).join('');
-  $('#outfits').innerHTML = OUTFITS.map(o => `<button class="outfit ${o.id === pr.outfit ? 'activo' : ''}" data-outfit="${o.id}">${o.nombre}</button>`).join('');
+  $('#looks').innerHTML = LOOKS.map(l => `<button class="outfit ${l.id === pr.look ? 'activo' : ''}" data-look="${l.id}">${l.nombre}</button>`).join('');
+  LOOKS.forEach(l => { if (l.colores) pr.colores[l.id] = l.colores[0][1]; });
+  // la silueta embebida permite exportar la imagen con mangas o tattoo
+  fetch(MUNECA.silueta).then(r => r.blob()).then(b => new Promise(ok => { const fr = new FileReader(); fr.onload = () => ok(fr.result); fr.readAsDataURL(b); }))
+    .then(d => { MUNECA.siluetaData = d; pintar(); }).catch(() => {});
 
   $('#tonos').addEventListener('click', e => { const b = e.target.closest('[data-tono]'); if (!b) return; pr.tono = b.dataset.tono; marcar('#tonos', b); pintar(); });
-  $('#outfits').addEventListener('click', e => {
-    const b = e.target.closest('[data-outfit]'); if (!b) return;
-    pr.outfit = b.dataset.outfit; marcar('#outfits', b);
+  $('#look-colores').addEventListener('click', e => {
+    const b = e.target.closest('[data-color]'); if (!b) return;
+    pr.colores[pr.look] = b.dataset.color; pintarColores(); pintar();
+  });
+  $('#looks').addEventListener('click', e => {
+    const b = e.target.closest('[data-look]'); if (!b) return;
+    pr.look = b.dataset.look; marcar('#looks', b);
+    pr.outfit = LOOKS.find(l => l.id === pr.look).estilo;
+    pintarColores();
     const actual = producto(pr.reloj);
     if (!actual?.outfits?.includes(pr.outfit)) {
       const sug = disponibles().find(p => p.outfits?.includes(pr.outfit));
-      if (sug) { pr.reloj = sug.id; toast(`★ Para un estilo ${b.textContent.trim().toLowerCase()} te sugerimos el ${sug.nombre}`); }
+      if (sug) { pr.reloj = sug.id; toast(`★ Para este look te sugerimos el ${sug.nombre}`); }
     }
     pintarMinis(); pintar();
   });
@@ -48,6 +59,7 @@ export function iniciarProbador() {
   const capa = $('#capa-reloj');
   capa.style.webkitMaskImage = capa.style.maskImage = `url(${MUNECA.silueta})`;
   iniciarCamara();
+  pintarColores();
   pintarMinis();
   pintar();
 }
@@ -57,6 +69,17 @@ export function probarReloj(id) {
   pr.reloj = id;
   pintarMinis(); pintar();
   $('#probador').scrollIntoView({ behavior: 'smooth' });
+}
+
+function pintarColores() {
+  const l = LOOKS.find(x => x.id === pr.look);
+  const cont = $('#look-colores');
+  cont.hidden = !l.colores;
+  $('#nombre-color').textContent = l.id === 'tattoo' ? 'Tatuaje blackwork original de AURUM TEMPO sobre la muñeca descubierta.' : '';
+  if (!l.colores) return;
+  const actual = pr.colores[l.id];
+  cont.innerHTML = l.colores.map(([n, c]) => `<button class="tono ${c === actual ? 'activo' : ''}" data-color="${c}" style="background:${c}" title="${n}" aria-label="Color ${n}"></button>`).join('');
+  $('#nombre-color').textContent = `Color: ${l.colores.find(([, c]) => c === actual)[0]}`;
 }
 
 function marcar(cont, activo) { $$(`${cont} > *`).forEach(b => b.classList.toggle('activo', b === activo)); }
@@ -94,11 +117,15 @@ function pintar() {
   const p = producto(pr.reloj);
   if (!p) return;
   const tono = TONOS.find(t => t.id === pr.tono);
-  const o = OUTFITS.find(x => x.id === pr.outfit);
+  const o = OUTFITS.find(x => x.id === pr.outfit) || OUTFITS[0];
   const cm = estado.muneca.cm;
   const g = geometria(p, cm);
 
   $('#foto-muneca').src = tono.foto;
+  const capa = capaLook(pr.look, pr.colores[pr.look]);
+  const cl = $('#capa-look');
+  if (cl.dataset.k !== pr.look + pr.colores[pr.look] + !!MUNECA.siluetaData) { cl.innerHTML = capa.svg; cl.dataset.k = pr.look + pr.colores[pr.look] + !!MUNECA.siluetaData; }
+  cl.style.mixBlendMode = capa.mezcla;
   $('#nombre-tono').textContent = `Tono ${TONOS.indexOf(tono) + 1} de ${TONOS.length}: ${tono.nombre}`;
   const img = $('#reloj-en-muneca');
   img.src = fotoReloj(p.id).foto;
@@ -213,6 +240,13 @@ async function generarImagen() {
     const [base, sil] = await Promise.all([cargar(TONOS.find(t => t.id === pr.tono).foto), cargar(MUNECA.silueta)]);
     c.width = MUNECA.ancho; c.height = MUNECA.alto;
     ctx.drawImage(base, 0, 0, c.width, c.height);
+    const capaL = capaLook(pr.look, pr.colores[pr.look]);
+    if (capaL.svg) {
+      const imgL = await cargar('data:image/svg+xml;charset=utf-8,' + encodeURIComponent(capaL.svg.replace('<svg ', `<svg width="${c.width}" height="${c.height}" `)));
+      ctx.globalCompositeOperation = capaL.mezcla === 'multiply' ? 'multiply' : 'source-over';
+      ctx.drawImage(imgL, 0, 0, c.width, c.height);
+      ctx.globalCompositeOperation = 'source-over';
+    }
     const capa = document.createElement('canvas'); capa.width = c.width; capa.height = c.height;
     const cx = capa.getContext('2d');
     const g = geometria(p, estado.muneca.cm);

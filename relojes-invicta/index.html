@@ -161,19 +161,19 @@
     <div class="contenedor">
       <div class="sec-cabecera aparecer">
         <div><span class="eyebrow">Probador virtual</span><h2 class="titulo">Míralo puesto<br><em>antes de decidir</em></h2></div>
-        <p>Elige tu tono de piel y el reloj: lo ves en una muñeca real, a escala según los milímetros de la caja. También puedes probártelo con tu cámara.</p>
+        <p>Elige tu tono de piel, tu look (camisa, polo, chompa o tattoo) y el reloj: lo ves en una muñeca real, a escala según los milímetros de la caja.</p>
       </div>
       <div class="probador-grid">
         <aside class="panel">
           <div class="paso"><div class="paso-titulo"><i>1</i>Tu tono de piel</div><div class="tonos" id="tonos"></div><p class="ayuda" id="nombre-tono"></p></div>
-          <div class="paso"><div class="paso-titulo"><i>2</i>Tu estilo</div><div class="outfits" id="outfits"></div></div>
+          <div class="paso"><div class="paso-titulo"><i>2</i>Tu look</div><div class="looks" id="looks"></div><div class="look-colores" id="look-colores" hidden></div><p class="ayuda" id="nombre-color"></p></div>
           <div class="paso">
             <div class="paso-titulo"><i>3</i>Tu muñeca</div>
             <div class="segmentado" id="seg-muneca"><button class="activo" data-m="estandar">Estándar</button><button data-m="personalizado">Personalizado</button></div>
             <div class="medida" id="medida"><input type="range" id="rango-muneca" min="14" max="22" step="0.5" value="17.5" aria-label="Medida de muñeca en centímetros"><output id="valor-muneca">17.5 cm</output></div>
             <p class="ayuda" id="ayuda-muneca">Estándar: 17.5 cm (promedio masculino). Elige "Personalizado" para usar tu medida.</p>
           </div>
-          <div class="paso"><div class="paso-titulo"><i>4</i>Reloj <small style="margin-left:auto;font-weight:600;letter-spacing:0;text-transform:none;color:var(--gris)">★ ideal para tu estilo</small></div><div class="relojes-mini" id="relojes-mini"></div></div>
+          <div class="paso"><div class="paso-titulo"><i>4</i>Reloj <small style="margin-left:auto;font-weight:600;letter-spacing:0;text-transform:none;color:var(--gris)">★ ideal para tu look</small></div><div class="relojes-mini" id="relojes-mini"></div></div>
         </aside>
         <div>
           <div class="escena-tabs" role="tablist">
@@ -183,6 +183,7 @@
           <div class="escena" id="escena">
             <div class="vista vista-real activa" data-vista="muneca">
               <img class="foto-muneca" id="foto-muneca" alt="Muñeca con el tono de piel elegido">
+              <div class="capa-look" id="capa-look"></div>
               <div class="capa-reloj" id="capa-reloj"><img id="reloj-en-muneca" alt=""></div>
             </div>
             <div class="vista vista-camara" data-vista="camara">

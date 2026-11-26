@@ -608,3 +608,10 @@ footer a:hover { color: var(--oro); }
 .buscador-todos { width: 100%; padding: 14px 12px; margin-top: 4px; border-top: 1px solid var(--linea); text-align: left; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--texto2); }
 .buscador-todos:hover { color: var(--oro); }
 @media (max-width: 560px) { .buscador { padding-top: 8px; } .buscador-barra input { font-size: 16px; } }
+
+/* ── Looks del probador ── */
+.looks { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.looks .outfit:first-child { grid-column: 1 / -1; }
+.look-colores { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-top: 12px; }
+.capa-look { position: absolute; inset: 0; pointer-events: none; }
+.capa-look svg { width: 100%; height: 100%; display: block; }

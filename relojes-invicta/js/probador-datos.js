@@ -74,13 +74,59 @@ export const TONOS = [
  }
 ];
 
-// Relojes con foto frontal real (los únicos que se pueden probar sobre la muñeca)
-// ajuste: ancho de la foto respecto al diámetro de la caja (incluye corona y protectores)
+// Los 30 relojes del catálogo con su foto oficial real, sin fondo.
+// 6 tienen foto frontal (ajuste 1.15); el resto usa la foto principal en ángulo 3/4 (ajuste 1.22).
+// ajuste = ancho de la foto respecto al diámetro de la caja.
 export const RELOJES_PROBADOR = [
+ {
+  "id": "pro-diver-44716",
+  "foto": "img/probador/pro-diver-44716.webp",
+  "ajuste": 1.22
+ },
+ {
+  "id": "pro-diver-44715",
+  "foto": "img/probador/pro-diver-44715.webp",
+  "ajuste": 1.22
+ },
+ {
+  "id": "pro-diver-44713",
+  "foto": "img/probador/pro-diver-44713.webp",
+  "ajuste": 1.22
+ },
+ {
+  "id": "pro-diver-26972",
+  "foto": "img/probador/pro-diver-26972.webp",
+  "ajuste": 1.22
+ },
+ {
+  "id": "pro-diver-30026",
+  "foto": "img/probador/pro-diver-30026.webp",
+  "ajuste": 1.22
+ },
+ {
+  "id": "pro-diver-51147",
+  "foto": "img/probador/pro-diver-51147.webp",
+  "ajuste": 1.22
+ },
+ {
+  "id": "pro-diver-51146",
+  "foto": "img/probador/pro-diver-51146.webp",
+  "ajuste": 1.22
+ },
+ {
+  "id": "pro-diver-33944",
+  "foto": "img/probador/pro-diver-33944.webp",
+  "ajuste": 1.22
+ },
  {
   "id": "pro-diver-8929",
   "foto": "img/hero/pro-diver-8929-16.webp",
   "ajuste": 1.15
+ },
+ {
+  "id": "pro-diver-8930obxl",
+  "foto": "img/probador/pro-diver-8930obxl.webp",
+  "ajuste": 1.22
  },
  {
   "id": "bolt-24215",
@@ -103,8 +149,83 @@ export const RELOJES_PROBADOR = [
   "ajuste": 1.15
  },
  {
+  "id": "bolt-25528",
+  "foto": "img/probador/bolt-25528.webp",
+  "ajuste": 1.22
+ },
+ {
+  "id": "speedway-46841",
+  "foto": "img/probador/speedway-46841.webp",
+  "ajuste": 1.22
+ },
+ {
+  "id": "speedway-46856",
+  "foto": "img/probador/speedway-46856.webp",
+  "ajuste": 1.22
+ },
+ {
+  "id": "speedway-48913",
+  "foto": "img/probador/speedway-48913.webp",
+  "ajuste": 1.22
+ },
+ {
+  "id": "speedway-50883",
+  "foto": "img/probador/speedway-50883.webp",
+  "ajuste": 1.22
+ },
+ {
   "id": "speedway-20306",
   "foto": "img/hero/speedway-20306-30.webp",
   "ajuste": 1.15
+ },
+ {
+  "id": "speedway-48079",
+  "foto": "img/probador/speedway-48079.webp",
+  "ajuste": 1.22
+ },
+ {
+  "id": "racing-50755",
+  "foto": "img/probador/racing-50755.webp",
+  "ajuste": 1.22
+ },
+ {
+  "id": "racing-50756",
+  "foto": "img/probador/racing-50756.webp",
+  "ajuste": 1.22
+ },
+ {
+  "id": "racing-50754",
+  "foto": "img/probador/racing-50754.webp",
+  "ajuste": 1.22
+ },
+ {
+  "id": "specialty-47405",
+  "foto": "img/probador/specialty-47405.webp",
+  "ajuste": 1.22
+ },
+ {
+  "id": "specialty-47398",
+  "foto": "img/probador/specialty-47398.webp",
+  "ajuste": 1.22
+ },
+ {
+  "id": "specialty-47406",
+  "foto": "img/probador/specialty-47406.webp",
+  "ajuste": 1.22
+ },
+ {
+  "id": "specialty-48292",
+  "foto": "img/probador/specialty-48292.webp",
+  "ajuste": 1.22
+ },
+ {
+  "id": "vintage-48011",
+  "foto": "img/probador/vintage-48011.webp",
+  "ajuste": 1.22
+ },
+ {
+  "id": "vintage-48010",
+  "foto": "img/probador/vintage-48010.webp",
+  "ajuste": 1.22
  }
 ];
